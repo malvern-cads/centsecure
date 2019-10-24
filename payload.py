@@ -1,6 +1,7 @@
 from importlib import import_module
 from pathlib import Path
 from logzero import logger
+import platform
 
 
 def find_plugins():
@@ -29,8 +30,8 @@ def find_plugins():
 class Payload:
     _registry = []
     name = "Unknown Payload"
-    os = "all"
-    os_version = "all"
+    os = ["all"]
+    os_version = ["all"]
 
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__(**kwargs)
@@ -38,3 +39,33 @@ class Payload:
 
     def execute(self):
         raise NotImplementedError
+
+
+def get_os():
+    os = [platform.system(), "all"]
+    if "Linux" in os:
+        os.append(platform.linux_distribution()[0])  # i.e. 'Ubuntu'...
+
+    return os
+
+
+def get_os_version():
+    version = [platform.release(), platform.version(), "all"]
+    if "Linux" in get_os():
+        dist = platform.linux_distribution()
+        version.append(dist[1])  # i.e. '18.04', '19.10'...
+        version.append(dist[2])  # i.e. 'bionic'...
+
+    return version
+
+
+def _common_items(x, y):
+    return list(set(x).intersection(y))
+
+
+def os_check(target_os, target_os_version):
+    os = get_os()
+    os_version = get_os_version()
+
+    # Check that there is common items in both the (os and target_os) and (os_version and target_os_version) lists
+    return len(_common_items(os, target_os)) >= 1 and len(_common_items(os_version, target_os_version)) >= 1

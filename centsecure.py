@@ -1,4 +1,3 @@
-import platform
 from logzero import logger
 import payload
 import importlib
@@ -9,11 +8,15 @@ from glob import glob
 payloads = {}
 
 logger.info("Welcome to CentSecure!")
-logger.info("This computer is running:\n    Platform: %s\n    Release: %s\n    Version: %s", platform.system(), platform.release(), platform.version())
+logger.info("This computer is running:\n    OS: %s\n    OS Version: %s", payload.get_os(), payload.get_os_version())
 
 payload.find_plugins()
 for p in payload.Payload._registry:
     logger.info("Module %s:\n    Name: %s\n    Targets: %s (version %s)", p.__name__, p.name, p.os, p.os_version)
-    # Do OS Check
-    i = p()
-    i.execute()
+
+    if payload.os_check(p.os, p.os_version):
+        instance = p()
+        logger.debug("Running %s...", p.__name__)
+        instance.execute()
+    else:
+        logger.debug("Not running %s as this is not the right OS", p.__name__)

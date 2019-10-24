@@ -3,8 +3,8 @@ import payload
 
 class Windows10Firewall(payload.Payload):
     name = "Windows 10 Firewall"
-    os = "Windows"
-    os_version = "10"
+    os = ["Windows"]
+    os_version = ["10"]
 
     def __init__(self):
         print("Windows10Firewall instance created!")
@@ -15,8 +15,8 @@ class Windows10Firewall(payload.Payload):
 
 class LinuxFirewall(payload.Payload):
     name = "Linux Firewall"
-    os = "Linux"
-    os_version = ["9", "10"]
+    os = ["Linux"]
+    os_version = ["all"]
 
     def __init__(self):
         print("LinuxFirewall instance created!")
