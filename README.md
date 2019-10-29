@@ -8,6 +8,9 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
 <!-- TOC -->
 
 - [Structure](#structure)
+- [Development](#development)
+    - [Using pipenv](#using-pipenv)
+    - [Using regular pip](#using-regular-pip)
 - [Payloads](#payloads)
     - [Payload Parameters](#payload-parameters)
 
@@ -26,6 +29,38 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
 - Here, we have a folder called `payloads` which contains all of the payloads for the program. See more about payloads below.
 - `centsecure.py` contains most of the code for running payloads.
 - `payload.py` contains code for the base payload class as well as loading payloads.
+
+## Development
+
+### Using pipenv
+
+All of the programs dependencies are managed by `pipenv`, this makes a virtual environement for the program allowing it to have the same dependencies and Python version installed no matter which computer is running on.
+
+```bash
+curl https://pyenv.run | bash # Optionally install pyenv to install the recommended version of Python automatically
+python3 -m pip install --user pipenv
+```
+
+Now clone the repository to your computer and install the dependencies:
+
+```bash
+git clone https://github.com/jake-walker/centsecure
+pipenv install
+```
+
+Then to run the program, simply use the command:
+
+```bash
+pipenv run python centsecure.py
+```
+
+### Using regular pip
+
+If you don't want to use `pipenv`, you can manually install dependencies. Open `Pipfile` and look under the `[packages]` section and install all of the packages listed there using pip. For example, for `logzero`, you would do:
+
+```bash
+python3 -m pip install logzero
+```
 
 ## Payloads
 
