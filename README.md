@@ -7,6 +7,11 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
 
 <!-- TOC -->
 
+- [Usage](#usage)
+    - [Binaries](#binaries)
+        - [Windows](#windows)
+        - [Linux](#linux)
+    - [Manually](#manually)
 - [Structure](#structure)
 - [Development](#development)
     - [Using pipenv](#using-pipenv)
@@ -15,6 +20,24 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
     - [Payload Parameters](#payload-parameters)
 
 <!-- /TOC -->
+
+## Usage
+
+### Binaries
+
+To simplify things in the competition, we can generate binaries which is just one file to copy to the VM.
+
+#### Windows
+
+To generate a Windows binary, on a Windows machine run the `generate_binary.bat` file, then copy the `centsecure.exe` file from the folder that is opened.
+
+#### Linux
+
+*In progress*
+
+### Manually
+
+If you don't want to use binaries, you can manually install CentSecure. Read one of the sections on [using pipenv](#using-pipenv) or [using regular pip](#using-regular-pip) depending on your preference.
 
 ## Structure
 
