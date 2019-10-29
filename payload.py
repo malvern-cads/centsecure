@@ -20,7 +20,7 @@ def find_plugins():
             name = ".".join(rel_path.parts[:-1] + (rel_path.stem,))
 
             try:
-                import_module(f"payloads.{name}")
+                import_module("payloads.{}".format(name))
             except ImportError:
                 pass
             else:
