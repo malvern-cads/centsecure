@@ -10,9 +10,6 @@ class Pam(payload.Payload):
     os = ["Linux"]
     os_version = ["ALL"]
 
-    def __init__(self):
-        print("PAM instance created!")
-
     def execute(self):
         print("PAM has been executed!")
         set_password_requirements()

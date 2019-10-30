@@ -8,9 +8,6 @@ class Lightdm(payload.Payload):
     os = ["Ubuntu"]
     os_version = ["16.04"]
 
-    def __init__(self):
-        print("Lightdm instance created!")
-
     def execute(self):
         print("Lightdm has been executed!")
         path = "/etc/lightdm/lightdm.conf"
