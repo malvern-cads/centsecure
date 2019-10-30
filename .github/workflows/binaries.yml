@@ -1,0 +1,28 @@
+name: Generate Binaries
+on:
+  push:
+    branches: 
+      - master
+jobs:
+  win:
+    name: Generate Windows Binaries
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip pipenv
+        pipenv install --dev
+    - name: Generate binary
+      shell: cmd
+      run: generate_binary.bat
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
+      with:
+        name: windows
+        path: dist
