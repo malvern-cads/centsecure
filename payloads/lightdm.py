@@ -1,6 +1,7 @@
 import payload
 import configparser
 import shutil
+import common
 
 
 class Lightdm(payload.Payload):
@@ -13,8 +14,7 @@ class Lightdm(payload.Payload):
         path = "/etc/lightdm/lightdm.conf"
         config = configparser.ConfigParser()
         try:
-            shutil.copy2(path, ".")
-            print("Backed up {0} to .".format(path))
+            common.backup(path)
             config.read(path)
         except FileNotFoundError:
             print("{} not found".format(path))
