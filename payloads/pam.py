@@ -23,10 +23,11 @@ class Pam(payload.Payload):
             print("{} exists, needs checking (cracklib/pwquality)".format(path))
 
         path = "/etc/pam.d/common-password"
-        shutil.copy2(path, "./common-password-old")
+        common.backup(path)
         # we need to ensure cracklib is installed, it will also change common-password
         os.system("sudo apt install libpam-cracklib -y -q")
         shutil.copy2(path, ".")
+        common.backup(path)
         
         with open(path) as in_file:
             lines = in_file.read().split("\n")
@@ -70,7 +71,7 @@ class Pam(payload.Payload):
 
         # This only needs to be done for the pwquality, although it can't hurt to do it anyway
         path = "/etc/security/pwquality.conf"
-        shutil.copy2(path, ".")
+        common.backup(path)
         with open(path, "w") as out_file:
             text = "minlen = 14\ndcredit = -1\nucredit = -1\nocredit = -1\nlcredit = -1"
             out_file.write(text)
@@ -85,7 +86,7 @@ class Pam(payload.Payload):
                 print("{} exists, needs checking (password lockout)".format(path))
 
         path = "/etc/pam.d/common-auth"
-        shutil.copy2(path, ".")
+        common.backup(path)
 
         with open(path) as in_file:
             lines = in_file.read().split("\n")
