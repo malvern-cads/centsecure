@@ -177,3 +177,20 @@ The number in brackets for the title is (number of vulnerabilities found/total v
 - removed Advanced Port Scanner (2)
 - removed netcat backdoor (4)
 - internet explorer enhanced security configuration is enabled (3)
+## CCVI
+### Practice Round
+#### Ubuntu 16.04 (14/14) (100)
+- Forensics Question 1 correct - 10 pts
+- Forensics Question 2 correct - 10 pts
+- Forensics Question 3 correct - 10 pts
+- Removed unauthorized user rsharpe - 5 pts
+- Removed unauthorized user kdanvers - 5 pts
+- User is not an administrator - 10 pts
+- Changed insecure password for user - 5 pts
+- Firewall protection has been enabled - 10 pts
+- FTP service has been disabled or removed - 10 pts
+- The system automatically checks for updates daily - 5 pts
+- Install updates from important security updates - 5 pts
+- Prohibited MP3 files are removed - 5 pts
+- Prohibited software Zenmap and Nmap removed - 5 pts
+- Firefox pop-up blocker enabled - 5 pts
