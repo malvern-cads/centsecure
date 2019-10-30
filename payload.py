@@ -59,13 +59,19 @@ def get_os_version():
     return version
 
 
+def _list_to_lower(l):
+    return [x.lower() for x in l]
+
+
 def _common_items(x, y):
     return list(set(x).intersection(y))
 
 
 def os_check(target_os, target_os_version):
-    os = get_os()
-    os_version = get_os_version()
+    target_os = _list_to_lower(target_os)
+    target_os_version = _list_to_lower(target_os_version)
+    os = _list_to_lower(get_os())
+    os_version = _list_to_lower(get_os_version())
 
     # Check that there is common items in both the (os and target_os) and (os_version and target_os_version) lists
     return len(_common_items(os, target_os)) >= 1 and len(_common_items(os_version, target_os_version)) >= 1
