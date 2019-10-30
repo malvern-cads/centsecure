@@ -9,8 +9,8 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
 
 - [Usage](#usage)
     - [Binaries](#binaries)
-        - [Windows](#windows)
-        - [Linux](#linux)
+        - [Windows](#for-windows)
+        - [Linux](#for-linux)
     - [Manually](#manually)
 - [Structure](#structure)
 - [Development](#development)
@@ -18,6 +18,9 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
     - [Using regular pip](#using-regular-pip)
 - [Payloads](#payloads)
     - [Payload Parameters](#payload-parameters)
+- [Features](#features)
+    - [Linux](#linux)
+    - [Windows](#windows)
 
 <!-- /TOC -->
 
@@ -27,11 +30,11 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
 
 To simplify things in the competition, we can generate binaries which is just one file to copy to the VM.
 
-#### Windows
+#### For Windows
 
 To generate a Windows binary, on a Windows machine run the `generate_binary.bat` file, then copy the `centsecure.exe` file from the folder that is opened.
 
-#### Linux
+#### For Linux
 
 *In progress*
 
@@ -119,3 +122,27 @@ Payload parameters help the program to tell which operating systems your payload
 - **`os_version`** is the version of the operating system that the payload is targeting. It is also a **list** containing all of the versions of operating system that this payload is compatible with. (e.g. `all`, `10`, `9`, `19.10`, etc...)
 
 > **It is best to run CentSecure on the actual computer that you want the payload to run on and then copy down the OS and OS version that it prints at the start.**
+
+## Features
+
+### Linux
+
+#### Lightdm
+
+- Disables guest account
+- Hides account names
+
+#### Pam
+
+- Enables password creation requirements
+- Enables lockout for failed password attempts
+- Ensures password reuse is limited
+- Ensures secure password hashing algorithm is used
+
+#### Linux Firewall
+
+- Enables the uncomplicated firewall
+
+### Windows
+
+*In progress*
