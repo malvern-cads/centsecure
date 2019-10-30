@@ -92,11 +92,14 @@ class Pam(payload.Payload):
 
         unix_index = None
 
-        text = """auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900
-    auth required pam_faillock.so preauth audit silent deny=5 unlock_time=900
-    auth sufficient pam_unix.so
-    auth [default=die] pam_faillock.so authfail audit deny=5unlock_time=900
-    auth sufficient pam_faillock.so authsucc audit deny=5 unlock_time=900"""
+        # used for fedora based distros
+#     text = """auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900
+# auth required pam_faillock.so preauth audit silent deny=5 unlock_time=900
+# auth sufficient pam_unix.so
+# auth [default=die] pam_faillock.so authfail audit deny=5unlock_time=900
+# auth sufficient pam_faillock.so authsucc audit deny=5 unlock_time=900"""
+
+        text = """auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900"""
 
         for index, line in enumerate(lines):
             if "pam_faillock.so" in line:
@@ -105,7 +108,7 @@ class Pam(payload.Payload):
                 unix_index = index
 
         if unix_index is not None:
-            lines[unix_index] = text
+            lines.insert(unix_index, text)
         else:
             print("Error {} not formatted as expected".format(path))
             return
