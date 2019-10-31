@@ -15,24 +15,24 @@ class LinuxAccountManagement(payload.Payload):
 
         current_user = input("Enter current username\n> ")
 
-        admins = get_users("Admin")
+        admins = self.get_users("Admin")
         # ensures the current user isn't in the admin list
         if current_user in admins:
             admins.remove(current_user)
 
-        standard = get_users("Standard")
+        standard = self.get_users("Standard")
         # ensures the current user isn't in the standard list
         if current_user in standard:
             standard.remove(current_user)
 
-        current_users = get_current_users()
+        current_users = self.get_current_users()
 
         # first we need to get rid of the bad users
         bad_users = []
         for user in current_users:
             if user not in current_user + admins + standard:
                 bad_users.append(user)
-        delete_users(bad_users)
+        self.delete_users(bad_users)
 
         current_users = list(set(current_users) - set(bad_users))
 
@@ -41,18 +41,18 @@ class LinuxAccountManagement(payload.Payload):
         for user in admins + standard:
             if user not in current_users:
                 new_users.append(user)
-        create_users(new_users)
+        self.create_users(new_users)
 
         # set all users to a standard user
-        set_standard_users(standard)
+        self.set_standard_users(standard)
         # set admin users to admin
-        set_admin_users(admins)
+        self.set_admin_users(admins)
 
         # change password to a secure one
         print("Changing passwords")
         for index, user in enumerate(admins + standard):
             password = "CyberCenturion{}!".format(index)
-            change_password(user, password)
+            self.change_password(user, password)
 
     def get_users(rank="standard"):
         while True:
