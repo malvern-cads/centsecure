@@ -12,8 +12,8 @@ class Pam(payload.Payload):
 
     def execute(self):
         print("PAM has been executed!")
-        set_password_requirements()
-        set_password_lockout()
+        self.set_password_requirements()
+        self.set_password_lockout()
         print("PAM has finished")
 
     def set_password_requirements():  # also deals with password reuse and ensuring sha512 is used
