@@ -1,5 +1,6 @@
 import os
 import payload
+import common
 
 
 class LinuxAccountManagement(payload.Payload):
@@ -8,6 +9,10 @@ class LinuxAccountManagement(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
+        common.backup("/etc/passwd")
+        common.backup("/etc/group")
+        common.backup("/etc/shadow")
+
         current_user = input("Enter current username\n> ")
 
         admins = get_users("Admin")
