@@ -60,6 +60,14 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 
 ### Linux
 
+#### Linux Account Management
+
+- Removes unauthorized users
+- Adds users that should exist
+- Ensures all standard users don't have sudo rights
+- Ensures all admin users have sudo rights
+- Gives all users a secure password
+
 #### Lightdm
 
 - Disables guest account
