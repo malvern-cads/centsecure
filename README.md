@@ -13,14 +13,14 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
         - [Linux](#for-linux)
     - [Manually](#manually)
 - [Structure](#structure)
+- [Features](#features)
+    - [Linux](#linux)
+    - [Windows](#windows)
 - [Development](#development)
     - [Using pipenv](#using-pipenv)
     - [Using regular pip](#using-regular-pip)
 - [Payloads](#payloads)
     - [Payload Parameters](#payload-parameters)
-- [Features](#features)
-    - [Linux](#linux)
-    - [Windows](#windows)
 
 <!-- /TOC -->
 
@@ -55,6 +55,30 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 - Here, we have a folder called `payloads` which contains all of the payloads for the program. See more about payloads below.
 - `centsecure.py` contains most of the code for running payloads.
 - `payload.py` contains code for the base payload class as well as loading payloads.
+
+## Features
+
+### Linux
+
+#### Lightdm
+
+- Disables guest account
+- Hides account names
+
+#### Pam
+
+- Enables password creation requirements
+- Enables lockout for failed password attempts
+- Ensures password reuse is limited
+- Ensures secure password hashing algorithm is used
+
+#### Linux Firewall
+
+- Enables the uncomplicated firewall
+
+### Windows
+
+*In progress*
 
 ## Development
 
@@ -122,27 +146,3 @@ Payload parameters help the program to tell which operating systems your payload
 - **`os_version`** is the version of the operating system that the payload is targeting. It is also a **list** containing all of the versions of operating system that this payload is compatible with. (e.g. `all`, `10`, `9`, `19.10`, etc...)
 
 > **It is best to run CentSecure on the actual computer that you want the payload to run on and then copy down the OS and OS version that it prints at the start.**
-
-## Features
-
-### Linux
-
-#### Lightdm
-
-- Disables guest account
-- Hides account names
-
-#### Pam
-
-- Enables password creation requirements
-- Enables lockout for failed password attempts
-- Ensures password reuse is limited
-- Ensures secure password hashing algorithm is used
-
-#### Linux Firewall
-
-- Enables the uncomplicated firewall
-
-### Windows
-
-*In progress*
