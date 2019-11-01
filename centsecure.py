@@ -1,10 +1,7 @@
 from logzero import logger
 import payload
-import importlib
 from common import is_admin
 import sys
-from os.path import basename, dirname, join
-from glob import glob
 
 payloads = {}
 

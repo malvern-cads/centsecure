@@ -18,7 +18,7 @@ class ShadowSuite(payload.Payload):
         self.set_profile()
         print("Finished shadow suite")
 
-    def set_password_config():
+    def set_password_config(self):
         common.backup("/etc/shadow")
         path = "/etc/login.defs"
         common.backup(path)
@@ -41,7 +41,7 @@ class ShadowSuite(payload.Payload):
             os.system("chage --warndays 7 {}".format(user))
             os.system("chage --inactive 30 {}".format(user))
 
-    def check_shadow():
+    def check_shadow(self):
         # check passwords have been changed in the pass
         # TODO do this automatically
         cmd = "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep '^Last password change' | cut -d: -f2) > $(date) ]] && echo \"$usr :$(chage --list $usr | grep '^Last password change' | cut -d: -f2)\"; done"
@@ -50,7 +50,7 @@ class ShadowSuite(payload.Payload):
             print("Ensure these are all in the past")
             print(output)
 
-    def set_shadow():
+    def set_shadow(self):
         # sets all system accounts to a no log on shell
         os.system("awk -F: '($1!=\"root\" && $1!=\"sync\" && $1!=\"shutdown\" && $1!=\"halt\" && $1!~/^\\+/ && $3<'\"$(awk '/^\\s*UID_MIN/{print $2}' /etc/login.defs)\"' && $7!=\"'\"$(which nologin)\"'\" && $7!=\"/bin/false\") {print $1}' /etc/passwd | while read user; do usermod -s $(which nologin) $user; done")
 
@@ -60,7 +60,7 @@ class ShadowSuite(payload.Payload):
         # sets root group uid to 0
         os.system("usermod -g 0 root")
 
-    def set_profile():
+    def set_profile(self):
         # set umask and shell timeout
         profiles = ["/etc/bashrc", "/etc/bash.bashrc", "/etc/profile"]
         for profile in profiles:
@@ -85,4 +85,4 @@ class ShadowSuite(payload.Payload):
 
 
 if __name__ == "__main__":
-    execute("me")
+    ShadowSuite().execute()

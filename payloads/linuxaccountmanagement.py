@@ -54,7 +54,7 @@ class LinuxAccountManagement(payload.Payload):
             password = "CyberCenturion{}!".format(index)
             self.change_password(user, password)
 
-    def get_users(rank="standard"):
+    def get_users(self, rank="standard"):
         while True:
             user_input = input("Enter a list of {} users, deliminated by a space\n> ".format(rank))
             users = user_input.split(" ")
@@ -63,7 +63,7 @@ class LinuxAccountManagement(payload.Payload):
                 break
         return users
 
-    def delete_users(users):
+    def delete_users(self, users):
         for user in users:
             # TODO backup user directory
             # TODO find any other files elsewhere in the system that user owns
@@ -71,18 +71,18 @@ class LinuxAccountManagement(payload.Payload):
             os.system("userdel -r {}".format(user))
             print("Deleted {}".format(user))
 
-    def create_users(users):
+    def create_users(self, users):
         for user in users:
             os.system("useradd -s /bin/bash -m {}".format(user))
             print("Added {}".format(user))
 
-    def set_standard_users(users):
+    def set_standard_users(self, users):
         for user in users:
             # set only group to be the user's primary group
             os.system("usermod -G {0} {0}".format(user))
             print("Removed all groups from {}".format(user))
 
-    def set_admin_users(users):
+    def set_admin_users(self, users):
         for user in users:
             # first remove all groups
             os.system("usermod -G {0} {0}".format(user))
@@ -91,6 +91,6 @@ class LinuxAccountManagement(payload.Payload):
             # add the admin roles
             os.system("usermod -aG {0} {1}".format(", ".join(admin_roles), user))
 
-    def change_password(user, password):
+    def change_password(self, user, password):
         os.system("echo '{0}:{1}' | chpasswd".format(user, password))
         print("{0}:{1}".format(user, password))

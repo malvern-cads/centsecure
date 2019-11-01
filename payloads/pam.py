@@ -1,10 +1,10 @@
 import payload
 import shutil
 import os
+import common
 
 
 # list all pam modules available: sudo updatedb && locate --regex '.*/pam_[^/]+\.so$'
-
 class Pam(payload.Payload):
     name = "Secure PAM"
     os = ["Linux"]
@@ -16,7 +16,7 @@ class Pam(payload.Payload):
         self.set_password_lockout()
         print("PAM has finished")
 
-    def set_password_requirements():  # also deals with password reuse and ensuring sha512 is used
+    def set_password_requirements(self):  # also deals with password reuse and ensuring sha512 is used
         # /etc/pam.d/system-auth - check if exists due to alternative method of implementation
         path = "/etc/pam.d/system-auth"
         if os.path.isfile(path):
@@ -28,7 +28,7 @@ class Pam(payload.Payload):
         os.system("sudo apt install libpam-cracklib -y -q")
         shutil.copy2(path, ".")
         common.backup(path)
-        
+
         with open(path) as in_file:
             lines = in_file.read().split("\n")
 
@@ -62,7 +62,7 @@ class Pam(payload.Payload):
         elif pwquality_index is not None:
             print("pwquality is used instead of cracklib")
             lines[pwquality_index] = pwquality
-        else: # no cracklib or pwquality, we'll add cracklib (in the right place)
+        else:  # no cracklib or pwquality, we'll add cracklib (in the right place)
             print("Cracklib is not configured correctly")
             return
 
@@ -78,8 +78,7 @@ class Pam(payload.Payload):
 
         print("Added Password requirements")
 
-
-    def set_password_lockout():
+    def set_password_lockout(self):
         paths = ["/etc/pam.d/system-authand", "/etc/pam.d/password-auth"]
         for path in paths:
             if os.path.isfile(path):

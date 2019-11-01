@@ -1,6 +1,5 @@
 import payload
 import configparser
-import shutil
 import common
 
 
