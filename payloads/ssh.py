@@ -48,29 +48,6 @@ class SSH(payload.Payload):
             "MaxSessions": "4"
         }
 
-        self.change_parameters(path, params)
+        common.change_parameters(path, params)
 
         print("Not doing anything about ssh access, (groups, users)")
-
-    def change_parameters(path, params):
-        with open(path) as in_file:
-            lines = in_file.read().split("\n")
-
-        indices = {}
-
-        for index, line in enumerate(lines):
-            key_word = line.split(" ")[0]
-            if key_word in params:
-                indices[key_word] = index
-
-        for param in params:
-            line = "{0} {1}".format(param, params[param])
-            if param in indices:
-                index = indices[param]
-                lines[index] = line
-            else:
-                lines.append(line)
-
-        with open(path, "w") as out_file:
-            out_file.write("\n".join(lines))
-            out_file.write("\n")

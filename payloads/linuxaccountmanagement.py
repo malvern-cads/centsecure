@@ -25,7 +25,7 @@ class LinuxAccountManagement(payload.Payload):
         if current_user in standard:
             standard.remove(current_user)
 
-        current_users = self.get_current_users()
+        current_users = common.get_current_users()
 
         # first we need to get rid of the bad users
         bad_users = []
@@ -62,18 +62,6 @@ class LinuxAccountManagement(payload.Payload):
             if choice.lower() in "yes":
                 break
         return users
-
-    def get_current_users():
-        with open("/etc/passwd") as in_file:
-            text = in_file.read()
-
-        # Format - Username:Password:UID:GID:User ID Info:Home directory:Command/shell
-        user_data = [i.split(":") for i in text.split("\n") if i != ""]
-        normal_users = []
-        for user in user_data:
-            if 1000 <= int(user[2]) < 60000:
-                normal_users.append(user[0])
-        return normal_users
 
     def delete_users(users):
         for user in users:
