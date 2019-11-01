@@ -1,0 +1,53 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+  - name: lint
+    image: python:3.7-alpine
+    commands:
+      - pip install --upgrade pip pipenv
+      - pipenv install --dev
+      - pipenv run flake8
+  - name: build-linux
+    image: python:3.7-alpine
+    commands:
+      - rm -rf build dist
+      - apk add --update binutils musl-utils
+      - pip install --upgrade pip pipenv
+      - pipenv install --dev
+      - pipenv run pyinstaller -y --add-data "payloads:payloads/." -F centsecure.py
+      - mv dist/centsecure dist/centsecure_lin64
+      - pipenv run pip freeze > requirements.txt
+    when:
+      event: tag
+      branch:
+        - master
+  - name: build-windows
+    image: tobix/pywine:latest
+    commands:
+      - rm -rf build
+      - . /opt/mkuserwineprefix
+      - export WINEPATH="C:\\users\\root\\Application Data\\Python\\Python37\\Scripts"
+      - wine pip install --user -r requirements.txt
+      - wine pyinstaller -y --add-data "payloads;payloads/." -F centsecure.py
+      - mv dist/centsecure.exe dist/centsecure_win64.exe
+    when:
+      event: tag
+      branch:
+        - master
+  - name: publish
+    image: plugins/github-release
+    settings:
+      api_key:
+        from_secret: github_token
+      files: dist/*
+    when:
+      event: tag
+      branch:
+        - master
