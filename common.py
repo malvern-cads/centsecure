@@ -24,6 +24,56 @@ def is_admin():
     return False
 
 
+def get_current_users():
+    """
+    Returns a list of the non-system users
+    """
+    with open("/etc/passwd") as in_file:
+        text = in_file.read()
+
+    # Format - Username:Password:UID:GID:User ID Info:Home directory:Shell
+    user_data = [i.split(":") for i in text.split("\n") if i != ""]
+    normal_users = []
+    for user in user_data:
+        # UID range to be a non-system user
+        if 1000 <= int(user[2]) < 60000:
+            normal_users.append(user[0])
+    return normal_users
+
+
+def change_parameters(path, params):
+    """
+    Modifies a config file with the given parameters
+
+    The config file needs to be in the format:
+    <key> <value>
+    """
+    with open(path) as in_file:
+        lines = in_file.read().split("\n")
+
+    # Grab location in file of keys
+    indices = {}
+    for index, line in enumerate(lines):
+        # Ensure we grab the key
+        key_word = line.split(" ")[0]
+        if key_word in params:
+            indices[key_word] = index
+
+    for param in params:
+        # Format of config file
+        line = "{0} {1}".format(param, params[param])
+        if param in indices:
+            index = indices[param]
+            lines[index] = line
+        else:
+            # If the key isn't in the file, we append it to the end
+            lines.append(line)
+
+    with open(path, "w") as out_file:
+        out_file.write("\n".join(lines))
+        out_file.write("\n")
+
+
 def _backup_directory():
     """
     Get the backup directory
