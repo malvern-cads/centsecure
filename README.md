@@ -68,11 +68,6 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 - Ensures all admin users have sudo rights
 - Gives all users a secure password
 
-#### Lightdm
-
-- Disables guest account
-- Hides account names
-
 #### Pam
 
 - Enables password creation requirements
@@ -80,9 +75,35 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 - Ensures password reuse is limited
 - Ensures secure password hashing algorithm is used
 
+#### Shadow Suite
+
+- Ensures password expiration
+- Ensures minimum password change days
+- Ensures expiration warning
+- Ensures inactive password lock
+- Checks user password changed in past
+- Ensures system accounts are correctly locked
+- Ensures default group for the root account is GID 0
+- Ensures default user umask
+- Ensures default user shell timeout
+- ~~Ensures root login is restricted to system console~~
+- ~~Ensures access to the su command is restricted~~
+
+#### Lightdm
+
+- Disables guest account
+- Hides account names
+
 #### Linux Firewall
 
 - Enables the uncomplicated firewall
+
+#### SSH
+
+- Ensures permissions on important SSH files
+- Ensures the following are secured:
+  - Protocol, LogLevel, X11Forwarding, MaxAuthTries, IgnoreRhosts, HostbasedAuthentication, PermitRootLogin, PermitEmptyPasswords, PermitUserEnvironment, Ciphers, MACs, KexAlgorithms, ClientAliveInterval, ClientAliveCountMax, LoginGraceTime, Banner, UsePAM, AllowTcpForwarding, maxstartups, MaxSessions
+- ~~Ensures SSH access islimited~~
 
 ### Windows
 
