@@ -1,5 +1,6 @@
 import payload
 import os
+import common
 
 
 class LinuxFirewall(payload.Payload):
@@ -8,6 +9,6 @@ class LinuxFirewall(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        print("Linux Firewall is being executed")
+        common.debug("Linux Firewall is being executed")
         os.system("ufw enable")
-        print("Linux Firewall has finished")
+        common.debug("Linux Firewall has finished")
