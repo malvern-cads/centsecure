@@ -9,7 +9,7 @@ pyinstaller = "*"
 autopep8 = "*"
 
 [packages]
-logzero = "*"
+colorama = "*"
 
 [requires]
 python_version = "3.7"

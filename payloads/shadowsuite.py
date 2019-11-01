@@ -11,12 +11,12 @@ class ShadowSuite(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        print("Executing shadow suite...")
+        common.debug("Executing shadow suite...")
         self.set_password_config()
         self.check_shadow()
         self.set_shadow()
         self.set_profile()
-        print("Finished shadow suite")
+        common.debug("Finished shadow suite")
 
     def set_password_config(self):
         common.backup("/etc/shadow")
@@ -47,8 +47,7 @@ class ShadowSuite(payload.Payload):
         cmd = "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep '^Last password change' | cut -d: -f2) > $(date) ]] && echo \"$usr :$(chage --list $usr | grep '^Last password change' | cut -d: -f2)\"; done"
         output = subprocess.check_output(cmd, shell=True, executable='/bin/bash').decode("utf-8")
         if output != "":
-            print("Ensure these are all in the past")
-            print(output)
+            common.info("Ensure these are all in the past: " + str(output))
 
     def set_shadow(self):
         # sets all system accounts to a no log on shell

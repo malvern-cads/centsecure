@@ -11,16 +11,16 @@ class Pam(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        print("PAM has been executed!")
+        common.debug("PAM has been executed!")
         self.set_password_requirements()
         self.set_password_lockout()
-        print("PAM has finished")
+        common.debug("PAM has finished")
 
     def set_password_requirements(self):  # also deals with password reuse and ensuring sha512 is used
         # /etc/pam.d/system-auth - check if exists due to alternative method of implementation
         path = "/etc/pam.d/system-auth"
         if os.path.isfile(path):
-            print("{} exists, needs checking (cracklib/pwquality)".format(path))
+            common.warn("{} exists, needs checking (cracklib/pwquality)".format(path))
 
         path = "/etc/pam.d/common-password"
         common.backup(path)
@@ -53,17 +53,17 @@ class Pam(payload.Payload):
         if unix_index is not None:
             lines[unix_index] = unix
         else:
-            print("Error, could not find unix_index, {} is misconfigured".format(path))
+            common.error("Error, could not find unix_index, {} is misconfigured".format(path))
             return
 
         # You can use either cracklib or pwquality, but one of them must be used
         if cracklib_index is not None:
             lines[cracklib_index] = cracklib
         elif pwquality_index is not None:
-            print("pwquality is used instead of cracklib")
+            common.debug("pwquality is used instead of cracklib")
             lines[pwquality_index] = pwquality
         else:  # no cracklib or pwquality, we'll add cracklib (in the right place)
-            print("Cracklib is not configured correctly")
+            common.error("Cracklib is not configured correctly")
             return
 
         with open(path, "w") as out_file:
@@ -76,13 +76,13 @@ class Pam(payload.Payload):
             text = "minlen = 14\ndcredit = -1\nucredit = -1\nocredit = -1\nlcredit = -1"
             out_file.write(text)
 
-        print("Added Password requirements")
+        common.info("Added Password requirements")
 
     def set_password_lockout(self):
         paths = ["/etc/pam.d/system-authand", "/etc/pam.d/password-auth"]
         for path in paths:
             if os.path.isfile(path):
-                print("{} exists, needs checking (password lockout)".format(path))
+                common.warn("{} exists, needs checking (password lockout)".format(path))
 
         path = "/etc/pam.d/common-auth"
         common.backup(path)
@@ -103,17 +103,17 @@ class Pam(payload.Payload):
 
         for index, line in enumerate(lines):
             if "pam_faillock.so" in line:
-                print("Found faillock, needs checking (password lockout)")
+                common.warn("Found faillock, needs checking (password lockout)")
             elif "pam_unix.so" in line:
                 unix_index = index
 
         if unix_index is not None:
             lines.insert(unix_index, text)
         else:
-            print("Error {} not formatted as expected".format(path))
+            common.error("Error {} not formatted as expected".format(path))
             return
 
         with open(path, "w") as out_file:
             out_file.write("\n".join(lines))
 
-        print("Set Password Lockout")
+        common.debug("Set Password Lockout")
