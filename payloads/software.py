@@ -1,6 +1,7 @@
 import payload
 import common
 import re
+import json
 
 
 def _list_ubuntu_packages():
@@ -33,14 +34,19 @@ def _list_ubuntu_packages():
     return packages
 
 
+def _list_windows_programs():
+    output = common.run('powershell.exe "Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Select-Object DisplayName, Publisher, UninstallString | ConvertTo-Json"')
+    return json.loads(output)
+
+
 def _remove_ubuntu_packages(packages):
     package_string = " ".join(packages)
     common.run("apt remove --purge -y {}".format(package_string))
     common.run("apt autoremove -y")
 
 
-class RemoveSoftware(payload.Payload):
-    name = "Remove Software"
+class RemoveSoftwareUbuntu(payload.Payload):
+    name = "Remove Software (Ubuntu)"
     os = ["Ubuntu"]
     os_version = ["all"]
 
@@ -66,4 +72,26 @@ class RemoveSoftware(payload.Payload):
             return
 
         _remove_ubuntu_packages(to_remove)
+        common.debug("Removed packages!")
+
+
+class RemoveSoftwareWindows(payload.Payload):
+    name = "Remove Software (Windows)"
+    os = ["Windows"]
+    os_version = ["all"]
+
+    def execute(self):
+        programs = _list_windows_programs()
+
+        # As this will take lots of manual labour, ask if they would like to check each program.
+        check = common.input_yesno("Found {} user-installed programs. Would you like to manually check them".format(len(programs)))
+
+        if check is False:
+            return
+
+        for program in programs:
+            keep = common.input_yesno("Would you like to keep the program '{}' (by '{}')".format(program["DisplayName"], program["Publisher"]))
+            if not keep:
+                common.run(program["UninstallString"])
+
         common.debug("Removed packages!")
