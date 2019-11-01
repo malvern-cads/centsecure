@@ -1,20 +1,29 @@
 # CentSecure
+
+[![Build Status](https://ci.jakewalker.xyz/api/badges/jake-walker/centsecure/status.svg?ref=refs/heads/master)](https://ci.jakewalker.xyz/jake-walker/centsecure)
+
 CentSecure is a tool for automating *parts* of [CyberCenturion](https://www.cybersecuritychallenge.org.uk/what-we-do/cybercenturion-vi) which are easy (e.g. running a single command) or time consumung (e.g. removing backdoors).
 
 > **:warning: Warning:** Use of this tool when it is open source is against CyberCenturion and CyberPatriot rules.
 
-CentSecure is designed to work on all platforms and adapt to the platform that it is being run on. Instead of having a bash script for Linux based systems and a batch script for Windows based systems, it makes sense to keep everything in one place.
+CyberCenturion is a blue-teaming exercise run by [Cyber Security Challenge UK](https://www.cybersecuritychallenge.org.uk/) which involves securing 3 virtual machines. See more about how it works [here](https://cadscheme.co.uk/cybercenturion/).
+
+CentSecure fixes security holes automatically which gets some of the 'lower hanging fruits' leaving us to focus on some of the harder things. It is designed to work on all platforms and adapt to the platform that it is being run on. Instead of having a bash script for Linux based systems and a batch script for Windows based systems, it makes sense to keep everything in one place.
 
 <!-- TOC -->
 
 - [Usage](#usage)
     - [Binaries](#binaries)
-        - [Windows](#for-windows)
-        - [Linux](#for-linux)
     - [Manually](#manually)
 - [Structure](#structure)
 - [Features](#features)
     - [Linux](#linux)
+        - [Account Management](#account-management)
+        - [PAM](#pam)
+        - [Shadow Suite](#shadow-suite)
+        - [LightDM](#lightdm)
+        - [Firewall](#firewall)
+        - [SSH](#ssh)
     - [Windows](#windows)
 - [Development](#development)
     - [Using pipenv](#using-pipenv)
@@ -28,15 +37,7 @@ CentSecure is designed to work on all platforms and adapt to the platform that i
 
 ### Binaries
 
-To simplify things in the competition, we can generate binaries which is just one file to copy to the VM.
-
-#### For Windows
-
-To generate a Windows binary, on a Windows machine run the `generate_binary.bat` file, then copy the `centsecure.exe` file from the folder that is opened.
-
-#### For Linux
-
-*In progress*
+To simplify things in the competition, we can generate binaries which is just one file to copy to the VM. You can download binaries for CentSecure in the [releases section](https://github.com/jake-walker/centsecure/releases).
 
 ### Manually
 
@@ -60,7 +61,7 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 
 ### Linux
 
-#### Linux Account Management
+#### Account Management
 
 - Removes unauthorized users
 - Adds users that should exist
@@ -68,7 +69,7 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 - Ensures all admin users have sudo rights
 - Gives all users a secure password
 
-#### Pam
+#### PAM
 
 - Enables password creation requirements
 - Enables lockout for failed password attempts
@@ -89,20 +90,19 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 - ~~Ensures root login is restricted to system console~~
 - ~~Ensures access to the su command is restricted~~
 
-#### Lightdm
+#### LightDM
 
 - Disables guest account
 - Hides account names
 
-#### Linux Firewall
+#### Firewall
 
 - Enables the uncomplicated firewall
 
 #### SSH
 
 - Ensures permissions on important SSH files
-- Ensures the following are secured:
-  - Protocol, LogLevel, X11Forwarding, MaxAuthTries, IgnoreRhosts, HostbasedAuthentication, PermitRootLogin, PermitEmptyPasswords, PermitUserEnvironment, Ciphers, MACs, KexAlgorithms, ClientAliveInterval, ClientAliveCountMax, LoginGraceTime, Banner, UsePAM, AllowTcpForwarding, maxstartups, MaxSessions
+- Ensures the following are secured: _Protocol, LogLevel, X11Forwarding, MaxAuthTries, IgnoreRhosts, HostbasedAuthentication, PermitRootLogin, PermitEmptyPasswords, PermitUserEnvironment, Ciphers, MACs, KexAlgorithms, ClientAliveInterval, ClientAliveCountMax, LoginGraceTime, Banner, UsePAM, AllowTcpForwarding, maxstartups, MaxSessions_
 - ~~Ensures SSH access islimited~~
 
 ### Windows
