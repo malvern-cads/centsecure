@@ -1,24 +1,23 @@
-from logzero import logger
 import payload
-from common import is_admin
+from common import is_admin, info, warn, debug
 import sys
 
 payloads = {}
 
-logger.info("Welcome to CentSecure!")
-logger.info("This computer is running:\n    OS: %s\n    OS Version: %s", payload.get_os(), payload.get_os_version())
+info("Welcome to CentSecure!")
+debug("This computer is running {} version {}".format(payload.get_os(), payload.get_os_version()))
 
 if not is_admin():
-    logger.warning("CentSecure should be run as root or administator.")
+    warn("CentSecure should be run as root or administator.")
     sys.exit(1)
 
 payload.find_plugins()
 for p in payload.Payload._registry:
-    logger.info("Module %s:\n    Name: %s\n    Targets: %s (version %s)", p.__name__, p.name, p.os, p.os_version)
+    debug("Payload: {} (targets {} version {})".format(p.name, p.os, p.os_version))
 
     if payload.os_check(p.os, p.os_version):
         instance = p()
-        logger.debug("Running %s...", p.__name__)
+        info("Running {}...".format(p.name))
         instance.execute()
     else:
-        logger.debug("Not running %s as this is not the right OS", p.__name__)
+        warn("Not running {} as this is not the right OS".format(p.name))

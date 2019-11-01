@@ -9,14 +9,15 @@ class Lightdm(payload.Payload):
     os_version = ["16.04"]
 
     def execute(self):
-        print("Lightdm has been executed!")
+        common.debug("Lightdm has been executed!")
         path = "/etc/lightdm/lightdm.conf"
         config = configparser.ConfigParser()
         try:
             common.backup(path)
             config.read(path)
-        except FileNotFoundError:
-            print("{} not found".format(path))
+        except FileNotFoundError as ex:
+            common.error("{} not found".format(path), ex)
+
         config["SeatDefaults"] = {}
         config["SeatDefaults"]["user-session"] = "ubuntu"
         config["SeatDefaults"]["greeter-session"] = "unity-greeter"
@@ -26,5 +27,6 @@ class Lightdm(payload.Payload):
 
         with open(path, "w+") as out_file:
             config.write(out_file)
-        print("{} updated".format(path))
-        print("Lightdm has finished")
+
+        common.info("{} updated".format(path))
+        common.debug("Lightdm has finished")
