@@ -82,7 +82,3 @@ class ShadowSuite(payload.Payload):
 
     # /etc/pam.d/sufile:auth required pam_wheel.so use_uid TODO
     # wheel:x:10:root,<user list>
-
-
-if __name__ == "__main__":
-    ShadowSuite().execute()
