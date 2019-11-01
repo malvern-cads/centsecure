@@ -13,7 +13,7 @@ class LinuxAccountManagement(payload.Payload):
         common.backup("/etc/group")
         common.backup("/etc/shadow")
 
-        current_user = input("Enter current username\n> ")
+        current_user = common.input_text("What is the current username")
 
         admins = self.get_users("Admin")
         # ensures the current user isn't in the admin list
@@ -49,19 +49,13 @@ class LinuxAccountManagement(payload.Payload):
         self.set_admin_users(admins)
 
         # change password to a secure one
-        print("Changing passwords")
+        common.info("Changing passwords")
         for index, user in enumerate(admins + standard):
             password = "CyberCenturion{}!".format(index)
             self.change_password(user, password)
 
     def get_users(self, rank="standard"):
-        while True:
-            user_input = input("Enter a list of {} users, deliminated by a space\n> ".format(rank))
-            users = user_input.split(" ")
-            choice = input("The {} users are:\n- {}\nIs this correct?\n> ".format(rank, "\n- ".join(users)))
-            if choice.lower() in "yes":
-                break
-        return users
+        return common.input_list("Enter a list of {} users".format(rank.lower()))
 
     def delete_users(self, users):
         for user in users:
@@ -69,18 +63,18 @@ class LinuxAccountManagement(payload.Payload):
             # TODO find any other files elsewhere in the system that user owns
             os.system("crontab -r -u {}".format(user))
             os.system("userdel -r {}".format(user))
-            print("Deleted {}".format(user))
+            common.info("Deleted user {}".format(user))
 
     def create_users(self, users):
         for user in users:
             os.system("useradd -s /bin/bash -m {}".format(user))
-            print("Added {}".format(user))
+            common.info("Added user {}".format(user))
 
     def set_standard_users(self, users):
         for user in users:
             # set only group to be the user's primary group
             os.system("usermod -G {0} {0}".format(user))
-            print("Removed all groups from {}".format(user))
+            common.info("Removed all groups from user {}".format(user))
 
     def set_admin_users(self, users):
         for user in users:
@@ -93,4 +87,4 @@ class LinuxAccountManagement(payload.Payload):
 
     def change_password(self, user, password):
         os.system("echo '{0}:{1}' | chpasswd".format(user, password))
-        print("{0}:{1}".format(user, password))
+        common.info("Changing password of {0} to {1}".format(user, password))

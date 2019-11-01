@@ -8,6 +8,55 @@ import shutil
 import datetime
 import platform
 import ctypes
+from colorama import init, Fore, Back
+
+
+def info(msg):
+    print(Fore.BLUE + "[i] {}".format(msg))
+
+
+def debug(msg):
+    print(Fore.WHITE + "[#] {}".format(msg))
+
+
+def warn(msg):
+    print(Fore.YELLOW + "[!] {}".format(msg))
+
+
+def error(msg, e=None):
+    if e is not None:
+        print(Fore.WHITE + Back.RED + "[E] {} -> {}".format(msg, repr(e)))
+    else:
+        print(Fore.WHITE + Back.RED + "[E] {}".format(msg))
+
+
+def input_text(msg):
+    while True:
+        user_input = input(Fore.GREEN + "[?] {}? ".format(msg))
+        return user_input
+
+
+def input_yesno(msg):
+    while True:
+        user_input = input_text(msg + " (y/n)")
+        if user_input.lower() == "y":
+            return True
+        elif user_input.lower() == "n":
+            return False
+        else:
+            warn("Unexpected input")
+
+
+def input_list(msg):
+    while True:
+        print(Fore.GREEN + "[?] {}. Please seperate items with a semicolon.".format(msg))
+        user_input = input(Fore.GREEN + "    > ")
+        input_list = user_input.split(";")
+
+        question = "This is what you inputted:\n - {}\nIs that correct".format("\n - ".join(input_list))
+
+        if input_yesno(question):
+            return input_list
 
 
 def is_admin():
@@ -96,7 +145,7 @@ def backup(source, compress=False):
     # Check if the source path is a folder or not
     folder = os.path.isdir(source)
     backup_type = "folder" if folder else "file"
-    print("Backing up {} {}...".format(backup_type, source))
+    debug("Backing up {} {}...".format(backup_type, source))
 
     # Generate a filename from the source path
     dest_filename = _filename(source, backup_type)
@@ -120,5 +169,9 @@ def backup(source, compress=False):
         else:
             # Copy the source folder to the destination
             shutil.copytree(source, dest_path)
-    print("The {} {} has been{} backed up to {}".format(backup_type, source, (" compressed and" if compress and folder else ""), dest_path))
+    info("The {} {} has been{} backed up to {}".format(backup_type, source, (" compressed and" if compress and folder else ""), dest_path))
     return dest_path
+
+
+# Initialize colorama
+init(autoreset=True)

@@ -1,7 +1,7 @@
 from importlib import import_module
 from pathlib import Path
-from logzero import logger
 import platform
+from common import debug
 
 
 def find_plugins():
@@ -9,7 +9,7 @@ def find_plugins():
 
     for path in payloads.__path__:
         root = Path(path)
-        logger.debug("Searching %s for plugins...", root)
+        debug("Searching {} for plugins...".format(root))
 
         for child in root.iterdir():
             if not (child.is_dir() or (child.is_file() and child.suffix == ".py")):
@@ -23,8 +23,6 @@ def find_plugins():
                 import_module("payloads.{}".format(name))
             except ImportError:
                 pass
-            else:
-                logger.debug("Loaded plugin: %s", name)
 
 
 class Payload:

@@ -9,7 +9,7 @@ class SSH(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        print("Executing SSH")
+        common.debug("Executing SSH")
         path = "/etc/ssh/sshd_config"
         common.backup(path)
 
@@ -50,4 +50,4 @@ class SSH(payload.Payload):
 
         common.change_parameters(path, params)
 
-        print("Not doing anything about ssh access, (groups, users)")
+        common.warn("Not doing anything about ssh access, (groups, users)")
