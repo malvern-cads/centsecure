@@ -90,6 +90,9 @@ class RemoveSoftwareWindows(payload.Payload):
             return
 
         for program in programs:
+            if program["UninstallString"] is None:
+                common.warn("The program '{}' (by '{}') cannot be automatically removed. If it is of concern please remove it manually.".format(program["DisplayName"], program["Publisher"]))
+
             keep = common.input_yesno("Would you like to keep the program '{}' (by '{}')".format(program["DisplayName"], program["Publisher"]))
             if not keep:
                 common.run(program["UninstallString"])
