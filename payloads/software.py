@@ -3,6 +3,12 @@ import common
 import re
 import json
 
+# If any of these are matched against:
+# - package name on Linux
+# - program name, publisher on Windows
+# ...then they will be skipped
+WHITELIST = ["Microsoft Corporation"]
+
 
 def _list_ubuntu_packages():
     output = common.run("apt list --installed")
@@ -45,6 +51,17 @@ def _remove_ubuntu_packages(packages):
     common.run("apt autoremove -y")
 
 
+def _check_whitelist(obj):
+    if isinstance(obj, dict):
+        for k in obj.keys():
+            if obj[k] in WHITELIST:
+                return True
+    elif isinstance(obj, str):
+        if obj in WHITELIST:
+            return True
+    return False
+
+
 class RemoveSoftwareUbuntu(payload.Payload):
     name = "Remove Software (Ubuntu)"
     os = ["Ubuntu"]
@@ -63,6 +80,9 @@ class RemoveSoftwareUbuntu(payload.Payload):
         i = 0
         for package in packages:
             i += 1
+            if _check_whitelist(package):
+                common.debug("The package {} is being skipped as it is whitelisted.".format(package))
+                continue
 
             keep = common.input_yesno("({}/{}) Would you like to keep the program '{}'".format(i, len(packages), package))
             if not keep:
@@ -100,6 +120,9 @@ class RemoveSoftwareWindows(payload.Payload):
                 common.warn("The program '{}' (by '{}') cannot be automatically removed. If it is of concern please remove it manually.".format(program["DisplayName"], program["Publisher"]))
                 continue
 
+            if _check_whitelist(program):
+                common.debug("The program '{}' (by '{}') is being skipped as it is whitelisted.".format(program["DisplayName"], program["Publisher"]))
+                continue
 
             keep = common.input_yesno("({}/{}) Would you like to keep the program '{}' (by '{}')".format(i, len(programs), program["DisplayName"], program["Publisher"]))
             if not keep:
