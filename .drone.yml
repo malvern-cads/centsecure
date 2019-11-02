@@ -25,10 +25,10 @@ steps:
       - cp -r scripts/* centsecure
       - zip -r centsecure_universal.zip centsecure/*
       - rm -rf centsecure
-    # when:
-    #   event: tag
-    #   branch:
-    #     - master
+    when:
+      event: tag
+      branch:
+        - master
   - name: publish
     image: plugins/github-release
     settings:
