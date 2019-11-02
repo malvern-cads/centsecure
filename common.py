@@ -9,6 +9,7 @@ import datetime
 import platform
 import ctypes
 from colorama import init, Fore, Back
+import subprocess
 
 
 def info(msg):
@@ -171,6 +172,13 @@ def backup(source, compress=False):
             shutil.copytree(source, dest_path)
     info("The {} {} has been{} backed up to {}".format(backup_type, source, (" compressed and" if compress and folder else ""), dest_path))
     return dest_path
+
+
+def run(cmd):
+    command_list = cmd if isinstance(cmd, list) else cmd.split(" ")
+    debug("Running command '{}'".format(cmd))
+    result = subprocess.run(command_list, stdout=subprocess.PIPE)
+    return result.stdout.decode("utf-8")
 
 
 # Initialize colorama
