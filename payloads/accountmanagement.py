@@ -102,9 +102,11 @@ class AccountManagement(payload.Payload):
                 os.system("useradd -s /bin/bash -m {}".format(user))
                 common.info("Added user {}".format(user))
             elif "Windows" in payload.get_os():
-                win32net.NetUserAdd(None, user)
+                # win32net.NetUserAdd(None, 0, {"name": user})
+                os.system("net user \"{}\" /add".format(user))
 
     def set_standard_users(self, users):
+        common.info("Setting standard users...")
         for user in users:
             if "Linux" in payload.get_os():
                 # set only group to be the user's primary group
@@ -114,9 +116,10 @@ class AccountManagement(payload.Payload):
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 for group in groups:
                     if group != "Users":
-                        os.system("net localgroup {} {} /add".format(group, user))
+                        os.system("net localgroup \"{}\" \"{}\" /delete".format(group, user))
 
     def set_admin_users(self, users):
+        common.info("Setting admin users...")
         for user in users:
             if "Linux" in payload.get_os():
                 # first remove all groups
@@ -128,7 +131,7 @@ class AccountManagement(payload.Payload):
             elif "Windows" in payload.get_os():
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 if "Administrators" not in groups:
-                    os.system("net localgroup Administrators {} /add".format(user))
+                    os.system("net localgroup Administrators \"{}\" /add".format(user))
 
     def change_password(self, user, password):
         common.info("Changing password of {0} to {1}".format(user, password))
@@ -136,4 +139,4 @@ class AccountManagement(payload.Payload):
             os.system("echo '{0}:{1}' | chpasswd".format(user, password))
         elif "Windows" in payload.get_os():
             # win32net.NetUserChangePassword(None, user, "", password)
-            os.system("net user {} {}".format(user, password))
+            os.system("net user \"{}\" \"{}\"".format(user, password))
