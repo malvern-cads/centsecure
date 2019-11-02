@@ -1,7 +1,15 @@
 import os
 import payload
 import common
-import win32net
+import sys
+
+try:
+    import win32net
+except ModuleNotFoundError:
+    if "Windows" in payload.get_os():
+        common.warn("The 'win32net' package is required for Windows systems!")
+        sys.exit(1)
+
 
 
 class AccountManagement(payload.Payload):
