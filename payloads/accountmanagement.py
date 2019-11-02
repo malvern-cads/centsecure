@@ -11,7 +11,6 @@ except ModuleNotFoundError:
         sys.exit(1)
 
 
-
 class AccountManagement(payload.Payload):
     name = "Account Management"
     os = ["ALL"]
