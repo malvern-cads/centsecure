@@ -63,6 +63,8 @@ class AccountManagement(payload.Payload):
         for index, user in enumerate([current_user] + admins + standard):
             password = "CyberCenturion{}!".format(index)
             self.change_password(user, password)
+            if user != current_user:
+                self.change_password_on_login(user)
 
     def get_users(self, rank="standard"):
         return common.input_list("Enter a list of {} users".format(rank.lower()))
@@ -140,3 +142,9 @@ class AccountManagement(payload.Payload):
         elif "Windows" in payload.get_os():
             # win32net.NetUserChangePassword(None, user, "", password)
             os.system("net user \"{}\" \"{}\"".format(user, password))
+
+    def change_password_on_login(self, user):
+        if "Linux" in payload.get_os():
+            common.debug("Not implemented for Linux")
+        elif "Windows" in payload.get_os():
+            os.system("net user \"{}\" /logonpasswordchg:yes".format(user))
