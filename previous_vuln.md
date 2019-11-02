@@ -209,3 +209,16 @@ The number in brackets for the title is (number of vulnerabilities found/total v
 - A secure maximum password age exists - 5 pts
 - FTP service has stopped and disabled - 5 pts
 - Removed prohibited MP3 files - 5 pts
+#### Windows Server 2016 (12/12) (100)
+- Forensics Question 1 correct - 10 pts
+- Forensics Question 2 correct - 10 pts
+- Forensics Question 3 correct - 10 pts
+- Removed unauthorized user hzolomon - 5 pts
+- Removed unauthorized user awalker - 5 pts
+- Created user account rdibney - 5 pts
+- User savitar has a password - 10 pts
+- User mrory has a password - 10 pts
+- A secure minimum password length is required - 5 pts
+- Do not require CTRL+ALT+DEL [disabled] - 10 pts
+- File sharing disabled for C drive - 10 pts
+- Removed Real Player - 10 pts
