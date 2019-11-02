@@ -10,6 +10,7 @@ autopep8 = "*"
 
 [packages]
 colorama = "*"
+win32net = "*"
 
 [requires]
 python_version = "3.7"

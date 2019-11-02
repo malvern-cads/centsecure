@@ -17,8 +17,9 @@ CentSecure fixes security holes automatically which gets some of the 'lower hang
     - [Manually](#manually)
 - [Structure](#structure)
 - [Features](#features)
-    - [Linux](#linux)
+    - [All](#All)
         - [Account Management](#account-management)
+    - [Linux](#linux)
         - [PAM](#pam)
         - [Shadow Suite](#shadow-suite)
         - [LightDM](#lightdm)
@@ -59,15 +60,17 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 
 ## Features
 
-### Linux
+### All
 
 #### Account Management
 
 - Removes unauthorized users
 - Adds users that should exist
-- Ensures all standard users don't have sudo rights
-- Ensures all admin users have sudo rights
+- Ensures all standard users don't have admin rights
+- Ensures all admin users have admin rights
 - Gives all users a secure password
+
+### Linux
 
 #### PAM
 
@@ -103,7 +106,7 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 
 - Ensures permissions on important SSH files
 - Ensures the following are secured: _Protocol, LogLevel, X11Forwarding, MaxAuthTries, IgnoreRhosts, HostbasedAuthentication, PermitRootLogin, PermitEmptyPasswords, PermitUserEnvironment, Ciphers, MACs, KexAlgorithms, ClientAliveInterval, ClientAliveCountMax, LoginGraceTime, Banner, UsePAM, AllowTcpForwarding, maxstartups, MaxSessions_
-- ~~Ensures SSH access islimited~~
+- ~~Ensures SSH access is limited~~
 
 ### Windows
 
