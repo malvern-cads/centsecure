@@ -1,7 +1,16 @@
 import os
 import payload
 import common
-import win32net
+import sys
+
+try:
+    import win32net
+except ModuleNotFoundError:
+    if "Windows" in payload.get_os():
+        common.warn("The 'win32net' package is required for Windows systems!")
+        sys.exit(1)
+
+
 
 class AccountManagement(payload.Payload):
     name = "Account Management"
@@ -27,7 +36,7 @@ class AccountManagement(payload.Payload):
             standard.remove(current_user)
 
         current_users = self.get_current_users()
-        print("Found users: {}".format(", ".join(current_users)))
+        common.debug("Found users: {}".format(", ".join(current_users)))
 
         # first we need to get rid of the bad users
         bad_users = []
@@ -84,8 +93,8 @@ class AccountManagement(payload.Payload):
                     continue
                 try:
                     win32net.NetUserDel(None, user)
-                except:
-                    print("Error: {}".format(user))
+                except Exception as ex:
+                    common.error("Error while deleting user {}".format(user), ex)
 
     def create_users(self, users):
         for user in users:
@@ -121,7 +130,6 @@ class AccountManagement(payload.Payload):
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 if "Administrators" not in groups:
                     os.system("net localgroup Administrators {} /add".format(user))
-
 
     def change_password(self, user, password):
         common.info("Changing password of {0} to {1}".format(user, password))
