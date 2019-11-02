@@ -35,7 +35,7 @@ def _list_ubuntu_packages():
 
 
 def _list_windows_programs():
-    output = common.run('powershell.exe "Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Select-Object DisplayName, Publisher, UninstallString | ConvertTo-Json"')
+    output = common.run(["powershell.exe", "Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Select-Object DisplayName, Publisher, UninstallString | ConvertTo-Json"])
     return json.loads(output)
 
 
@@ -60,8 +60,11 @@ class RemoveSoftwareUbuntu(payload.Payload):
             return
 
         to_remove = []
+        i = 0
         for package in packages:
-            keep = common.input_yesno("Would you like to keep the program '{}'".format(package))
+            i += 1
+
+            keep = common.input_yesno("({}/{}) Would you like to keep the program '{}'".format(i, len(packages), package))
             if not keep:
                 to_remove.append(package)
 
@@ -84,16 +87,21 @@ class RemoveSoftwareWindows(payload.Payload):
         programs = _list_windows_programs()
 
         # As this will take lots of manual labour, ask if they would like to check each program.
-        check = common.input_yesno("Found {} user-installed programs. Would you like to manually check them".format(len(programs)))
+        check = common.input_yesno("Found {} programs. Would you like to manually check them".format(len(programs)))
 
         if check is False:
             return
 
+        i = 0
         for program in programs:
+            i += 1
+
             if program["UninstallString"] is None:
                 common.warn("The program '{}' (by '{}') cannot be automatically removed. If it is of concern please remove it manually.".format(program["DisplayName"], program["Publisher"]))
+                continue
 
-            keep = common.input_yesno("Would you like to keep the program '{}' (by '{}')".format(program["DisplayName"], program["Publisher"]))
+
+            keep = common.input_yesno("({}/{}) Would you like to keep the program '{}' (by '{}')".format(i, len(programs), program["DisplayName"], program["Publisher"]))
             if not keep:
                 common.run(program["UninstallString"])
 

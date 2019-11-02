@@ -175,8 +175,9 @@ def backup(source, compress=False):
 
 
 def run(cmd):
+    command_list = cmd if isinstance(cmd, list) else cmd.split(" ")
     debug("Running command '{}'".format(cmd))
-    result = subprocess.run(cmd.split(" "), stdout=subprocess.PIPE)
+    result = subprocess.run(command_list, stdout=subprocess.PIPE)
     return result.stdout.decode("utf-8")
 
 
