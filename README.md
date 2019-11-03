@@ -19,6 +19,7 @@ CentSecure fixes security holes automatically which gets some of the 'lower hang
 - [Features](#features)
     - [All](#All)
         - [Account Management](#account-management)
+        - [Remove Software](#remove-software)
     - [Linux](#linux)
         - [PAM](#pam)
         - [Shadow Suite](#shadow-suite)
@@ -26,6 +27,7 @@ CentSecure fixes security holes automatically which gets some of the 'lower hang
         - [Firewall](#firewall)
         - [SSH](#ssh)
     - [Windows](#windows)
+        - [Apply Policies](#apply-policies)
 - [Development](#development)
     - [Using pipenv](#using-pipenv)
     - [Using regular pip](#using-regular-pip)
@@ -69,6 +71,11 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 - Ensures all standard users don't have admin rights
 - Ensures all admin users have admin rights
 - Gives all users a secure password
+- Enforces change password at next logon (*Windows only*)
+
+#### Remove Software
+
+- Polls user on what detected software to remove
 
 ### Linux
 
@@ -110,7 +117,11 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 
 ### Windows
 
-*In progress*
+#### Apply Policies
+
+- Applies a hardened local security policy
+- Applies basic firewall rules
+- Applies an advanced audit policy
 
 ## Development
 
