@@ -1,6 +1,6 @@
 # Common Vulnerabilities
 This is a list of previous vulnerabilities found
-## Ubuntu
+## Ubuntu/Debian
 - Forensics questions (6-10)
 - Created account as per brief (3-4)
 - Guest account disabled (2-4)
