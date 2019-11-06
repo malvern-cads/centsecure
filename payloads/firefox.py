@@ -3,6 +3,7 @@ import common
 import os
 import shutil
 
+
 class Firefox(payload.Payload):
     name = "Firefox"
     os = ["All"]
@@ -28,7 +29,7 @@ class Firefox(payload.Payload):
             if os.path.isdir(current_profile_dir):
                 common.info("Adding user.js for {}".format(home))
                 profiles = os.listdir(current_profile_dir)
-            
+
                 for profile in profiles:
                     path = os.path.join(current_profile_dir, profile)
                     if os.path.isdir(path):
