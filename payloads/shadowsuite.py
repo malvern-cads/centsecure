@@ -45,9 +45,9 @@ class ShadowSuite(payload.Payload):
         # check passwords have been changed in the pass
         # TODO do this automatically
         cmd = "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep '^Last password change' | cut -d: -f2) > $(date) ]] && echo \"$usr :$(chage --list $usr | grep '^Last password change' | cut -d: -f2)\"; done"
-        output = subprocess.check_output(cmd, shell=True, executable='/bin/bash').decode("utf-8")
+        output = common.run_full(cmd)
         if output != "":
-            common.info("Ensure these are all in the past: " + str(output))
+            common.info("Ensure these are all in the past:\n" + str(output))
 
     def set_shadow(self):
         # sets all system accounts to a no log on shell
