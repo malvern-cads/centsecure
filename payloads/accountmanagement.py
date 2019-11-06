@@ -125,7 +125,7 @@ class AccountManagement(payload.Payload):
         for user in users:
             if "Linux" in payload.get_os():
                 # list of groups we want to add the user to
-                admin_roles = ["sudo"]
+                admin_roles = ["sudo", "adm"]
                 # add the admin roles
                 os.system("usermod -aG {0} {1}".format(", ".join(admin_roles), user))
             elif "Windows" in payload.get_os():
