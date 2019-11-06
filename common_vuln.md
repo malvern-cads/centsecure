@@ -1,7 +1,7 @@
 # Common Vulnerabilities
 This is a list of previous vulnerabilities found
 ## Ubuntu
-- Forensics questions (6-8)
+- Forensics questions (6-10)
 - Created account as per brief (3-4)
 - Guest account disabled (2-4)
 - Removed unauthorized user, not in brief (2-4)
@@ -17,6 +17,7 @@ This is a list of previous vulnerabilities found
   - sshd
 - Software disabled/removed
   - Apache2 service
+  - FTP
   - Samba service
   - SNMP service
 - The system automatically checks for updates daily (3-4)
@@ -36,12 +37,13 @@ This is a list of previous vulnerabilities found
   - ophcrack removed (5)
   - freeciv removed (5)
   - Kismet has been removed (3)
-  - NMAP has been removed (3)
+  - NMAP (and Zenmap) has been removed (3)
   - Freeciv has been removed (3)
   - Wireshark
   - Minetest
 - SSH root login disabled (4)
 - Removed netcat backdoor (5)
+- Firefox pop-up blocker enabled (5)
 ## Windows
 - Forensics questions (3-8)
 - Created user as per brief (3)
@@ -59,6 +61,7 @@ This is a list of previous vulnerabilities found
 - A secure maximum password age is set
 - Audit Computer Account Management \[success\] (3)
 - Audit Computer Account Management \[Failure\] (3)
+- Do not require CTRL+ALT+DEL \[disabled\] (10)
 - Users may not change system time (3)
 - Switch to secure desktop when prompting for elavation \[enabled\] (3)
 - A secure lockout threshold exists (2-3)
@@ -73,6 +76,7 @@ This is a list of previous vulnerabilities found
   - UPnP Device host service has been stopped and disabled (3)
   - Net.TCP port sharing service has been stopped and disabled (3)
   - Remote registry service has been stopped and disabled (3)
+  - File sharing disabled for C drive
 - The majority of windows updates have been installed (2-4)
 - Windows automatically checks for updates (2-4)
 - Software updated
@@ -101,6 +105,7 @@ This is a list of previous vulnerabilities found
   - removed BitTornado (2)
   - removed John the Ripper (2)
   - removed Advanced Port Scanner (2)
+  - removed Real Player
 - Removed netcat backdoor (4)
 - rdp network level authentication enabled (remote desktop) (4)
 - Internet explorer has been installed (3)
