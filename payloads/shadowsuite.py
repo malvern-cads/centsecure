@@ -1,7 +1,6 @@
 import common
 import os
 import glob
-import subprocess
 import payload
 
 
