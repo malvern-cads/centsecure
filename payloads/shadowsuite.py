@@ -55,9 +55,7 @@ class ShadowSuite(payload.Payload):
         os.system("awk -F: '($1!=\"root\" && $1!~/^\\+/ && $3<'\"$(awk '/^\\s*UID_MIN/{print $2}' /etc/login.defs)\"') {print $1}' /etc/passwd | xargs -I '{}' passwd -S '{}' | awk '($2!=\"L\" && $2!=\"LK\") {print $1}' | while read user; do usermod -L $user; done")
 
         # sets root group uid to 0
-        output = common.run("usermod -g 0 root")
-        if output != "usermod: no changes":
-            print(output)
+        common.run("usermod -g 0 root")
 
     def set_profile(self):
         # set umask and shell timeout
