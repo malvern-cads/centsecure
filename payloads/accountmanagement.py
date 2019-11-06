@@ -109,7 +109,12 @@ class AccountManagement(payload.Payload):
 
     def set_standard_users(self, users):
         common.info("Setting standard users...")
+        if "Linux" in payload.get_os():
+            common.warn("Not setting standard users, need to check manually")
+            return
         for user in users:
+            # TODO this causes Removed one or more authorized administrators error
+            # No idea why
             if "Linux" in payload.get_os():
                 # set only group to be the user's primary group
                 os.system("usermod -G {0} {0}".format(user))
