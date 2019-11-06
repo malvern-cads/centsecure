@@ -11,10 +11,8 @@ class Pam(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        common.debug("PAM has been executed!")
         self.set_password_requirements()
         self.set_password_lockout()
-        common.debug("PAM has finished")
 
     def set_password_requirements(self):  # also deals with password reuse and ensuring sha512 is used
         # /etc/pam.d/system-auth - check if exists due to alternative method of implementation
@@ -26,7 +24,6 @@ class Pam(payload.Payload):
         common.backup(path)
         # we need to ensure cracklib is installed, it will also change common-password
         os.system("sudo apt install libpam-cracklib -y -q")
-        shutil.copy2(path, ".")
         common.backup(path)
 
         with open(path) as in_file:

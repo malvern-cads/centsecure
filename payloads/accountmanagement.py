@@ -124,8 +124,6 @@ class AccountManagement(payload.Payload):
         common.info("Setting admin users...")
         for user in users:
             if "Linux" in payload.get_os():
-                # first remove all groups
-                os.system("usermod -G {0} {0}".format(user))
                 # list of groups we want to add the user to
                 admin_roles = ["sudo"]
                 # add the admin roles
@@ -145,6 +143,7 @@ class AccountManagement(payload.Payload):
 
     def change_password_on_login(self, user):
         if "Linux" in payload.get_os():
-            common.debug("Not implemented for Linux")
+            # TODO see if this can be implemented
+            pass
         elif "Windows" in payload.get_os():
             os.system("net user \"{}\" /logonpasswordchg:yes".format(user))

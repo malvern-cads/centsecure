@@ -9,7 +9,6 @@ class SSH(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        common.debug("Executing SSH")
         path = "/etc/ssh/sshd_config"
         common.backup(path)
 
