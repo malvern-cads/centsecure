@@ -1,5 +1,4 @@
 import payload
-import shutil
 import os
 import common
 
