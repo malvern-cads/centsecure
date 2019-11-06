@@ -132,7 +132,7 @@ class AccountManagement(payload.Payload):
                 # list of groups we want to add the user to
                 admin_roles = ["sudo", "adm"]
                 # add the admin roles
-                os.system("usermod -aG {0} {1}".format(", ".join(admin_roles), user))
+                os.system("usermod -aG {0} {1}".format(",".join(admin_roles), user))
             elif "Windows" in payload.get_os():
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 if "Administrators" not in groups:
