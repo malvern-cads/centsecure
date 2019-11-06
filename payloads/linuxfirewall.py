@@ -9,6 +9,4 @@ class LinuxFirewall(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        common.debug("Linux Firewall is being executed")
         os.system("ufw enable")
-        common.debug("Linux Firewall has finished")

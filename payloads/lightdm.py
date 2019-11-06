@@ -9,7 +9,6 @@ class Lightdm(payload.Payload):
     os_version = ["16.04"]
 
     def execute(self):
-        common.debug("Lightdm has been executed!")
         path = "/etc/lightdm/lightdm.conf"
         config = configparser.ConfigParser()
         try:
@@ -29,4 +28,3 @@ class Lightdm(payload.Payload):
             config.write(out_file)
 
         common.info("{} updated".format(path))
-        common.debug("Lightdm has finished")
