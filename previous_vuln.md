@@ -194,6 +194,21 @@ The number in brackets for the title is (number of vulnerabilities found/total v
 - Prohibited MP3 files are removed - 5 pts
 - Prohibited software Zenmap and Nmap removed - 5 pts
 - Firefox pop-up blocker enabled - 5 pts
+#### Debian 8 (14/14) (100)
+- Forensics Question 1 correct - 12 pts
+- User auditing check passed - 6 pts (change password)
+- User auditing check passed - 6 pts (remove user)
+- User auditing check passed - 6 pts (remove user)
+- User auditing check passed - 6 pts (demoted user)
+- Defensive countermeasure check passed - 8 pts (enabled firewall)
+- Service auditing check passed - 8 pts (removed apache2)
+- Operating system update check passed - 6 pts
+- Application update check passed - 6 pts
+- Application update check passed - 6 pts
+- Prohibited file check passed - 7 pts
+- Unwanted software check passed - 7 pts (removed wireshark)
+- Unwanted software check passed - 7 pts (removed ophcrack)
+- Application security check passed - 9 pts (disable ssh root logon)
 #### Windows 10 1607 (14/14) (100)
 - Forensics Question 1 correct - 10 pts
 - Forensics Question 2 correct - 10 pts
