@@ -1,6 +1,5 @@
 import payload
 import os
-import common
 
 
 class LinuxFirewall(payload.Payload):
