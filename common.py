@@ -181,5 +181,12 @@ def run(cmd):
     return result.stdout.decode("utf-8")
 
 
+def run_full(cmd):
+    warn("Running unescaped command '{}'".format(cmd))
+    # Full commands are likely to be complex so we run using bash instead of sh
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, executable="/bin/bash")
+    return result.stdout.decode("utf-8")
+
+
 # Initialize colorama
 init(autoreset=True)
