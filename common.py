@@ -12,6 +12,13 @@ from colorama import init, Fore, Back
 import subprocess
 
 
+def stdout(msg):
+    """
+    Intended for output of shell commands
+    """
+    print(msg.strip())
+
+
 def info(msg):
     print(Fore.BLUE + "[i] {}".format(msg))
 
