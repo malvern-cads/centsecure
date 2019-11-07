@@ -80,16 +80,6 @@ def warn(msg):
     print(Fore.YELLOW + output)  # noqa: T001
 
 
-def warn(msg):
-    """Print a warning message to the console.
-
-    Args:
-        msg (str): The message to print to the console
-
-    """
-    print(Fore.YELLOW + "[!] {}".format(msg))  # noqa: T001
-
-
 def error(msg, e=None):
     """Print an error message to the console.
 
