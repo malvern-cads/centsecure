@@ -16,26 +16,26 @@ def stdout(msg):
     """
     Intended for output of shell commands
     """
-    print(msg.strip())
+    print(msg.strip())  # noqa: T001
 
 
 def info(msg):
-    print(Fore.BLUE + "[i] {}".format(msg))
+    print(Fore.BLUE + "[i] {}".format(msg))  # noqa: T001
 
 
 def debug(msg):
-    print(Fore.WHITE + "[#] {}".format(msg))
+    print(Fore.WHITE + "[#] {}".format(msg))  # noqa: T001
 
 
 def warn(msg):
-    print(Fore.YELLOW + "[!] {}".format(msg))
+    print(Fore.YELLOW + "[!] {}".format(msg))  # noqa: T001
 
 
 def error(msg, e=None):
     if e is not None:
-        print(Fore.WHITE + Back.RED + "[E] {} -> {}".format(msg, repr(e)))
+        print(Fore.WHITE + Back.RED + "[E] {} -> {}".format(msg, repr(e)))  # noqa: T001
     else:
-        print(Fore.WHITE + Back.RED + "[E] {}".format(msg))
+        print(Fore.WHITE + Back.RED + "[E] {}".format(msg))  # noqa: T001
 
 
 def input_text(msg):
@@ -57,7 +57,7 @@ def input_yesno(msg):
 
 def input_list(msg):
     while True:
-        print(Fore.GREEN + "[?] {}. Please seperate items with a semicolon.".format(msg))
+        print(Fore.GREEN + "[?] {}. Please seperate items with a semicolon.".format(msg))  # noqa: T001
         user_input = input(Fore.GREEN + "    > ")
         input_list = user_input.split(";")
 
