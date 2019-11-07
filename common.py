@@ -135,7 +135,10 @@ def _backup_directory():
     """
     Get the backup directory
     """
-    directory = os.path.join(tempfile.gettempdir(), "centsecure")
+    # directory = os.path.join(tempfile.gettempdir(), "centsecure")
+    # if not os.path.exists(directory):
+    #     os.makedirs(directory)
+    directory = "backups"
     if not os.path.exists(directory):
         os.makedirs(directory)
     return directory
