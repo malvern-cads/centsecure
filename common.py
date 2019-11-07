@@ -1,5 +1,13 @@
-"""
-This file contains 'helper' functions that are used in payloads.
+"""Common functions for use throughout payloads.
+
+This file contains common functions that can be used throughout CentSecure, mainly
+in payloads. There are logging, backup and other functions.
+
+  Logging usage:
+  common.debug('Changing passwords...')
+
+  Backup usage:
+  backup('/home/user/cat.jpg')
 """
 
 import os
@@ -11,17 +19,23 @@ from colorama import init, Fore, Back
 import subprocess
 
 
-def _log(msg):
-    """
-    Appends the message to the log file.
+def _log(text):
+    """Appends the message to the log file.
+
+    Args:
+        text (str): The text to save
+
     """
     with open("output.log", "a") as out_file:
-        out_file.write("{}\n".format(msg))
+        out_file.write("{}\n".format(text))
 
 
-def stdout(msg):
-    """
-    Intended for output of shell commands
+def _stdout(msg):
+    """Print command output to the console.
+
+    Args:
+        msg (str): The commands stdout
+
     """
     output = msg.strip()
     _log(output)
@@ -29,24 +43,61 @@ def stdout(msg):
 
 
 def info(msg):
+    """Print a message to the console containing information.
+
+    Args:
+        msg (str): The message to print to the console
+
+    """
     output = "[i] {}".format(msg)
     _log(output)
     print(Fore.BLUE + output)  # noqa: T001
 
 
 def debug(msg):
+    """Print a debugging message to the console.
+
+    This might not always be shown to the user.
+
+    Args:
+        msg (str): The message to print to the console
+
+    """
     output = "[#] {}".format(msg)
     _log(output)
     print(Fore.WHITE + output)  # noqa: T001
 
 
 def warn(msg):
+    """Print a warning message to the console.
+
+    Args:
+        msg (str): The message to print to the console
+
+    """
     output = "[!] {}".format(msg)
     _log(output)
     print(Fore.YELLOW + output)  # noqa: T001
 
 
+def warn(msg):
+    """Print a warning message to the console.
+
+    Args:
+        msg (str): The message to print to the console
+
+    """
+    print(Fore.YELLOW + "[!] {}".format(msg))  # noqa: T001
+
+
 def error(msg, e=None):
+    """Print an error message to the console.
+
+    Args:
+        msg (str): The message to print to the console
+        e (exception, optional): An exception to show alongside the message. Defaults to None.
+
+    """
     if e is not None:
         output = "[E] {} -> {}".format(msg, repr(e))
         print(Fore.WHITE + Back.RED + output)  # noqa: T001
@@ -57,6 +108,15 @@ def error(msg, e=None):
 
 
 def input_text(msg):
+    """Ask a question to the user and get a text-based response.
+
+    Args:
+        msg (str): The question to be asked to the user (without a question mark)
+
+    Returns:
+        str: The user's response
+
+    """
     while True:
         question = "[?] {}? ".format(msg)
         user_input = input(Fore.GREEN + question)
@@ -65,6 +125,15 @@ def input_text(msg):
 
 
 def input_yesno(msg):
+    """Ask a yes or no question to the user and get a boolean response.
+
+    Args:
+        msg (str): The question to be asked to the user (without a question mark)
+
+    Returns:
+        boolean: The user's response (True for yes, False for no)
+
+    """
     while True:
         user_input = input_text(msg + " (y/n)")
         if user_input.lower() == "y":
@@ -76,6 +145,15 @@ def input_yesno(msg):
 
 
 def input_list(msg):
+    """Ask a question to the user and get a list as a response.
+
+    Args:
+        msg (str): The prompt to be shown. (e.g. Write a list of...)
+
+    Returns:
+        list[str]: The user's response as a list of strings
+
+    """
     while True:
         output = "[?] {}. Please seperate items with a semicolon.".format(msg)
         print(Fore.GREEN + output)  # noqa: T001
@@ -91,6 +169,12 @@ def input_list(msg):
 
 
 def is_admin():
+    """Check if the user running the script has admin privileges.
+
+    Returns:
+        boolean: Whether the user is an admin (True if they are, False if they are not)
+
+    """
     try:
         return os.getuid() == 0
     except AttributeError:
@@ -105,8 +189,11 @@ def is_admin():
 
 
 def get_current_users():
-    """
-    Returns a list of the non-system users
+    """Returns a list of the non-system users on the system.
+
+    Returns:
+        list[str]: List containing all of the usernames of non-system users
+
     """
     with open("/etc/passwd") as in_file:
         text = in_file.read()
@@ -122,11 +209,14 @@ def get_current_users():
 
 
 def change_parameters(path, params):
-    """
-    Modifies a config file with the given parameters
+    """Modify a config file with the given parameters.
 
-    The config file needs to be in the format:
-    <key> <value>
+    The config file needs to be in the format: <key> <value>
+
+    Args:
+        path (str): The path to the config file to modify
+        params (dictionary): A dictionary containing keys and their corresponding values to be modified
+
     """
     with open(path) as in_file:
         lines = in_file.read().split("\n")
@@ -155,8 +245,11 @@ def change_parameters(path, params):
 
 
 def _backup_directory():
-    """
-    Get the backup directory
+    """Generate a folder where backups should be stored.
+
+    Returns:
+        str: Path to the backup folder
+
     """
     directory = "backups"
     if not os.path.exists(directory):
@@ -165,13 +258,30 @@ def _backup_directory():
 
 
 def _filename(path, t=None):
+    """Generate a filename for a backed up file.
+
+    Args:
+        path (str): The path where the file originated from
+        t (str, optional): The type of file (file or folder). Defaults to None.
+
+    Returns:
+        str: The filename
+
+    """
     d = datetime.datetime.now()
     return ((t + "_") if t is not None else "") + "{}-{}-{}_{}-{}-{}_".format(d.year, d.month, d.day, d.hour, d.minute, d.second) + path.replace("/", "_")[1:]
 
 
 def backup(source, compress=False):
-    """
-    Copy the file at `source` to the backup directory.
+    """Copy the file or folder from the source to the backup directory.
+
+    Args:
+        source (str): A path to the file or folder to backup
+        compress (bool, optional): Whether the folder should be compressed. Defaults to False.
+
+    Returns:
+        str: The path of where the file or folder was backed up to
+
     """
     # Check if the source path is a folder or not
     folder = os.path.isdir(source)
@@ -205,6 +315,15 @@ def backup(source, compress=False):
 
 
 def run(cmd):
+    """Run a shell command.
+
+    Args:
+        cmd (str/list[str]): The command to be run.
+
+    Returns:
+        str: The command's output.
+
+    """
     command_list = cmd if isinstance(cmd, list) else cmd.split(" ")
     debug("Running command '{}'".format(cmd))
     result = subprocess.run(command_list, stdout=subprocess.PIPE)
@@ -212,6 +331,15 @@ def run(cmd):
 
 
 def run_full(cmd):
+    """Run a shell command unescaped and with bash.
+
+    Args:
+        cmd (str): The command to be run.
+
+    Returns:
+        str: The command's output
+
+    """
     warn("Running unescaped command '{}'".format(cmd))
     # Full commands are likely to be complex so we run using bash instead of sh
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, executable="/bin/bash")
