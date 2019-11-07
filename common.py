@@ -2,7 +2,6 @@
 This file contains 'helper' functions that are used in payloads.
 """
 
-import tempfile
 import os
 import shutil
 import datetime
@@ -12,35 +11,56 @@ from colorama import init, Fore, Back
 import subprocess
 
 
+def _log(msg):
+    """
+    Appends the message to the log file.
+    """
+    with open("output.log", "a") as out_file:
+        out_file.write("{}\n".format(msg))
+
+
 def stdout(msg):
     """
     Intended for output of shell commands
     """
-    print(msg.strip())  # noqa: T001
+    output = msg.strip()
+    _log(output)
+    print(output)  # noqa: T001
 
 
 def info(msg):
-    print(Fore.BLUE + "[i] {}".format(msg))  # noqa: T001
+    output = "[i] {}".format(msg)
+    _log(output)
+    print(Fore.BLUE + output)  # noqa: T001
 
 
 def debug(msg):
-    print(Fore.WHITE + "[#] {}".format(msg))  # noqa: T001
+    output = "[#] {}".format(msg)
+    _log(output)
+    print(Fore.WHITE + output)  # noqa: T001
 
 
 def warn(msg):
-    print(Fore.YELLOW + "[!] {}".format(msg))  # noqa: T001
+    output = "[!] {}".format(msg)
+    _log(output)
+    print(Fore.YELLOW + output)  # noqa: T001
 
 
 def error(msg, e=None):
     if e is not None:
-        print(Fore.WHITE + Back.RED + "[E] {} -> {}".format(msg, repr(e)))  # noqa: T001
+        output = "[E] {} -> {}".format(msg, repr(e))
+        print(Fore.WHITE + Back.RED + output)  # noqa: T001
     else:
-        print(Fore.WHITE + Back.RED + "[E] {}".format(msg))  # noqa: T001
+        output = "[E] {}".format(msg)
+        print(Fore.WHITE + Back.RED + output)  # noqa: T001
+    _log(output)
 
 
 def input_text(msg):
     while True:
-        user_input = input(Fore.GREEN + "[?] {}? ".format(msg))
+        question = "[?] {}? ".format(msg)
+        user_input = input(Fore.GREEN + question)
+        _log(question + user_input)
         return user_input
 
 
@@ -57,8 +77,11 @@ def input_yesno(msg):
 
 def input_list(msg):
     while True:
-        print(Fore.GREEN + "[?] {}. Please seperate items with a semicolon.".format(msg))  # noqa: T001
-        user_input = input(Fore.GREEN + "    > ")
+        output = "[?] {}. Please seperate items with a semicolon.".format(msg)
+        print(Fore.GREEN + output)  # noqa: T001
+        input_text = "    > "
+        user_input = input(Fore.GREEN + input_text)
+        _log("{}\n{}{}".format(output, input_text, user_input))
         input_list = user_input.split(";")
 
         question = "This is what you inputted:\n - {}\nIs that correct".format("\n - ".join(input_list))
@@ -135,9 +158,6 @@ def _backup_directory():
     """
     Get the backup directory
     """
-    # directory = os.path.join(tempfile.gettempdir(), "centsecure")
-    # if not os.path.exists(directory):
-    #     os.makedirs(directory)
     directory = "backups"
     if not os.path.exists(directory):
         os.makedirs(directory)
