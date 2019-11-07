@@ -19,7 +19,7 @@ class RemoveMedia(payload.Payload):
 
         to_remove = []
         for index, f in enumerate(files):
-            keep = common.input_yesno("({}/{}) Would you like to keep the file '{}'".format(index+1, len(files), f))
+            keep = common.input_yesno("({}/{}) Would you like to keep the file '{}'".format(index + 1, len(files), f))
             if not keep:
                 to_remove.append(f)
 
