@@ -63,8 +63,8 @@ def _check_whitelist(obj):
 
 
 class RemoveSoftwareUbuntu(payload.Payload):
-    name = "Remove Software (Ubuntu)"
-    os = ["Ubuntu"]
+    name = "Remove Software (Ubuntu/Debian)"
+    os = ["Ubuntu", "Debian"]
     os_version = ["all"]
 
     def execute(self):
