@@ -14,6 +14,7 @@ apt install software-properties-common apt-transport-https -y
 add-apt-repository ppa:deadsnakes/ppa
 apt update
 apt install unzip python3.8 python3.8-dev python3.8-distutils curl -y
+curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python3.8
 
 # Unzip file to destination
 echo "Extracting files..."
