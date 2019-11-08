@@ -1,3 +1,5 @@
+"""A payload for removing and adding software."""
+
 import payload
 import common
 import re
@@ -63,11 +65,13 @@ def _check_whitelist(obj):
 
 
 class RemoveSoftwareUbuntu(payload.Payload):
+    """Remove software packages interactively on Ubuntu and Debian."""
     name = "Remove Software (Ubuntu/Debian)"
     os = ["Ubuntu", "Debian"]
     os_version = ["all"]
 
     def execute(self):
+        """Remove the packages."""
         packages = _list_ubuntu_packages()
 
         # As this will take lots of manual labour, ask if they would like to check each package.
@@ -99,11 +103,13 @@ class RemoveSoftwareUbuntu(payload.Payload):
 
 
 class RemoveSoftwareWindows(payload.Payload):
+    """Remove software interactively on Windows."""
     name = "Remove Software (Windows)"
     os = ["Windows"]
     os_version = ["all"]
 
     def execute(self):
+        """Remove the packages."""
         programs = _list_windows_programs()
 
         # As this will take lots of manual labour, ask if they would like to check each program.
