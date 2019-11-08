@@ -21,12 +21,11 @@ pause
 echo "Installing dependencies (1/2)..."
 choco install python
 mkdir C:\centsecure\
-unzip "centsecure.zip" -d "C:\centsecure\"
-xcopy requirements.txt C:\centsecure\
+powershell Expand-Archive centsecure.zip -DestinationPath C:/centsecure
+copy requirements.txt C:\centsecure\
 
 cd C:\centsecure\
 echo "Installing dependencies (2/2)..."
 python -m pip install -r requirements.txt
-python
 
 echo "CentSecure has been installed. To run, change directory to 'C:\centsecure\' and run the command 'python centsecure.py'. Good luck!"
