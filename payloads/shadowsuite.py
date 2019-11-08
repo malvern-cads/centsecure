@@ -29,15 +29,15 @@ class ShadowSuite(payload.Payload):
         common.change_parameters(path, params)
 
         # inactive password lock
-        os.system("useradd -D -f 30")
+        common.run("useradd -D -f 30")
 
         users = common.get_current_users()
         for user in users:
-            os.system("chage --lastday $(date +%Y/%m/%d) {}".format(user))
-            os.system("chage --maxdays 365 {}".format(user))
-            os.system("chage --mindays 7 {}".format(user))
-            os.system("chage --warndays 7 {}".format(user))
-            os.system("chage --inactive 30 {}".format(user))
+            common.run("chage --lastday $(date +%Y/%m/%d) {}".format(user))
+            common.run("chage --maxdays 365 {}".format(user))
+            common.run("chage --mindays 7 {}".format(user))
+            common.run("chage --warndays 7 {}".format(user))
+            common.run("chage --inactive 30 {}".format(user))
 
     def check_shadow(self):
         # check passwords have been changed in the pass
@@ -49,10 +49,10 @@ class ShadowSuite(payload.Payload):
 
     def set_shadow(self):
         # sets all system accounts to a no log on shell
-        os.system("awk -F: '($1!=\"root\" && $1!=\"sync\" && $1!=\"shutdown\" && $1!=\"halt\" && $1!~/^\\+/ && $3<'\"$(awk '/^\\s*UID_MIN/{print $2}' /etc/login.defs)\"' && $7!=\"'\"$(which nologin)\"'\" && $7!=\"/bin/false\") {print $1}' /etc/passwd | while read user; do usermod -s $(which nologin) $user; done")
+        common.run_full("awk -F: '($1!=\"root\" && $1!=\"sync\" && $1!=\"shutdown\" && $1!=\"halt\" && $1!~/^\\+/ && $3<'\"$(awk '/^\\s*UID_MIN/{print $2}' /etc/login.defs)\"' && $7!=\"'\"$(which nologin)\"'\" && $7!=\"/bin/false\") {print $1}' /etc/passwd | while read user; do usermod -s $(which nologin) $user; done")
 
         # locks all non root system accounts
-        os.system("awk -F: '($1!=\"root\" && $1!~/^\\+/ && $3<'\"$(awk '/^\\s*UID_MIN/{print $2}' /etc/login.defs)\"') {print $1}' /etc/passwd | xargs -I '{}' passwd -S '{}' | awk '($2!=\"L\" && $2!=\"LK\") {print $1}' | while read user; do usermod -L $user; done")
+        common.run_full("awk -F: '($1!=\"root\" && $1!~/^\\+/ && $3<'\"$(awk '/^\\s*UID_MIN/{print $2}' /etc/login.defs)\"') {print $1}' /etc/passwd | xargs -I '{}' passwd -S '{}' | awk '($2!=\"L\" && $2!=\"LK\") {print $1}' | while read user; do usermod -L $user; done")
 
         # sets root group uid to 0
         common.run("usermod -g 0 root")
