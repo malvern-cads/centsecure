@@ -36,7 +36,7 @@ class ShadowSuite(payload.Payload):
 
         users = common.get_current_users()
         for user in users:
-            common.run("chage --lastday $(date +%Y/%m/%d) {}".format(user))
+            common.run_full("chage --lastday $(date +%Y/%m/%d) {}".format(user))
             common.run("chage --maxdays 365 {}".format(user))
             common.run("chage --mindays 7 {}".format(user))
             common.run("chage --warndays 7 {}".format(user))
