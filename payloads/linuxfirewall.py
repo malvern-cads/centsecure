@@ -1,5 +1,5 @@
 import payload
-import os
+import common
 
 
 class LinuxFirewall(payload.Payload):
@@ -8,4 +8,4 @@ class LinuxFirewall(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        os.system("ufw enable")
+        common.run("ufw enable")

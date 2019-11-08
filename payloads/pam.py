@@ -22,7 +22,7 @@ class Pam(payload.Payload):
         path = "/etc/pam.d/common-password"
         common.backup(path)
         # we need to ensure cracklib is installed, it will also change common-password
-        os.system("sudo apt install libpam-cracklib -y -q")
+        common.run("sudo apt install libpam-cracklib -y -q")
         common.backup(path)
 
         with open(path) as in_file:
