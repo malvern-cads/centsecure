@@ -1,3 +1,8 @@
+"""Payload specific code.
+
+Contains the base class for payloads, plugin loaders and OS checking functions.
+"""
+
 from importlib import import_module
 from pathlib import Path
 import platform
@@ -5,6 +10,7 @@ from common import debug
 
 
 def find_plugins():
+    """Find payloads in the directory and import them (allowing them to be added to the registry)."""
     import payloads
 
     for path in payloads.__path__:
@@ -26,20 +32,33 @@ def find_plugins():
 
 
 class Payload:
+    """The base class for payloads."""
     _registry = []
     name = "Unknown Payload"
     os = ["all"]
     os_version = ["all"]
 
     def __init_subclass__(cls, **kwargs):
+        """Subclass loader.
+
+        When subclasses (i.e. payloads in the folder are loaded) they are added to the _registry
+        list on this class.
+        """
         super().__init_subclass__(**kwargs)
         cls._registry.append(cls)
 
     def execute(self):
+        """Function that is run when the payload is executed."""
         raise NotImplementedError
 
 
 def get_os():
+    """Get the host's operating system.
+
+    Returns:
+        list[str]: List containing all of the operating systems that the current computer runs.
+
+    """
     os = [platform.system(), "all"]
     if "Linux" in os:
         os.append(platform.linux_distribution()[0])  # i.e. 'Ubuntu'...
@@ -48,6 +67,12 @@ def get_os():
 
 
 def get_os_version():
+    """Get the versions of os that the host is running.
+
+    Returns:
+        list[str]: List containing all of the operating system versions that the current computer runs.
+
+    """
     version = [platform.release(), platform.version(), "all"]
     if "Linux" in get_os():
         dist = platform.linux_distribution()
@@ -66,6 +91,16 @@ def _common_items(x, y):
 
 
 def os_check(target_os, target_os_version):
+    """Check a payload's target OS and target OS version against what the computer is running.
+
+    Args:
+        target_os (list[str]): List of operating systems that the payload works against.
+        target_os_version (list[str]): List of operating system versions that the payload works against.
+
+    Returns:
+        bool: Whether the payload will work against this computer.
+
+    """
     target_os = _list_to_lower(target_os)
     target_os_version = _list_to_lower(target_os_version)
     os = _list_to_lower(get_os())

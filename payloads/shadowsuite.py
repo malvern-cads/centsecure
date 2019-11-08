@@ -1,3 +1,5 @@
+"""A payload to configure shadow."""
+
 import common
 import os
 import glob
@@ -5,17 +7,19 @@ import payload
 
 
 class ShadowSuite(payload.Payload):
+    """Configure shadowsuite."""
     name = "Secures Shadow Password Suite"
     os = ["Linux"]
     os_version = ["ALL"]
 
     def execute(self):
-        self.set_password_config()
-        self.check_shadow()
-        self.set_shadow()
-        self.set_profile()
+        """Execute payload."""
+        self._set_password_config()
+        self._check_shadow()
+        self._set_shadow()
+        self._set_profile()
 
-    def set_password_config(self):
+    def _set_password_config(self):
         common.backup("/etc/shadow")
         path = "/etc/login.defs"
         common.backup(path)
@@ -39,7 +43,7 @@ class ShadowSuite(payload.Payload):
             common.run("chage --warndays 7 {}".format(user))
             common.run("chage --inactive 30 {}".format(user))
 
-    def check_shadow(self):
+    def _check_shadow(self):
         # check passwords have been changed in the pass
         # TODO do this automatically
         cmd = "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep '^Last password change' | cut -d: -f2) > $(date) ]] && echo \"$usr :$(chage --list $usr | grep '^Last password change' | cut -d: -f2)\"; done"
@@ -47,7 +51,7 @@ class ShadowSuite(payload.Payload):
         if output != "":
             common.info("Ensure these are all in the past:\n" + str(output))
 
-    def set_shadow(self):
+    def _set_shadow(self):
         # sets all system accounts to a no log on shell
         common.run_full("awk -F: '($1!=\"root\" && $1!=\"sync\" && $1!=\"shutdown\" && $1!=\"halt\" && $1!~/^\\+/ && $3<'\"$(awk '/^\\s*UID_MIN/{print $2}' /etc/login.defs)\"' && $7!=\"'\"$(which nologin)\"'\" && $7!=\"/bin/false\") {print $1}' /etc/passwd | while read user; do usermod -s $(which nologin) $user; done")
 
@@ -57,7 +61,7 @@ class ShadowSuite(payload.Payload):
         # sets root group uid to 0
         common.run("usermod -g 0 root")
 
-    def set_profile(self):
+    def _set_profile(self):
         # set umask and shell timeout
         profiles = ["/etc/bashrc", "/etc/bash.bashrc", "/etc/profile"]
         for profile in profiles:
