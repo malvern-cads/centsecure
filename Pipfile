@@ -7,10 +7,13 @@ verify_ssl = true
 flake8 = "*"
 pyinstaller = "*"
 autopep8 = "*"
+flake8-print = "*"
+flake8-eradicate = "*"
+flake8-docstrings = "*"
 
 [packages]
 colorama = "*"
-pywin32 = {version = "*", sys_platform = "== 'win32'"}
+pywin32 = {version = "*",sys_platform = "== 'win32'"}
 
 [requires]
 python_version = "3.7"

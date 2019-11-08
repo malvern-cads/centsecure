@@ -17,8 +17,9 @@ CentSecure fixes security holes automatically which gets some of the 'lower hang
     - [Manually](#manually)
 - [Structure](#structure)
 - [Features](#features)
-    - [All](#All)
+    - [All](#all)
         - [Account Management](#account-management)
+        - [Remove Software](#remove-software)
     - [Linux](#linux)
         - [PAM](#pam)
         - [Shadow Suite](#shadow-suite)
@@ -26,9 +27,12 @@ CentSecure fixes security holes automatically which gets some of the 'lower hang
         - [Firewall](#firewall)
         - [SSH](#ssh)
     - [Windows](#windows)
+        - [Apply Policies](#apply-policies)
 - [Development](#development)
-    - [Using pipenv](#using-pipenv)
-    - [Using regular pip](#using-regular-pip)
+    - [Tests](#tests)
+    - [Installation](#installation)
+        - [Using pipenv](#using-pipenv)
+        - [Using regular pip](#using-regular-pip)
 - [Payloads](#payloads)
     - [Payload Parameters](#payload-parameters)
 
@@ -69,6 +73,11 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 - Ensures all standard users don't have admin rights
 - Ensures all admin users have admin rights
 - Gives all users a secure password
+- Enforces change password at next logon (*Windows only*)
+
+#### Remove Software
+
+- Polls user on what detected software to remove
 
 ### Linux
 
@@ -110,11 +119,30 @@ If you don't want to use binaries, you can manually install CentSecure. Read one
 
 ### Windows
 
-*In progress*
+#### Apply Policies
+
+- Applies a hardened local security policy
+- Applies basic firewall rules
+- Applies an advanced audit policy
 
 ## Development
 
-### Using pipenv
+### Tests
+
+This project has checks run against it to check for consistent and clean style. These tests are run against every commit and pull request, but if you are making contributions, you should run them yourself **before committing**!
+
+As well as the 'usual' style linting, we have opted to:
+
+- Disable checks for maximum line lengths
+- Enable checks for usage of `print` - you should be using `common.debug`, `log`, `warn` or `error`
+- Enable checks for 'dead' code, including commented out code - we are using git so if we need to revert a change we can ;)
+- Enable checks for 'docstrings', we are using the Google format (read about the syntax [here](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings))
+
+You can run the tests by running `flake8` (after following the installation steps below).
+
+### Installation
+
+#### Using pipenv
 
 All of the programs dependencies are managed by `pipenv`, this makes a virtual environement for the program allowing it to have the same dependencies and Python version installed no matter which computer is running on.
 
@@ -127,7 +155,7 @@ Now clone the repository to your computer and install the dependencies:
 
 ```bash
 git clone https://github.com/jake-walker/centsecure
-pipenv install
+pipenv install --dev
 ```
 
 Then to run the program, simply use the command:
@@ -136,7 +164,7 @@ Then to run the program, simply use the command:
 pipenv run python centsecure.py
 ```
 
-### Using regular pip
+#### Using regular pip
 
 If you don't want to use `pipenv`, you can manually install dependencies. Open `Pipfile` and look under the `[packages]` section and install all of the packages listed there using pip. For example, for `logzero`, you would do:
 

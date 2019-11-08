@@ -1,15 +1,18 @@
+"""A payload to configure LightDM."""
+
 import payload
 import configparser
 import common
 
 
 class Lightdm(payload.Payload):
+    """Configure LightDM."""
     name = "Lightdm securing"
     os = ["Ubuntu"]
     os_version = ["16.04"]
 
     def execute(self):
-        common.debug("Lightdm has been executed!")
+        """Execute payload."""
         path = "/etc/lightdm/lightdm.conf"
         config = configparser.ConfigParser()
         try:
@@ -29,4 +32,3 @@ class Lightdm(payload.Payload):
             config.write(out_file)
 
         common.info("{} updated".format(path))
-        common.debug("Lightdm has finished")

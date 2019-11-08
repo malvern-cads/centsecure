@@ -194,6 +194,21 @@ The number in brackets for the title is (number of vulnerabilities found/total v
 - Prohibited MP3 files are removed - 5 pts
 - Prohibited software Zenmap and Nmap removed - 5 pts
 - Firefox pop-up blocker enabled - 5 pts
+#### Debian 8 (14/14) (100)
+- Forensics Question 1 correct - 12 pts
+- User auditing check passed - 6 pts (change password)
+- User auditing check passed - 6 pts (remove user)
+- User auditing check passed - 6 pts (remove user)
+- User auditing check passed - 6 pts (demoted user)
+- Defensive countermeasure check passed - 8 pts (enabled firewall)
+- Service auditing check passed - 8 pts (removed apache2)
+- Operating system update check passed - 6 pts
+- Application update check passed - 6 pts
+- Application update check passed - 6 pts
+- Prohibited file check passed - 7 pts
+- Unwanted software check passed - 7 pts (removed wireshark)
+- Unwanted software check passed - 7 pts (removed ophcrack)
+- Application security check passed - 9 pts (disable ssh root logon)
 #### Windows 10 1607 (14/14) (100)
 - Forensics Question 1 correct - 10 pts
 - Forensics Question 2 correct - 10 pts
@@ -209,3 +224,16 @@ The number in brackets for the title is (number of vulnerabilities found/total v
 - A secure maximum password age exists - 5 pts
 - FTP service has stopped and disabled - 5 pts
 - Removed prohibited MP3 files - 5 pts
+#### Windows Server 2016 (12/12) (100)
+- Forensics Question 1 correct - 10 pts
+- Forensics Question 2 correct - 10 pts
+- Forensics Question 3 correct - 10 pts
+- Removed unauthorized user hzolomon - 5 pts
+- Removed unauthorized user awalker - 5 pts
+- Created user account rdibney - 5 pts
+- User savitar has a password - 10 pts
+- User mrory has a password - 10 pts
+- A secure minimum password length is required - 5 pts
+- Do not require CTRL+ALT+DEL [disabled] - 10 pts
+- File sharing disabled for C drive - 10 pts
+- Removed Real Player - 10 pts

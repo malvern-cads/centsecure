@@ -1,22 +1,26 @@
+"""A payload to configure PAM."""
+
 import payload
-import shutil
 import os
 import common
 
 
 # list all pam modules available: sudo updatedb && locate --regex '.*/pam_[^/]+\.so$'
 class Pam(payload.Payload):
+    """Configure PAM.
+
+    Set password requirements and lockout policy.
+    """
     name = "Secure PAM"
     os = ["Linux"]
     os_version = ["ALL"]
 
     def execute(self):
-        common.debug("PAM has been executed!")
-        self.set_password_requirements()
-        self.set_password_lockout()
-        common.debug("PAM has finished")
+        """Execute the payload."""
+        self._set_password_requirements()
+        self._set_password_lockout()
 
-    def set_password_requirements(self):  # also deals with password reuse and ensuring sha512 is used
+    def _set_password_requirements(self):  # also deals with password reuse and ensuring sha512 is used
         # /etc/pam.d/system-auth - check if exists due to alternative method of implementation
         path = "/etc/pam.d/system-auth"
         if os.path.isfile(path):
@@ -25,8 +29,7 @@ class Pam(payload.Payload):
         path = "/etc/pam.d/common-password"
         common.backup(path)
         # we need to ensure cracklib is installed, it will also change common-password
-        os.system("sudo apt install libpam-cracklib -y -q")
-        shutil.copy2(path, ".")
+        common.run("sudo apt install libpam-cracklib -y -q")
         common.backup(path)
 
         with open(path) as in_file:
@@ -78,7 +81,7 @@ class Pam(payload.Payload):
 
         common.info("Added Password requirements")
 
-    def set_password_lockout(self):
+    def _set_password_lockout(self):
         paths = ["/etc/pam.d/system-authand", "/etc/pam.d/password-auth"]
         for path in paths:
             if os.path.isfile(path):

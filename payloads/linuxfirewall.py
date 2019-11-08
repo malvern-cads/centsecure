@@ -1,14 +1,15 @@
+"""A payload to configure the firewall."""
+
 import payload
-import os
 import common
 
 
 class LinuxFirewall(payload.Payload):
+    """Configure the firewall on Linux."""
     name = "Enable Linux Firewall"
     os = ["Linux"]
     os_version = ["ALL"]
 
     def execute(self):
-        common.debug("Linux Firewall is being executed")
-        os.system("ufw enable")
-        common.debug("Linux Firewall has finished")
+        """Run the payload."""
+        common.run("ufw enable")
