@@ -1,14 +1,18 @@
+"""A payload for configuring SSH."""
+
 import payload
 import common
 import os
 
 
 class SSH(payload.Payload):
+    """Configure SSH on Linux."""
     name = "SSH"
     os = ["Linux"]
     os_version = ["ALL"]
 
     def execute(self):
+        """Execute payload."""
         path = "/etc/ssh/sshd_config"
         common.backup(path)
 

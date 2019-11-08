@@ -1,15 +1,19 @@
+"""A payload to remove prohibited files."""
+
 import payload
 import common
 import os
 
 
 class RemoveMedia(payload.Payload):
+    """Remove prohibited files."""
     name = "Remove Media"
     os = ["All"]
     os_version = ["All"]
 
     def execute(self):
-        files = self.get_files()
+        """Execute payload."""
+        files = self._get_files()
 
         # As this will take lots of manual labour, ask if they would like to check each file
         check = common.input_yesno("Found {} media files. Would you like to manually check them".format(len(files)))
@@ -29,10 +33,10 @@ class RemoveMedia(payload.Payload):
         if not confirm:
             return
 
-        self.remove_media(to_remove)
+        self._remove_media(to_remove)
         common.debug("Removed media files!")
 
-    def get_files(self):
+    def _get_files(self):
         extensions = ["mp3", "mp4", "jpg"]
         if "Linux" in payload.get_os():
             common.warn("Only searching for media files in the /home directory")
@@ -44,7 +48,7 @@ class RemoveMedia(payload.Payload):
 
         return files
 
-    def remove_media(self, to_remove):
+    def _remove_media(self, to_remove):
         for media in to_remove:
             if "Linux" in payload.get_os():
                 os.remove(media)

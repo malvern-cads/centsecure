@@ -1,13 +1,17 @@
+"""A payload to configure Windows policies."""
+
 import payload
 import common
 
 
 class ApplyPolicies(payload.Payload):
+    """Apply group and local policies to Windows."""
     name = "Apply Policies"
     os = ["Windows"]
     version = ["ALL"]
 
     def execute(self):
+        """Execute the payload."""
         common.info("Applying Local Security Policy...")
         cmd = "secedit.exe /configure /db %windir%\\security\\local.sdb /cfg policies\\security_policy.inf"
         common.stdout(common.run(cmd))

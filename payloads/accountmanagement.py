@@ -1,4 +1,5 @@
-import os
+"""A payload to manage user accounts."""
+
 import payload
 import common
 import sys
@@ -12,11 +13,16 @@ except ModuleNotFoundError:
 
 
 class AccountManagement(payload.Payload):
+    """A universal payload to configure users.
+
+    Add and remove users and promote to/demote from admin.
+    """
     name = "Account Management"
     os = ["ALL"]
     os_version = ["ALL"]
 
     def execute(self):
+        """Execute payload."""
         if "Linux" in payload.get_os():
             common.backup("/etc/passwd")
             common.backup("/etc/group")
@@ -24,17 +30,17 @@ class AccountManagement(payload.Payload):
 
         current_user = common.input_text("What is the current username")
 
-        admins = self.get_users("Admin")
+        admins = self._get_users("Admin")
         # ensures the current user isn't in the admin list
         if current_user in admins:
             admins.remove(current_user)
 
-        standard = self.get_users("Standard")
+        standard = self._get_users("Standard")
         # ensures the current user isn't in the standard list
         if current_user in standard:
             standard.remove(current_user)
 
-        current_users = self.get_current_users()
+        current_users = self._get_current_users()
         common.debug("Found users: {}".format(", ".join(current_users)))
 
         # first we need to get rid of the bad users
@@ -42,7 +48,7 @@ class AccountManagement(payload.Payload):
         for user in current_users:
             if user not in [current_user] + admins + standard:
                 bad_users.append(user)
-        self.delete_users(bad_users)
+        self._delete_users(bad_users)
 
         current_users = list(set(current_users) - set(bad_users))
 
@@ -51,25 +57,25 @@ class AccountManagement(payload.Payload):
         for user in admins + standard:
             if user not in current_users:
                 new_users.append(user)
-        self.create_users(new_users)
+        self._create_users(new_users)
 
         # set all users to a standard user
-        self.set_standard_users(standard)
+        self._set_standard_users(standard)
         # set admin users to admin
-        self.set_admin_users(admins)
+        self._set_admin_users(admins)
 
         # change password to a secure one
         common.info("Changing passwords")
         for index, user in enumerate([current_user] + admins + standard):
             password = "CyberCenturion{}!".format(index)
-            self.change_password(user, password)
+            self._change_password(user, password)
             if user != current_user:
-                self.change_password_on_login(user)
+                self._change_password_on_login(user)
 
-    def get_users(self, rank="standard"):
+    def _get_users(self, rank="standard"):
         return common.input_list("Enter a list of {} users".format(rank.lower()))
 
-    def get_current_users(self):
+    def _get_current_users(self):
         if "Linux" in payload.get_os():
             return common.get_current_users()
         elif "Windows" in payload.get_os():
@@ -79,7 +85,7 @@ class AccountManagement(payload.Payload):
                 all_users.append(piece["name"])
             return all_users
 
-    def delete_users(self, users):
+    def _delete_users(self, users):
         for user in users:
             common.info("Deleting {}...".format(user))
             if "Linux" in payload.get_os():
@@ -97,17 +103,16 @@ class AccountManagement(payload.Payload):
                 except Exception as ex:
                     common.error("Error while deleting user {}".format(user), ex)
 
-    def create_users(self, users):
+    def _create_users(self, users):
         for user in users:
             common.info("Adding {}...".format(user))
             if "Linux" in payload.get_os():
                 common.run("useradd -s /bin/bash -m {}".format(user))
                 common.info("Added user {}".format(user))
             elif "Windows" in payload.get_os():
-                # win32net.NetUserAdd(None, 0, {"name": user})
                 common.run("net user \"{}\" /add".format(user))
 
-    def set_standard_users(self, users):
+    def _set_standard_users(self, users):
         common.info("Setting standard users...")
         for user in users:
             if "Linux" in payload.get_os():
@@ -121,7 +126,7 @@ class AccountManagement(payload.Payload):
                     if group != "Users":
                         common.run("net localgroup \"{}\" \"{}\" /delete".format(group, user))
 
-    def set_admin_users(self, users):
+    def _set_admin_users(self, users):
         common.info("Setting admin users...")
         for user in users:
             if "Linux" in payload.get_os():
@@ -134,15 +139,14 @@ class AccountManagement(payload.Payload):
                 if "Administrators" not in groups:
                     common.run("net localgroup Administrators \"{}\" /add".format(user))
 
-    def change_password(self, user, password):
+    def _change_password(self, user, password):
         common.info("Changing password of {0} to {1}".format(user, password))
         if "Linux" in payload.get_os():
             common.run_full("echo '{0}:{1}' | chpasswd".format(user, password))
         elif "Windows" in payload.get_os():
-            # win32net.NetUserChangePassword(None, user, "", password)
             common.run("net user \"{}\" \"{}\"".format(user, password))
 
-    def change_password_on_login(self, user):
+    def _change_password_on_login(self, user):
         if "Linux" in payload.get_os():
             # TODO see if this can be implemented
             pass
