@@ -3,6 +3,7 @@
 import payload
 import common
 import os
+import glob
 
 
 class RemoveMedia(payload.Payload):
@@ -37,21 +38,28 @@ class RemoveMedia(payload.Payload):
         common.debug("Removed media files!")
 
     def _get_files(self):
-        extensions = ["mp3", "mp4", "jpg"]
+        extensions = ["aac", "ac3", "avi", "aiff", "bat", "bmp", "exe", "flac", "gif", "jpeg", "jpg", "mov", "m3u", "m4p",
+                      "mp2", "mp3", "mp4", "mpeg4", "midi", "msi", "ogg", "png", "txt", "sh", "wav", "wma", "vqf"]
+
+        common.warn("Only searching for prohibited files in user directories!")
         if "Linux" in payload.get_os():
-            common.warn("Only searching for media files in the /home directory")
-            string = " -o ".join(['-iname "*.{}"'.format(i) for i in extensions])
-            output = common.run_full('find /home {} 2>/dev/null'.format(string))
-            files = [f for f in output.split("\n") if f != ""]
+            directory = "/home"
         elif "Windows" in payload.get_os():
-            pass
+            directory = "C:\\Users"
+        else:
+            return []
+
+        common.info("Searching {} for prohibited files. This may take a while...")
+
+        files = []
+
+        for extension in extensions:
+            x = glob.glob(os.path.join(directory, "**/*." + extension), recursive=True)
+            files.extend(x)
 
         return files
 
     def _remove_media(self, to_remove):
         for media in to_remove:
-            if "Linux" in payload.get_os():
-                os.remove(media)
-                common.debug("Removed {}".format(media))
-            elif "Windows" in payload.get_os():
-                pass
+            os.remove(media)
+            common.debug("Removed {}".format(media))
