@@ -90,10 +90,9 @@ def error(msg, e=None):
     """
     if e is not None:
         output = "[E] {} -> {}".format(msg, repr(e))
-        print(Fore.WHITE + Back.RED + output)  # noqa: T001
     else:
         output = "[E] {}".format(msg)
-        print(Fore.WHITE + Back.RED + output)  # noqa: T001
+    print(Fore.WHITE + Back.RED + output)  # noqa: T001
     _log(output)
 
 
