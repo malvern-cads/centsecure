@@ -8,12 +8,12 @@ platform:
   arch: amd64
 
 steps:
-  # - name: lint
-  #   image: python:3.7-alpine
-  #   commands:
-  #     - pip install --upgrade pip pipenv
-  #     - pipenv install --dev
-  #     - pipenv run flake8
+  - name: lint
+    image: python:3.7-alpine
+    commands:
+      - pip install --upgrade pip pipenv
+      - pipenv install --dev
+      - pipenv run flake8
   - name: pack
     image: python:3.7-alpine
     commands:
