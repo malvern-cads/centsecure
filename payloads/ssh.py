@@ -2,7 +2,6 @@
 
 import payload
 import common
-import os
 
 
 class SSH(payload.Payload):
