@@ -13,16 +13,16 @@ class SSH(payload.Payload):
         common.backup(path)
 
         # set correct permissions
-        os.system("chown root:root {}".format(path))
-        os.system("chmod og-rwx {}".format(path))
+        common.run("chown root:root {}".format(path))
+        common.run("chmod og-rwx {}".format(path))
 
         # some fancy commands that ensure correct permissions on private keys
-        os.system("find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:root {} \\;")
-        os.system("find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod 0600 {} \\;")
+        common.run_full("find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chown root:root {} \\;")
+        common.run_full("find /etc/ssh -xdev -type f -name 'ssh_host_*_key' -exec chmod 0600 {} \\;")
 
         # some fancy commands that ensure correct permissions on public keys
-        os.system("find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod 0644 {} \\;")
-        os.system("find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \\;")
+        common.run_full("find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chmod 0644 {} \\;")
+        common.run_full("find /etc/ssh -xdev -type f -name 'ssh_host_*_key.pub' -exec chown root:root {} \\;")
 
         params = {
             "Protocol": "2",
