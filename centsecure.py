@@ -1,3 +1,9 @@
+"""The main file for starting CentSecure.
+
+This code loads payloads from the folder and executes them if they match the host's
+operating system.
+"""
+
 import payload
 from common import is_admin, info, warn, debug
 import sys
