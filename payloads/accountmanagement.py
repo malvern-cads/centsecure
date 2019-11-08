@@ -85,8 +85,8 @@ class AccountManagement(payload.Payload):
             if "Linux" in payload.get_os():
                 # TODO backup user directory
                 # TODO find any other files elsewhere in the system that user owns
-                os.system("crontab -r -u {}".format(user))
-                os.system("userdel -r {}".format(user))
+                common.run("crontab -r -u {}".format(user))
+                common.run("userdel -r {}".format(user))
                 common.info("Deleted user {}".format(user))
             elif "Windows" in payload.get_os():
                 # TODO remove this
@@ -101,25 +101,25 @@ class AccountManagement(payload.Payload):
         for user in users:
             common.info("Adding {}...".format(user))
             if "Linux" in payload.get_os():
-                os.system("useradd -s /bin/bash -m {}".format(user))
+                common.run("useradd -s /bin/bash -m {}".format(user))
                 common.info("Added user {}".format(user))
             elif "Windows" in payload.get_os():
                 # win32net.NetUserAdd(None, 0, {"name": user})
-                os.system("net user \"{}\" /add".format(user))
+                common.run("net user \"{}\" /add".format(user))
 
     def set_standard_users(self, users):
         common.info("Setting standard users...")
         for user in users:
             if "Linux" in payload.get_os():
                 # set only group to be the user's primary group
-                os.system("usermod -G {0} {0}".format(user))
-                os.system("usermod -aG users {}".format(user))
+                common.run("usermod -G {0} {0}".format(user))
+                common.run("usermod -aG users {}".format(user))
                 common.info("Removed all groups from user {}".format(user))
             elif "Windows" in payload.get_os():
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 for group in groups:
                     if group != "Users":
-                        os.system("net localgroup \"{}\" \"{}\" /delete".format(group, user))
+                        common.run("net localgroup \"{}\" \"{}\" /delete".format(group, user))
 
     def set_admin_users(self, users):
         common.info("Setting admin users...")
@@ -128,23 +128,23 @@ class AccountManagement(payload.Payload):
                 # list of groups we want to add the user to
                 admin_roles = ["sudo", "adm"]
                 # add the admin roles
-                os.system("usermod -aG {0} {1}".format(",".join(admin_roles), user))
+                common.run("usermod -aG {0} {1}".format(",".join(admin_roles), user))
             elif "Windows" in payload.get_os():
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 if "Administrators" not in groups:
-                    os.system("net localgroup Administrators \"{}\" /add".format(user))
+                    common.run("net localgroup Administrators \"{}\" /add".format(user))
 
     def change_password(self, user, password):
         common.info("Changing password of {0} to {1}".format(user, password))
         if "Linux" in payload.get_os():
-            os.system("echo '{0}:{1}' | chpasswd".format(user, password))
+            common.run_full("echo '{0}:{1}' | chpasswd".format(user, password))
         elif "Windows" in payload.get_os():
             # win32net.NetUserChangePassword(None, user, "", password)
-            os.system("net user \"{}\" \"{}\"".format(user, password))
+            common.run("net user \"{}\" \"{}\"".format(user, password))
 
     def change_password_on_login(self, user):
         if "Linux" in payload.get_os():
             # TODO see if this can be implemented
             pass
         elif "Windows" in payload.get_os():
-            os.system("net user \"{}\" /logonpasswordchg:yes".format(user))
+            common.run("net user \"{}\" /logonpasswordchg:yes".format(user))
