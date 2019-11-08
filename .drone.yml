@@ -19,11 +19,11 @@ steps:
     commands:
       - apk add zip
       - pip install --upgrade pip pipenv
-      - mkdir centsecure
+      - mkdir centsecure dist
       - pipenv lock -r > centsecure/requirements.txt
       - zip -r centsecure/centsecure.zip *.py payloads
       - cp -r scripts/* centsecure
-      - zip -r centsecure_universal.zip centsecure/*
+      - zip -r dist/centsecure_universal.zip centsecure/*
       - rm -rf centsecure
     when:
       event: tag
@@ -34,7 +34,7 @@ steps:
     settings:
       api_key:
         from_secret: github_token
-      files: centsecure_universal.zip
+      files: dist/*
     when:
       event: tag
       branch:
