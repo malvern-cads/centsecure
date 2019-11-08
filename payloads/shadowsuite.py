@@ -1,7 +1,6 @@
 """A payload to configure shadow."""
 
 import common
-import os
 import glob
 import payload
 
