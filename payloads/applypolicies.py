@@ -2,6 +2,7 @@
 
 import payload
 import common
+import os
 
 
 class ApplyPolicies(payload.Payload):
