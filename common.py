@@ -30,7 +30,7 @@ def _log(text):
         out_file.write("{}\n".format(text))
 
 
-def _stdout(msg):
+def stdout(msg):
     """Print command output to the console.
 
     Args:
