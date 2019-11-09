@@ -34,8 +34,11 @@ class ShadowSuite(payload.Payload):
         # inactive password lock
         common.run("useradd -D -f 30")
 
+        current_user = common.input_text("What is the current username")
         users = common.get_current_users()
         for user in users:
+            if user == current_user:
+                continue
             common.run_full("chage --lastday $(date +%Y/%m/%d) {}".format(user))
             common.run("chage --maxdays 365 {}".format(user))
             common.run("chage --mindays 7 {}".format(user))
