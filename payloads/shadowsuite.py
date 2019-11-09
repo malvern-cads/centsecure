@@ -44,6 +44,7 @@ class ShadowSuite(payload.Payload):
             common.run("chage --mindays 7 {}".format(user))
             common.run("chage --warndays 7 {}".format(user))
             common.run("chage --inactive 30 {}".format(user))
+            common.run("passwd --expire {}".format(user))
 
     def _check_shadow(self):
         # check passwords have been changed in the pass
