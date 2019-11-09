@@ -3,6 +3,7 @@
 import payload
 import common
 import sys
+import os
 
 try:
     import win32net
@@ -110,7 +111,7 @@ class AccountManagement(payload.Payload):
                 common.run("useradd -s /bin/bash -m {}".format(user))
                 common.info("Added user {}".format(user))
             elif "Windows" in payload.get_os():
-                common.run("net user \"{}\" /add".format(user))
+                os.system("net user \"{}\" /add".format(user))
 
     def _set_standard_users(self, users):
         common.info("Setting standard users...")
@@ -124,7 +125,7 @@ class AccountManagement(payload.Payload):
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 for group in groups:
                     if group != "Users":
-                        common.run("net localgroup \"{}\" \"{}\" /delete".format(group, user))
+                        os.system("net localgroup \"{}\" \"{}\" /delete".format(group, user))
 
     def _set_admin_users(self, users):
         common.info("Setting admin users...")
@@ -137,18 +138,18 @@ class AccountManagement(payload.Payload):
             elif "Windows" in payload.get_os():
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 if "Administrators" not in groups:
-                    common.run("net localgroup Administrators \"{}\" /add".format(user))
+                    os.system("net localgroup Administrators \"{}\" /add".format(user))
 
     def _change_password(self, user, password):
         common.info("Changing password of {0} to {1}".format(user, password))
         if "Linux" in payload.get_os():
             common.run_full("echo '{0}:{1}' | chpasswd".format(user, password))
         elif "Windows" in payload.get_os():
-            common.run("net user \"{}\" \"{}\"".format(user, password))
+            os.system("net user \"{}\" \"{}\"".format(user, password))
 
     def _change_password_on_login(self, user):
         if "Linux" in payload.get_os():
             # TODO see if this can be implemented
             pass
         elif "Windows" in payload.get_os():
-            common.run("net user \"{}\" /logonpasswordchg:yes".format(user))
+            os.system("net user \"{}\" /logonpasswordchg:yes".format(user))
