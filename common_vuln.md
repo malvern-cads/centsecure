@@ -77,6 +77,7 @@ This is a list of previous vulnerabilities found
   - Net.TCP port sharing service has been stopped and disabled (3)
   - Remote registry service has been stopped and disabled (3)
   - File sharing disabled for C drive
+  - World Wide Web Publishling service has been stopped and disabled *(Server only)*
 - The majority of windows updates have been installed (2-4)
 - Windows automatically checks for updates (2-4)
 - Software updated
@@ -88,6 +89,7 @@ This is a list of previous vulnerabilities found
   - Gimp has been updated (3)
 - Removed prohibited software/media
   - .mp3 files (3)
+  - removed Angry IP scanner
   - removed utorrent (3)
   - removed nmap (3)
   - removed kodi (3)
@@ -101,6 +103,7 @@ This is a list of previous vulnerabilities found
   - removed bewear IRC server (3)
   - removed hashcat (3)
   - removed tini backdoor (3)
+  - removed ophcrack
   - removed TightVNC Server (3)
   - removed BitTornado (2)
   - removed John the Ripper (2)
