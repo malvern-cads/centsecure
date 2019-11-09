@@ -234,6 +234,64 @@ The number in brackets for the title is (number of vulnerabilities found/total v
 - User savitar has a password - 10 pts
 - User mrory has a password - 10 pts
 - A secure minimum password length is required - 5 pts
-- Do not require CTRL+ALT+DEL [disabled] - 10 pts
+- Do not require CTRL+ALT+DEL \[disabled\] - 10 pts
 - File sharing disabled for C drive - 10 pts
 - Removed Real Player - 10 pts
+### Round 1
+#### Ubuntu 14.04 (18/18) (100)
+- Forensics Question 1 correct - 8 pts
+- Forensics Question 2 correct - 8 pts
+- Removed unauthorized user hquinn - 5 pts
+- Removed unauthorized user joker - 5 pts
+- Removed unauthorized user bane - 5 pts
+- User hstrange is not an administrator - 5 pts
+- Changed insecure password for user bgordan - 5 pts
+- Created user account ace - 5 pts
+- A default maximum password age is set - 5 pts
+- Uncomplicated Firewall (UFW) protection has been enabled - 6 pts
+- Apache2 service has been disabled or removed - 6 pts
+- The system automatically checks for updates - 5 pts
+- Install updates from important security updates - 5 pts
+- OpenSSH has been updated - 5 pts
+- Removed plain text file containing passwords - 6 pts
+- Prohibited software Wireshark removed - 5 pts
+- Prohibited software Zenmap and Nmap removed - 5 pts
+- SSH root login has been disabled - 6 pts
+#### Windows 10 (19/19) (100)
+- Forensics Question 1 correct - 7 pts
+- Forensics Question 2 correct - 7 pts
+- Removed unauthorized user riddler - 5 pts
+- Removed unauthorized user rghul - 5 pts
+- User ace is not an administrator - 5 pts
+- User hbullock is not an administrator - 5 pts
+- Changed insecure password for apennyworth - 5 pts
+- Changed insecure password for lfox - 5 pts
+- A sufficient password history is being kept - 5 pts
+- A secure minimum password length is required - 5 pts
+- Firewall protection has been enabled - 5 pts
+- Remote desktop sharing has been turned off - 5 pts
+- FTP service has stopped and disabled - 6 pts
+- The majority of Windows updates are installed - 5 pts
+- Firefox has been updated - 5 pts
+- Removed prohibited MP3 files - 5 pts
+- Removed Driver Support - 5 pts
+- Removed Wireshark - 5 pts
+- Removed Angry IP scanner - 5 pts
+#### Windows Server 2016 (17/18) (95)
+- Forensics Question 1 correct - 7 pts
+- Forensics Question 2 correct - 7 pts
+- Removed unauthorized user pivy - 5 pts
+- Removed unauthorized user hquinn - 5 pts
+- User harold is not an administrator - 5 pts
+- User dwayne has a password - 5 pts
+- Changed insecure password for jgordon - 5 pts
+- A secure maximum password age exists - 5 pts
+- A secure lockout threshold exists - 5 pts
+- File sharing disabled for C drive - 6 pts
+- World Wide Web Publishling service has been stopped and disabled - 6 pts
+- The majority of Windows updates are installed - 5 pts
+- Removed Brutus password cracker archive - 5 pts
+- Removed iTunes - 6 pts
+- Removed Beware IRC server - 6 pts
+- Removed TeamViewer - 6 pts
+- Removed ophcrack - 6 pts
