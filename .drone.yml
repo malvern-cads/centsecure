@@ -14,28 +14,28 @@ steps:
       - pip install --upgrade pip pipenv
       - pipenv install --dev
       - pipenv run flake8
-  - name: pack
-    image: python:3.7-alpine
-    commands:
-      - apk add zip
-      - pip install --upgrade pip pipenv
-      - mkdir centsecure dist
-      - pipenv lock -r > centsecure/requirements.txt
-      - zip -r centsecure/centsecure.zip *.py payloads
-      - cp -r scripts/* centsecure
-      - zip -r dist/centsecure_universal.zip centsecure/*
-      - rm -rf centsecure
-    when:
-      event: tag
-      branch:
-        - master
-  - name: publish
-    image: plugins/github-release
-    settings:
-      api_key:
-        from_secret: github_token
-      files: dist/*
-    when:
-      event: tag
-      branch:
-        - master
+  # - name: pack
+  #   image: python:3.7-alpine
+  #   commands:
+  #     - apk add zip
+  #     - pip install --upgrade pip pipenv
+  #     - mkdir centsecure dist
+  #     - pipenv lock -r > centsecure/requirements.txt
+  #     - zip -r centsecure/centsecure.zip *.py payloads
+  #     - cp -r scripts/* centsecure
+  #     - zip -r dist/centsecure_universal.zip centsecure/*
+  #     - rm -rf centsecure
+  #   when:
+  #     event: tag
+  #     branch:
+  #       - master
+  # - name: publish
+  #   image: plugins/github-release
+  #   settings:
+  #     api_key:
+  #       from_secret: github_token
+  #     files: dist/*
+  #   when:
+  #     event: tag
+  #     branch:
+  #       - master
