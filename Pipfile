@@ -10,6 +10,8 @@ autopep8 = "*"
 flake8-print = "*"
 flake8-eradicate = "*"
 flake8-docstrings = "*"
+mkdocs = "*"
+mkdocs-material = "*"
 
 [packages]
 colorama = "*"

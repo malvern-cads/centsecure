@@ -1,0 +1,20 @@
+site_name: CentSecure
+site_description: A tool for automating parts of CyberCenturion.
+copyright: GNU GPL v3.0
+theme:
+  name: "material"
+  palette:
+    primary: red
+    accent: indigo
+  logo:
+    icon: lock
+markdown_extensions:
+  - admonition
+  - codehilite
+  - meta
+extra:
+  search:
+    language: en
+    tokenizer: '[\s\-\.]+'
+repo_name: jake-walker/centsecure
+repo_url: https://github.com/jake-walker/centsecure
