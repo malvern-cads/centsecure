@@ -14,7 +14,7 @@ steps:
 ---
 kind: pipeline
 type: docker
-name: default
+name: docs
 
 steps:
   - name: build
