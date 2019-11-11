@@ -155,7 +155,7 @@ class AccountManagement(payload.Payload):
             pass
         elif "Windows" in payload.get_os():
             os.system("net user \"{}\" /logonpasswordchg:yes".format(user))
-            
+
     def _set_password_no_expire(self, user):
         if "Windows" in payload.get_os():
             os.system("wmic useraccount where \"Name='{}'\" set PasswordExpires=false".format(user))
