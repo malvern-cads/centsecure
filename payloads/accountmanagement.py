@@ -71,6 +71,8 @@ class AccountManagement(payload.Payload):
             password = "CyberCenturion{}!".format(index)
             self._change_password(user, password)
             if user != current_user:
+                # Not sure if we want to do this on the main user
+                self._set_password_no_expire(user)
                 self._change_password_on_login(user)
 
     def _get_users(self, rank="standard"):
@@ -153,3 +155,7 @@ class AccountManagement(payload.Payload):
             pass
         elif "Windows" in payload.get_os():
             os.system("net user \"{}\" /logonpasswordchg:yes".format(user))
+            
+    def _set_password_no_expire(self, user):
+        if "Windows" in payload.get_os():
+            os.system("wmic useraccount where \"Name='{}'\" set PasswordExpires=false".format(user))
