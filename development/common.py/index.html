@@ -361,6 +361,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#running-system-commands" class="md-nav__link">
+    Running System Commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#miscellaneous" class="md-nav__link">
     Miscellaneous
   </a>
@@ -474,6 +481,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#running-system-commands" class="md-nav__link">
+    Running System Commands
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#miscellaneous" class="md-nav__link">
     Miscellaneous
   </a>
@@ -509,6 +523,7 @@
 <h2 id="methods">Methods</h2>
 <h3 id="logging">Logging</h3>
 <ul>
+<li><code>common.stdout(common.run("net user admin minad"))</code> - <em>used to output information from shell commands</em></li>
 <li><code>common.info("Hello")</code></li>
 <li><code>common.debug("Doing this thing")</code></li>
 <li><code>common.warn("You don't want to do that!")</code></li>
@@ -526,9 +541,17 @@
 <li><code>common.backup("/etc/passwd")</code></li>
 <li><code>common.backup("/home/jeff", compress=True)</code></li>
 </ul>
+<h3 id="running-system-commands">Running System Commands</h3>
+<ul>
+<li><code>common.run(cmd, include_error=True)</code></li>
+<li><code>common.run_full(cmd, include_error=True)</code> - <em>For an unparameterized command, Linux only, the recommended Windows alternative for this is <code>os.system()</code></em></li>
+</ul>
 <h3 id="miscellaneous">Miscellaneous</h3>
 <ul>
 <li><code>common.get_current_users()</code> - <em>Linux only</em></li>
+<li><code>common.is_admin()</code></li>
+<li><code>change_parameters(path, params)</code></li>
+<li>This is used for modifying config files in the format \&lt;key> \&lt;value>, where path is the path of the file and params is a dictionary of the keys with their updated values. If the key cannot be found within the file then it is appened to the end of the config file</li>
 </ul>
                 
                   
