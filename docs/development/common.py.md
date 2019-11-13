@@ -6,6 +6,7 @@
 
 ### Logging
 
+- `common.stdout(common.run("net user admin minad"))` - *used to output information from shell commands*
 - `common.info("Hello")`
 - `common.debug("Doing this thing")`
 - `common.warn("You don't want to do that!")`
@@ -23,6 +24,14 @@
 - `common.backup("/etc/passwd")`
 - `common.backup("/home/jeff", compress=True)`
 
+### Running System Commands
+
+- `common.run(cmd, include_error=True)`
+- `common.run_full(cmd, include_error=True)` - *For an unparameterized command, Linux only, the recommended Windows alternative for this is `os.system()`*
+
 ### Miscellaneous
 
 - `common.get_current_users()` - *Linux only*
+- `common.is_admin()`
+- `change_parameters(path, params)`
+  - This is used for modifying config files in the format \<key\> \<value\>, where path is the path of the file and params is a dictionary of the keys with their updated values. If the key cannot be found within the file then it is appened to the end of the config file
