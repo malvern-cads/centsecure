@@ -3,6 +3,30 @@
 import payload
 import common
 
+# /etc/apt/apt.conf.d/50-unattended-upgrades
+UNATTENDED_UPGRADE_CONFIG = """
+Unattended-Upgrade::Allowed-Origins {
+    "${distro_id}:${distro_codename}";
+    "${distro_id}:${distro_codename}-security";
+    "${distro_id}ESM:${distro_codename}";
+    "${distro_id}ESM:${distro_codename}-security";
+};
+
+Unattended-Upgrade::Package-Blacklist {
+
+};
+
+Unattended-Upgrade::DevRelease "auto";
+"""
+
+# /etc/apt/apt.conf.d/20-auto-upgrades
+AUTO_UPGRADE_CONFIG = """
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+"""
+
 
 class DebianUpdate(payload.Payload):
     """Run Debian Updates."""
@@ -17,6 +41,20 @@ class DebianUpdate(payload.Payload):
         common.run("apt-get update")
         # Update available packages
         common.run("apt-get upgrade -y")
+
+
+class UbuntuAutomaticUpdates(payload.Payload):
+    """Setup automatic updates for Ubuntu."""
+    name = "Ubuntu Automatic Updates"
+    os = ["Ubuntu"]
+    os_version = ["all"]
+
+    def execute(self):
+        """Run the payload."""
+        common.run("apt-get install unattended-upgrades -y")
+        common.debug("Writing unattended upgrade configuration files...")
+        common.write_file("/etc/apt/apt.conf.d/50-unattended-upgrades", UNATTENDED_UPGRADE_CONFIG)
+        common.write_file("/etc/apt/apt.conf.d/20-auto-upgrades", AUTO_UPGRADE_CONFIG)
 
 
 class WindowsUpdates(payload.Payload):

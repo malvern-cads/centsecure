@@ -233,6 +233,22 @@ def change_parameters(path, params):
         out_file.write("\n")
 
 
+def write_file(path, contents):
+    """Write to a file with a string.
+
+    This will overwrite files, use with caution!
+
+    Args:
+        path (str): The path to the file to write to
+        contents (str): The contents that should be written to the file
+
+    """
+    debug("Writing to file {}...".output(path))
+    with open(path, "w") as out_file:
+        out_file.writelines(contents.split("\n"))
+        out_file.write("\n")
+
+
 def _backup_directory():
     """Generate a folder where backups should be stored.
 
