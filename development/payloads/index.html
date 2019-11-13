@@ -461,6 +461,7 @@
 <li><strong><code>name</code></strong> is just the name that is used when talking about the payload in the output. It doesn't really matter.</li>
 <li><strong><code>os</code></strong> is the operating system that the payload is targeting. It is a <strong>list</strong> containing all of the operating systems that this payload is compatible with. (e.g. <code>all</code>, <code>Windows</code>, <code>Linux</code>, <code>Ubuntu</code>, etc...)</li>
 <li><strong><code>os_version</code></strong> is the version of the operating system that the payload is targeting. It is also a <strong>list</strong> containing all of the versions of operating system that this payload is compatible with. (e.g. <code>all</code>, <code>10</code>, <code>9</code>, <code>19.10</code>, etc...)</li>
+<li><strong><code>priority</code></strong> can help you to configure what order payloads run in. The default is <code>10</code> and a lower number dictates a <strong>higher priority</strong>, priorities can also be negative.</li>
 </ul>
 <blockquote>
 <p><strong>It is best to run CentSecure on the actual computer that you want the payload to run on and then copy down the OS and OS version that it prints at the start.</strong></p>
