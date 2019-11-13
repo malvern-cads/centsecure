@@ -303,35 +303,39 @@ def backup(source, compress=False):
     return dest_path
 
 
-def run(cmd):
+def run(cmd, include_error=False):
     """Run a shell command.
 
     Args:
         cmd (str/list[str]): The command to be run.
+        include_error (bool): Option to include error output in return variable.
 
     Returns:
         str: The command's output.
 
     """
+    stderr = subprocess.STDOUT if include_error else None
     command_list = cmd if isinstance(cmd, list) else cmd.split(" ")
     debug("Running command '{}'".format(cmd))
-    result = subprocess.run(command_list, stdout=subprocess.PIPE)
+    result = subprocess.run(command_list, stdout=subprocess.PIPE, stderr=stderr)
     return result.stdout.decode("utf-8")
 
 
-def run_full(cmd):
+def run_full(cmd, include_error=False):
     """Run a shell command unescaped and with bash.
 
     Args:
         cmd (str): The command to be run.
+        include_error (bool): Option to include error output in return variable.
 
     Returns:
         str: The command's output
 
     """
+    stderr = subprocess.STDOUT if include_error else None
     warn("Running unescaped command '{}'".format(cmd))
     # Full commands are likely to be complex so we run using bash instead of sh
-    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, executable="/bin/bash")
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=stderr, executable="/bin/bash")
     return result.stdout.decode("utf-8")
 
 
