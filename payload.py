@@ -37,6 +37,7 @@ class Payload:
     name = "Unknown Payload"
     os = ["all"]
     os_version = ["all"]
+    priority = 10  # Lower number means higher priority (can be negative)
 
     def __init_subclass__(cls, **kwargs):
         """Subclass loader.

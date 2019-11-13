@@ -31,9 +31,14 @@ def run(payloads=[]):
         payloads (list[str], optional): An option list of specific payloads to run
 
     """
-    for p in payload.Payload._registry:
+    all_payloads = payload.Payload._registry
+
+    # Sort payloads in priority order
+    all_payloads.sort(key=lambda x: x.priority)
+
+    for p in all_payloads:
         if not payloads or p.name.replace("-", " ") in payloads:
-            debug("Payload: {} (targets {} version {})".format(p.name, p.os, p.os_version))
+            debug("Payload: {} (targets {} version {}, priority {})".format(p.name, p.os, p.os_version, p.priority))
 
             if payload.os_check(p.os, p.os_version):
                 instance = p()

@@ -30,5 +30,6 @@ Payload parameters help the program to tell which operating systems your payload
 - **`name`** is just the name that is used when talking about the payload in the output. It doesn't really matter.
 - **`os`** is the operating system that the payload is targeting. It is a **list** containing all of the operating systems that this payload is compatible with. (e.g. `all`, `Windows`, `Linux`, `Ubuntu`, etc...)
 - **`os_version`** is the version of the operating system that the payload is targeting. It is also a **list** containing all of the versions of operating system that this payload is compatible with. (e.g. `all`, `10`, `9`, `19.10`, etc...)
+- **`priority`** can help you to configure what order payloads run in. The default is `10` and a lower number dictates a **higher priority**, priorities can also be negative.
 
 > **It is best to run CentSecure on the actual computer that you want the payload to run on and then copy down the OS and OS version that it prints at the start.**
