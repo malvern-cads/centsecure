@@ -46,7 +46,7 @@ def run(payloads=[]):
 
 
 def main():
-    """Main function"""
+    """Main function."""
     # Need to get payloads first for arguments to function
     payload.find_plugins()
 
