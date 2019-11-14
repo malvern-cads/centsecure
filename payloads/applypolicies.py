@@ -3,6 +3,7 @@
 import payload
 import common
 import os
+import win32net
 
 
 class ApplyPolicies(payload.Payload):
@@ -27,3 +28,8 @@ class ApplyPolicies(payload.Payload):
         common.info("Applying Advanced Audit Policies...")
         cmd = "auditpol /restore /file:policies\\audit.csv"
         os.system(cmd)
+
+        # Removes all shares
+        common.info("Removing all shares")
+        for share in win32net.NetShareEnum(None, 0)[0]:
+            win32net.NetShareDel(None, share['netname'])
