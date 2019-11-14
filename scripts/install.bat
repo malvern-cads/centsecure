@@ -12,7 +12,7 @@ IF %ERRORLEVEL% EQU 0 (
 )
 
 echo ^> Downloading python...
-powershell $ProgressPreference = 'SilentlyContinue'; wget https://www.python.org/ftp/python/3.7.5/python-3.7.5.exe -OutFile python_install.exe
+powershell $ProgressPreference = 'SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls'; wget https://www.python.org/ftp/python/3.7.5/python-3.7.5.exe -OutFile python_install.exe
 
 echo ^> Installing python...
 python_install.exe /passive InstallAllUsers=1 PrependPath=1 Include_doc=0 Include_dev=0 Include_tcltk=0 Include_test=0 Include_tools=0
@@ -28,7 +28,7 @@ echo ^> GitBash will now be installed
 pause
 
 echo ^> Downloading git for windows...
-powershell $ProgressPreference = 'SilentlyContinue'; wget https://github.com/git-for-windows/git/releases/download/v2.24.0.windows.2/Git-2.24.0.2-64-bit.exe -OutFile git_installer.exe
+powershell $ProgressPreference = 'SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = 'tls12, tls11, tls'; wget https://github.com/git-for-windows/git/releases/download/v2.24.0.windows.2/Git-2.24.0.2-64-bit.exe -OutFile git_installer.exe
 
 echo ^> Creating config file...
 (
