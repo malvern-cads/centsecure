@@ -4,7 +4,7 @@ echo ^> Python and Git for windows installer
 
 NET SESSION >nul 2>&1
 IF %ERRORLEVEL% EQU 0 (
-    echo ^> I am running as admin :)
+    echo ^> I am running as admin :^)
 ) ELSE (
     echo ^> This script must be run as admin!
     pause
