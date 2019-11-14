@@ -4,6 +4,7 @@ import payload
 import common
 import re
 import json
+import struct
 
 # If any of these are matched against:
 # - package name on Linux
@@ -42,9 +43,23 @@ def _list_ubuntu_packages():
     return packages
 
 
+def _is_64_bit():
+    return (8 * struct.calcsize("P")) == 64
+
+
 def _list_windows_programs():
-    output = common.run(["powershell.exe", "Get-ItemProperty HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\* | Select-Object DisplayName, Publisher, UninstallString | ConvertTo-Json"])
-    return json.loads(output)
+    registry_key = "HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*"  # 64-bit registry key
+    if not _is_64_bit():
+        registry_key = "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*"  # 32-bit registry key
+
+    output = common.run(["powershell.exe", "Get-ItemProperty {} | Select-Object DisplayName, Publisher, UninstallString | ConvertTo-Json".format(registry_key)])
+
+    try:
+        json_output = json.loads(output)
+    except json.decoder.JSONDecodeError as ex:
+        common.error("Error parsing software list!", ex)
+    else:
+        return json_output
 
 
 def _remove_ubuntu_packages(packages):
