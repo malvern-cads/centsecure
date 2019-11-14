@@ -149,9 +149,13 @@ def input_list(msg):
         input_text = "    > "
         user_input = input(Fore.GREEN + input_text)
         _log("{}\n{}{}".format(output, input_text, user_input))
-        input_list = user_input.split(";")
 
-        question = "This is what you inputted:\n - {}\nIs that correct".format("\n - ".join(input_list))
+        if user_input:
+            input_list = user_input.split(";")
+            question = "This is what you inputted:\n - {}\nIs that correct".format("\n - ".join(input_list))
+        else:
+            input_list = []
+            question = "You entered nothing. Is that correct"
 
         if input_yesno(question):
             return input_list
