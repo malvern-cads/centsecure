@@ -37,7 +37,7 @@ def run(payloads=[]):
     all_payloads.sort(key=lambda x: x.priority)
 
     for p in all_payloads:
-        if not payloads or p.name.replace("-", " ") in payloads:
+        if not payloads or p.name.replace(" ", "-") in payloads:
             debug("Payload: {} (targets {} version {}, priority {})".format(p.name, p.os, p.os_version, p.priority))
 
             if payload.os_check(p.os, p.os_version):
