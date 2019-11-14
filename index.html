@@ -256,6 +256,19 @@
     Installation Scripts
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    Windows
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -434,6 +447,19 @@
     Installation Scripts
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    Windows
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -477,10 +503,27 @@
 <p>CentSecure fixes security holes automatically which gets some of the 'lower hanging fruits' leaving us to focus on some of the harder things. It is designed to work on all platforms and adapt to the platform that it is being run on. Instead of having a bash script for Linux based systems and a batch script for Windows based systems, it makes sense to keep everything in one place.</p>
 <h2 id="usage">Usage</h2>
 <p>CentSecure doesn't require any configuration or arguments, so you just need to open it and follow the prompts that it gives.</p>
+<p>CentSecure can take certain optional command line paramters. These are particularly useful for debugging.</p>
+<div class="codehilite"><pre><span></span><span class="nv">usage</span>: <span class="nv">centsecure</span>.<span class="nv">py</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">--</span><span class="nv">list</span><span class="o">-</span><span class="nv">payloads</span>] [<span class="o">--</span><span class="nv">run</span><span class="o">-</span><span class="nv">payload</span> <span class="nv">N</span> [<span class="nv">N</span> ...]]
+
+<span class="nv">Automatically</span> <span class="nv">fixes</span> <span class="nv">common</span> <span class="nv">security</span> <span class="nv">vulnerabilities</span>.
+
+<span class="nv">optional</span> <span class="nv">arguments</span>:
+  <span class="o">-</span><span class="nv">h</span>, <span class="o">--</span><span class="nv">help</span>            <span class="k">show</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
+  <span class="o">--</span><span class="nv">list</span><span class="o">-</span><span class="nv">payloads</span>, <span class="o">-</span><span class="nv">l</span>   <span class="nv">Lists</span> <span class="nv">all</span> <span class="nv">payloads</span>
+  <span class="o">--</span><span class="nv">run</span><span class="o">-</span><span class="nv">payload</span> <span class="nv">N</span> [<span class="nv">N</span> ...], <span class="o">-</span><span class="nv">r</span> <span class="nv">N</span> [<span class="nv">N</span> ...], <span class="o">-</span><span class="nv">p</span> <span class="nv">N</span> [<span class="nv">N</span> ...]
+                        <span class="nv">Run</span> <span class="nv">specific</span> <span class="nv">payloads</span>
+
+<span class="nv">Default</span> <span class="nv">behaviour</span> <span class="nv">is</span> <span class="nv">to</span> <span class="nv">attempt</span> <span class="nv">to</span> <span class="nv">run</span> <span class="nv">all</span> <span class="nv">payloads</span>
+</pre></div>
+
+
 <h3 id="installation-scripts">Installation Scripts</h3>
-<p>We have installation scripts for both Ubuntu and Windows which are in the <code>scripts</code> folder. Simply clone the repository (or download as a ZIP from GitHub) and run one of the scripts.</p>
+<p>We have installation scripts for both Ubuntu and Windows which are in the <code>scripts</code> folder. Simply clone the repository (or download as a ZIP from GitHub) and run one of the scripts. Both of the installers focus on installing python and the dependencies required for CentSecure.</p>
+<h4 id="windows">Windows</h4>
+<p>The batch file installer for Windows <em>must be</em> run from an elevated command prompt and <em>will not</em> work as intended if run from the file explorer.</p>
 <h3 id="manual-installation">Manual Installation</h3>
-<p>If you don't want to use the installation scripts, you can manually install CentSecure. Read our <a href="docs/development/installation.md">Installation Guide</a> for more information on manually installing dependencies.</p>
+<p>If you don't want to use the installation scripts, you can manually install CentSecure. Read our <a href="development/installation/">Installation Guide</a> for more information on manually installing dependencies.</p>
                 
                   
                 
