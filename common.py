@@ -243,7 +243,7 @@ def write_file(path, contents):
         contents (str): The contents that should be written to the file
 
     """
-    debug("Writing to file {}...".output(path))
+    debug("Writing to file {}...".format(path))
     with open(path, "w") as out_file:
         out_file.writelines(contents.split("\n"))
         out_file.write("\n")
