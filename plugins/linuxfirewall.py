@@ -1,15 +1,15 @@
-"""A payload to configure the firewall."""
+"""A plugin to configure the firewall."""
 
-import payload
+import plugin
 import common
 
 
-class LinuxFirewall(payload.Payload):
+class LinuxFirewall(plugin.Plugin):
     """Configure the firewall on Linux."""
     name = "Enable Linux Firewall"
     os = ["Linux"]
     os_version = ["ALL"]
 
     def execute(self):
-        """Run the payload."""
+        """Run the plugin."""
         common.run("ufw enable")

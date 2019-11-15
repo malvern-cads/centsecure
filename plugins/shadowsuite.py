@@ -1,18 +1,18 @@
-"""A payload to configure shadow."""
+"""A plugin to configure shadow."""
 
 import common
 import glob
-import payload
+import plugin
 
 
-class ShadowSuite(payload.Payload):
+class ShadowSuite(plugin.Plugin):
     """Configure shadowsuite."""
     name = "Secures Shadow Password Suite"
     os = ["Linux"]
     os_version = ["ALL"]
 
     def execute(self):
-        """Execute payload."""
+        """Execute plugin."""
         self._set_password_config()
         self._check_shadow()
         self._set_shadow()

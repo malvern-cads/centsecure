@@ -1,18 +1,18 @@
-"""A payload to configure LightDM."""
+"""A plugin to configure LightDM."""
 
-import payload
+import plugin
 import configparser
 import common
 
 
-class Lightdm(payload.Payload):
+class Lightdm(plugin.Plugin):
     """Configure LightDM."""
     name = "Lightdm securing"
     os = ["Ubuntu"]
     os_version = ["16.04"]
 
     def execute(self):
-        """Execute payload."""
+        """Execute plugin."""
         path = "/etc/lightdm/lightdm.conf"
         config = configparser.ConfigParser()
         try:
