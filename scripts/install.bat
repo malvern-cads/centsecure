@@ -11,21 +11,15 @@ IF %ERRORLEVEL% EQU 0 (
     exit /b 1
 )
 
-echo "Installing chocolatey"
-@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
-choco feature enable -n allowGlobalConfirmation
-choco upgrade chocolatey
-echo "The rest of the script might fail. If it does, please close and open your terminal, then re-run this script."
-pause
+echo "Downloading python..."
+powershell $ProgressPreference = 'SilentlyContinue'; wget https://www.python.org/ftp/python/3.7.5/python-3.7.5.exe -OutFile python_install.exe
 
-echo "Installing dependencies (1/2)..."
-choco install python
-mkdir C:\centsecure\
-powershell Expand-Archive centsecure.zip -DestinationPath C:/centsecure
-copy requirements.txt C:\centsecure\
+echo "Installing python..."
+python_install.exe /passive InstallAllUsers=1 PrependPath=1
 
-cd C:\centsecure\
-echo "Installing dependencies (2/2)..."
-python -m pip install -r requirements.txt
+echo "Installing dependencies..."
+cd "c:\Program Files (x86)\Python*"
+python.exe -m pip install colorama pypiwin32
+python.exe Scripts/pywin32_postinstall.py -install
 
-echo "CentSecure has been installed. To run, change directory to 'C:\centsecure\' and run the command 'python centsecure.py'. Good luck!"
+echo "Python has been installed."
