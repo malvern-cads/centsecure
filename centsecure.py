@@ -8,6 +8,7 @@ import plugin
 from common import is_admin, info, warn, debug, stdout
 import sys
 import argparse
+import firsttime
 
 
 def get_plugins():
@@ -62,6 +63,8 @@ def main():
 
     info("Welcome to CentSecure!")
     debug("This computer is running {} version {}".format(plugin.get_os(), plugin.get_os_version()))
+
+    firsttime.run_all()
 
     if args.list_plugins:
         plugins = get_plugins()
