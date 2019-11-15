@@ -38,7 +38,7 @@
     
     
       
-        <title>Payloads - CentSecure</title>
+        <title>Plugins - CentSecure</title>
       
     
     
@@ -87,7 +87,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#payloads" tabindex="1" class="md-skip">
+      <a href="#plugins" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -113,7 +113,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Payloads
+                Plugins
               
             </span>
           
@@ -338,11 +338,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Payloads
+        Plugins
       </label>
     
-    <a href="./" title="Payloads" class="md-nav__link md-nav__link--active">
-      Payloads
+    <a href="./" title="Plugins" class="md-nav__link md-nav__link--active">
+      Plugins
     </a>
     
       
@@ -356,8 +356,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#payload-parameters" class="md-nav__link">
-    Payload Parameters
+  <a href="#plugin-parameters" class="md-nav__link">
+    Plugin Parameters
   </a>
   
 </li>
@@ -411,8 +411,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#payload-parameters" class="md-nav__link">
-    Payload Parameters
+  <a href="#plugin-parameters" class="md-nav__link">
+    Plugin Parameters
   </a>
   
 </li>
@@ -436,16 +436,16 @@
                   <a href="https://github.com/jake-walker/centsecure/edit/master/docs/development/payloads.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="payloads">Payloads</h1>
-<p>CentSecure is built around 'payloads' which are modules/plugins which do <strong>one</strong> action, for example: configure the firewall, create a user, etc...</p>
-<p>These payloads are then loaded into the application when it is run by searching through the <code>payloads</code> folder. Each of the payloads is then checked against the OS and OS version of the computer and then it is run.</p>
-<p>The <code>payloads</code> folder can contain any amount of Python files each containing any number of payloads (Python files cannot be in subfolders, but can be named anything). <strong>It is worth using a naming scheme for Python files so that they can be easily found!</strong></p>
-<p>Each of the Python files can have any number of 'payloads' inside them. Payloads are essentially classes which inherit a base class. This ensures that the <code>execute()</code> function always exists. Here is an example of what might be contained in a Python file:</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">payload</span>
+                <h1 id="plugins">Plugins</h1>
+<p>CentSecure is built around 'plugins' which are modules/plugins which do <strong>one</strong> action, for example: configure the firewall, create a user, etc...</p>
+<p>These plugins are then loaded into the application when it is run by searching through the <code>plugins</code> folder. Each of the plugins is then checked against the OS and OS version of the computer and then it is run.</p>
+<p>The <code>plugins</code> folder can contain any amount of Python files each containing any number of plugins (Python files cannot be in subfolders, but can be named anything). <strong>It is worth using a naming scheme for Python files so that they can be easily found!</strong></p>
+<p>Each of the Python files can have any number of 'plugins' inside them. Plugins are essentially classes which inherit a base class. This ensures that the <code>execute()</code> function always exists. Here is an example of what might be contained in a Python file:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">plugin</span>
 
 
-<span class="k">class</span> <span class="nc">MyPayload</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">Payload</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;My Payload&quot;</span>
+<span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">plugin</span><span class="o">.</span><span class="n">Plugin</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;My Plugin&quot;</span>
     <span class="n">os</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Windows&quot;</span><span class="p">]</span>
     <span class="n">os_version</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;10&quot;</span><span class="p">]</span>
 
@@ -455,16 +455,16 @@
 
 
 <p><strong>Note:</strong> <em>Each <code>class</code> must have a unique name!</em></p>
-<h2 id="payload-parameters">Payload Parameters</h2>
-<p>Payload parameters help the program to tell which operating systems your payload should run on. With the payload example above there are 3 parameters set <code>name</code>, <code>os</code> and <code>os_version</code>, this tells the program that the payload should only be run on <strong>Windows</strong> operating systems on version <strong>10</strong> only. Here are all of the available payload parameters:</p>
+<h2 id="plugin-parameters">Plugin Parameters</h2>
+<p>Plugin parameters help the program to tell which operating systems your plugin should run on. With the plugin example above there are 3 parameters set <code>name</code>, <code>os</code> and <code>os_version</code>, this tells the program that the plugin should only be run on <strong>Windows</strong> operating systems on version <strong>10</strong> only. Here are all of the available plugin parameters:</p>
 <ul>
-<li><strong><code>name</code></strong> is just the name that is used when talking about the payload in the output. It doesn't really matter.</li>
-<li><strong><code>os</code></strong> is the operating system that the payload is targeting. It is a <strong>list</strong> containing all of the operating systems that this payload is compatible with. (e.g. <code>all</code>, <code>Windows</code>, <code>Linux</code>, <code>Ubuntu</code>, etc...)</li>
-<li><strong><code>os_version</code></strong> is the version of the operating system that the payload is targeting. It is also a <strong>list</strong> containing all of the versions of operating system that this payload is compatible with. (e.g. <code>all</code>, <code>10</code>, <code>9</code>, <code>19.10</code>, etc...)</li>
-<li><strong><code>priority</code></strong> can help you to configure what order payloads run in. The default is <code>10</code> and a lower number dictates a <strong>higher priority</strong>, priorities can also be negative.</li>
+<li><strong><code>name</code></strong> is just the name that is used when talking about the plugin in the output. It doesn't really matter.</li>
+<li><strong><code>os</code></strong> is the operating system that the plugin is targeting. It is a <strong>list</strong> containing all of the operating systems that this plugin is compatible with. (e.g. <code>all</code>, <code>Windows</code>, <code>Linux</code>, <code>Ubuntu</code>, etc...)</li>
+<li><strong><code>os_version</code></strong> is the version of the operating system that the plugin is targeting. It is also a <strong>list</strong> containing all of the versions of operating system that this plugin is compatible with. (e.g. <code>all</code>, <code>10</code>, <code>9</code>, <code>19.10</code>, etc...)</li>
+<li><strong><code>priority</code></strong> can help you to configure what order plugins run in. The default is <code>10</code> and a lower number dictates a <strong>higher priority</strong>, priorities can also be negative.</li>
 </ul>
 <blockquote>
-<p><strong>It is best to run CentSecure on the actual computer that you want the payload to run on and then copy down the OS and OS version that it prints at the start.</strong></p>
+<p><strong>It is best to run CentSecure on the actual computer that you want the plugin to run on and then copy down the OS and OS version that it prints at the start.</strong></p>
 </blockquote>
                 
                   
