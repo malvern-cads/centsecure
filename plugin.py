@@ -1,6 +1,6 @@
-"""Payload specific code.
+"""Plugin specific code.
 
-Contains the base class for payloads, plugin loaders and OS checking functions.
+Contains the base class for plugins, plugin loaders and OS checking functions.
 """
 
 from importlib import import_module
@@ -10,10 +10,10 @@ from common import debug
 
 
 def find_plugins():
-    """Find payloads in the directory and import them (allowing them to be added to the registry)."""
-    import payloads
+    """Find plugins in the directory and import them (allowing them to be added to the registry)."""
+    import plugins
 
-    for path in payloads.__path__:
+    for path in plugins.__path__:
         root = Path(path)
         debug("Searching {} for plugins...".format(root))
 
@@ -26,15 +26,15 @@ def find_plugins():
             name = ".".join(rel_path.parts[:-1] + (rel_path.stem,))
 
             try:
-                import_module("payloads.{}".format(name))
+                import_module("plugins.{}".format(name))
             except ImportError:
                 pass
 
 
-class Payload:
-    """The base class for payloads."""
+class Plugin:
+    """The base class for plugins."""
     _registry = []
-    name = "Unknown Payload"
+    name = "Unknown Plugin"
     os = ["all"]
     os_version = ["all"]
     priority = 10  # Lower number means higher priority (can be negative)
@@ -42,14 +42,14 @@ class Payload:
     def __init_subclass__(cls, **kwargs):
         """Subclass loader.
 
-        When subclasses (i.e. payloads in the folder are loaded) they are added to the _registry
+        When subclasses (i.e. plugins in the folder are loaded) they are added to the _registry
         list on this class.
         """
         super().__init_subclass__(**kwargs)
         cls._registry.append(cls)
 
     def execute(self):
-        """Function that is run when the payload is executed."""
+        """Function that is run when the plugin is executed."""
         raise NotImplementedError
 
 
@@ -92,14 +92,14 @@ def _common_items(x, y):
 
 
 def os_check(target_os, target_os_version):
-    """Check a payload's target OS and target OS version against what the computer is running.
+    """Check a plugin's target OS and target OS version against what the computer is running.
 
     Args:
-        target_os (list[str]): List of operating systems that the payload works against.
-        target_os_version (list[str]): List of operating system versions that the payload works against.
+        target_os (list[str]): List of operating systems that the plugin works against.
+        target_os_version (list[str]): List of operating system versions that the plugin works against.
 
     Returns:
-        bool: Whether the payload will work against this computer.
+        bool: Whether the plugin will work against this computer.
 
     """
     target_os = _list_to_lower(target_os)

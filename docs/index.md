@@ -16,17 +16,17 @@ CentSecure doesn't require any configuration or arguments, so you just need to o
 
 CentSecure can take certain optional command line paramters. These are particularly useful for debugging.
 ```
-usage: centsecure.py [-h] [--list-payloads] [--run-payload N [N ...]]
+usage: centsecure.py [-h] [--list-plugins] [--run-plugin N [N ...]]
 
 Automatically fixes common security vulnerabilities.
 
 optional arguments:
   -h, --help            show this help message and exit
-  --list-payloads, -l   Lists all payloads
-  --run-payload N [N ...], -r N [N ...], -p N [N ...]
-                        Run specific payloads
+  --list-plugins, -l   Lists all plugins
+  --run-plugin N [N ...], -r N [N ...], -p N [N ...]
+                        Run specific plugins
 
-Default behaviour is to attempt to run all payloads
+Default behaviour is to attempt to run all plugins
 ```
 
 ### Installation Scripts

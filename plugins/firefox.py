@@ -1,27 +1,27 @@
-"""A payload to configure firefox."""
+"""A plugin to configure firefox."""
 
-import payload
+import plugin
 import common
 import os
 import shutil
 
 
-class Firefox(payload.Payload):
+class Firefox(plugin.Plugin):
     """Configure Firefox using user.js on all operating systems."""
     name = "Firefox"
     os = ["All"]
     os_version = ["All"]
 
     def execute(self):
-        """Execute payload."""
+        """Execute plugin."""
         common.warn("Make sure Firefox has been updated to the latest version (70+) in order for the settting to apply")
         self._add_user_js()
 
     def _add_user_js(self):
-        if "Windows" in payload.get_os():
+        if "Windows" in plugin.get_os():
             home_dir = "C:\\Users"
             profile_dir = "AppData\\Roaming\\Mozilla\\Firefox\\profiles"
-        elif "Linux" in payload.get_os():
+        elif "Linux" in plugin.get_os():
             home_dir = "/home/"
             profile_dir = ".mozilla/firefox/"
 

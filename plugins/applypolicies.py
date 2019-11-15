@@ -1,19 +1,19 @@
-"""A payload to configure Windows policies."""
+"""A plugin to configure Windows policies."""
 
-import payload
+import plugin
 import common
 import os
 import win32net
 
 
-class ApplyPolicies(payload.Payload):
+class ApplyPolicies(plugin.Plugin):
     """Apply group and local policies to Windows."""
     name = "Apply Policies"
     os = ["Windows"]
     version = ["ALL"]
 
     def execute(self):
-        """Execute the payload."""
+        """Execute the plugin."""
         common.info("Applying Local Security Policy...")
         cmd = "secedit.exe /configure /db %windir%\\security\\local.sdb /cfg policies\\security_policy.inf"
         os.system(cmd)

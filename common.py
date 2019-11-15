@@ -1,7 +1,7 @@
-"""Common functions for use throughout payloads.
+"""Common functions for use throughout plugins.
 
 This file contains common functions that can be used throughout CentSecure, mainly
-in payloads. There are logging, backup and other functions.
+in plugins. There are logging, backup and other functions.
 
   Logging usage:
   common.debug('Changing passwords...')

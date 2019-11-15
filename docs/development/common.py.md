@@ -1,6 +1,6 @@
 # common.py
 
-`common.py` is a small library that we have created to house some common functions that are used throughout CentSecure payloads. _If there is a function in here, please try and use it rather than implementing it your own way, it means we can change something in one place rather than updating it in multiple files._
+`common.py` is a small library that we have created to house some common functions that are used throughout CentSecure plugins. _If there is a function in here, please try and use it rather than implementing it your own way, it means we can change something in one place rather than updating it in multiple files._
 
 ## Methods
 

@@ -1,6 +1,6 @@
-"""A payload to manage user accounts."""
+"""A plugin to manage user accounts."""
 
-import payload
+import plugin
 import common
 import sys
 import os
@@ -8,13 +8,13 @@ import os
 try:
     import win32net
 except ModuleNotFoundError:
-    if "Windows" in payload.get_os():
+    if "Windows" in plugin.get_os():
         common.warn("The 'win32net' package is required for Windows systems!")
         sys.exit(1)
 
 
-class AccountManagement(payload.Payload):
-    """A universal payload to configure users.
+class AccountManagement(plugin.Plugin):
+    """A universal plugin to configure users.
 
     Add and remove users and promote to/demote from admin.
     """
@@ -23,8 +23,8 @@ class AccountManagement(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        """Execute payload."""
-        if "Linux" in payload.get_os():
+        """Execute plugin."""
+        if "Linux" in plugin.get_os():
             common.backup("/etc/passwd")
             common.backup("/etc/group")
             common.backup("/etc/shadow")
@@ -79,9 +79,9 @@ class AccountManagement(payload.Payload):
         return common.input_list("Enter a list of {} users".format(rank.lower()))
 
     def _get_current_users(self):
-        if "Linux" in payload.get_os():
+        if "Linux" in plugin.get_os():
             return common.get_current_users()
-        elif "Windows" in payload.get_os():
+        elif "Windows" in plugin.get_os():
             all_users = []
             data = list(win32net.NetUserEnum(None, 0))[0]
             for piece in data:
@@ -91,13 +91,13 @@ class AccountManagement(payload.Payload):
     def _delete_users(self, users):
         for user in users:
             common.info("Deleting {}...".format(user))
-            if "Linux" in payload.get_os():
+            if "Linux" in plugin.get_os():
                 # TODO backup user directory
                 # TODO find any other files elsewhere in the system that user owns
                 common.run("crontab -r -u {}".format(user))
                 common.run("userdel -r {}".format(user))
                 common.info("Deleted user {}".format(user))
-            elif "Windows" in payload.get_os():
+            elif "Windows" in plugin.get_os():
                 # TODO remove this
                 if user in "GuestAdministrator,DefaultAccount,defaultuser0":
                     continue
@@ -109,21 +109,21 @@ class AccountManagement(payload.Payload):
     def _create_users(self, users):
         for user in users:
             common.info("Adding {}...".format(user))
-            if "Linux" in payload.get_os():
+            if "Linux" in plugin.get_os():
                 common.run("useradd -s /bin/bash -m {}".format(user))
                 common.info("Added user {}".format(user))
-            elif "Windows" in payload.get_os():
+            elif "Windows" in plugin.get_os():
                 os.system("net user \"{}\" /add".format(user))
 
     def _set_standard_users(self, users):
         common.info("Setting standard users...")
         for user in users:
-            if "Linux" in payload.get_os():
+            if "Linux" in plugin.get_os():
                 # set only group to be the user's primary group
                 common.run("usermod -G {0} {0}".format(user))
                 common.run("usermod -aG users {}".format(user))
                 common.info("Removed all groups from user {}".format(user))
-            elif "Windows" in payload.get_os():
+            elif "Windows" in plugin.get_os():
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 for group in groups:
                     if group != "Users":
@@ -132,30 +132,30 @@ class AccountManagement(payload.Payload):
     def _set_admin_users(self, users):
         common.info("Setting admin users...")
         for user in users:
-            if "Linux" in payload.get_os():
+            if "Linux" in plugin.get_os():
                 # list of groups we want to add the user to
                 admin_roles = ["sudo", "adm"]
                 # add the admin roles
                 common.run("usermod -aG {0} {1}".format(",".join(admin_roles), user))
-            elif "Windows" in payload.get_os():
+            elif "Windows" in plugin.get_os():
                 groups = win32net.NetUserGetLocalGroups(None, user)
                 if "Administrators" not in groups:
                     os.system("net localgroup Administrators \"{}\" /add".format(user))
 
     def _change_password(self, user, password):
         common.info("Changing password of {0} to {1}".format(user, password))
-        if "Linux" in payload.get_os():
+        if "Linux" in plugin.get_os():
             common.run_full("echo '{0}:{1}' | chpasswd".format(user, password))
-        elif "Windows" in payload.get_os():
+        elif "Windows" in plugin.get_os():
             os.system("net user \"{}\" \"{}\"".format(user, password))
 
     def _change_password_on_login(self, user):
-        if "Linux" in payload.get_os():
+        if "Linux" in plugin.get_os():
             # TODO see if this can be implemented
             pass
-        elif "Windows" in payload.get_os():
+        elif "Windows" in plugin.get_os():
             os.system("net user \"{}\" /logonpasswordchg:yes".format(user))
 
     def _set_password_no_expire(self, user):
-        if "Windows" in payload.get_os():
+        if "Windows" in plugin.get_os():
             os.system("wmic useraccount where \"Name='{}'\" set PasswordExpires=false".format(user))
