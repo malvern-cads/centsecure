@@ -14,6 +14,9 @@ class RemoveMedia(payload.Payload):
 
     def execute(self):
         """Execute payload."""
+        if not common.input_yesno("Do you want to search prohibited files"):
+            return
+        
         files = self._get_files()
 
         # As this will take lots of manual labour, ask if they would like to check each file
