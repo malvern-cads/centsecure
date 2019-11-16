@@ -19,6 +19,16 @@ from colorama import init, Fore, Back
 import subprocess
 
 
+def is_os_64bit():
+    """Checks if 64 bit os.
+
+    Returns:
+        bool: if it is 64 bit
+
+    """
+    return platform.machine().endswith('64')
+
+
 def _log(text):
     """Appends the message to the log file.
 
