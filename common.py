@@ -22,7 +22,7 @@ import subprocess
 def is_os_64bit():
     """Checks if 64 bit os.
 
-    Returns
+    Returns:
         bool: if it is 64 bit
 
     """
