@@ -1,3 +1,4 @@
+"""Enables auditing for Linux."""
 import plugin
 import common
 import os
@@ -52,7 +53,7 @@ class LinuxAudit(plugin.Plugin):
                 source = "policies/audit.rules.32"
 
             shutil.copy2(source, path)
-            
+
             output = common.run_full("find /dev/sda1 -xdev \\( -perm -4000 -o -perm -2000 \\) -type f | awk '{print \"-a always,exit -F path=\" $1 \" -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged\" }'")
 
             if output:
