@@ -64,14 +64,15 @@ def main():
     info("Welcome to CentSecure!")
     debug("This computer is running {} version {}".format(plugin.get_os(), plugin.get_os_version()))
 
-    firsttime.run_all()
-
     if args.list_plugins:
         plugins = get_plugins()
         for p in plugins:
             stdout("- {}".format(p))
         sys.exit(0)
-    elif is_admin():
+
+    firsttime.run_all()
+
+    if is_admin():
         run(args.plugins)
     else:
         warn("CentSecure should be run as root or administator.")
