@@ -348,8 +348,13 @@ def run_full(cmd, include_error=False):
     """
     stderr = subprocess.STDOUT if include_error else None
     warn("Running unescaped command '{}'".format(cmd))
-    # Full commands are likely to be complex so we run using bash instead of sh
-    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=stderr, executable="/bin/bash")
+    if os.name == "nt":
+        executable = None
+    else:
+        # Full commands are likely to be complex so we run using bash instead of sh
+        executable = "/bin/bash"
+
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=stderr, executable=executable)
     return result.stdout.decode("utf-8")
 
 
