@@ -1,4 +1,5 @@
 @echo off
+setlocal
 
 echo ^> Python and Git for windows installer
 
@@ -57,8 +58,11 @@ echo ^> Installing python...
 python_install.exe /passive InstallAllUsers=1 PrependPath=1 Include_doc=0 Include_dev=0 Include_tcltk=0 Include_test=0 Include_tools=0
 
 echo ^> Installing dependencies...
-cd "c:\Program Files*\Python*"
+reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
+if %OS%==32BIT cd "c:\Program Files\Python*"
+if %OS%==64BIT cd "c:\Program Files (x86)\Python*"
+
 python.exe -m pip install colorama pypiwin32
-;python.exe Scripts/pywin32_postinstall.py -install
+python.exe Scripts/pywin32_postinstall.py -install
 
 echo ^> Python has been installed.
