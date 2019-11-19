@@ -33,8 +33,8 @@ class LinuxServices(plugin.Plugin):
     def _get_services(self):
         """Returns a list of available services.
 
-            Return:
-                 list: services on the system
+        Return:
+             list: services on the system
 
         """
         text = common.run("service --status-all", True)
@@ -58,8 +58,8 @@ class LinuxServices(plugin.Plugin):
     def _comment_out(self, path):
         """Comments out all of the lines in a file.
 
-            Args:
-                path (str): The path of the file
+        Args:
+            path (str): The path of the file
 
         """
         common.backup(path)
@@ -74,8 +74,8 @@ class LinuxServices(plugin.Plugin):
     def _enable_service(self, service):
         """Enable service.
 
-            Args:
-                service (str): The service to enable
+        Args:
+            service (str): The service to enable
 
         """
         pass
