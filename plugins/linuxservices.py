@@ -43,8 +43,8 @@ class LinuxServices(plugin.Plugin):
     def _stop_service(self, service):
         """Stops service.
 
-            Args:
-                service (str): The service to stop
+        Args:
+            service (str): The service to stop
 
         """
         common.debug("Stopping {} service".format(service))
