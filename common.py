@@ -36,12 +36,14 @@ def download_file(url, location):
         url (str): the Uniform Resource Locater of the target file
         location (str): the location to store the file inculding file name
 
-   """
-   common.debug("Downloading from {} to {}".format(url, location))
-   if os.name == "nt":
-       common.run_full('powershell.exe -Command "$ProgressPreference = \'SilentlyContinue\'; [Net.ServicePointManager]::SecurityProtocol = \'tls12, tls11, tls\'; wget \'{}\' -OutFile \'{}\'"'.format(url, location))
-   else:
-       common.run('wget "{}" -O "{}"'.format(url, location)
+    """
+    if " " in url or " " in location:
+        raise ValueError("Cannot handle spaces in url or location")
+    debug("Downloading from {} to {}".format(url, location))
+    if os.name == "nt":
+        run_full('powershell.exe -Command "$ProgressPreference = \'SilentlyContinue\'; [Net.ServicePointManager]::SecurityProtocol = \'tls12, tls11, tls\'; wget {} -OutFile {}"'.format(url, location))
+    else:
+        run('wget {} -O {}'.format(url, location))
 
 
 def _log(text):
