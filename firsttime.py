@@ -11,13 +11,8 @@ def download_user_js():
     if not os.path.exists("user.js"):
         common.debug("Downloading user.js...")
 
-        user_js_url = "https://raw.githubusercontent.com/ghacksuserjs/ghacks-user.js/v69.0-beta/user.js"
-
-        try:
-            urllib.request.urlretrieve(user_js_url, "user.js")
-        except urllib.error.URLError as ex:
-            common.error("There was a problem downloading user.js. You will need to download it manually from '{}'.".format(user_js_url), ex)
-            sys.exit(1)
+        user_js_url = "https://raw.githubusercontent.com/ghacksuserjs/ghacks-user.js/master/user.js"
+        common.download_file(user_js_url, "user.js")
 
 
 def run_all():
