@@ -14,10 +14,29 @@ CentSecure fixes security holes automatically which gets some of the 'lower hang
 
 CentSecure doesn't require any configuration or arguments, so you just need to open it and follow the prompts that it gives.
 
+CentSecure can take certain optional command line paramters. These are particularly useful for debugging.
+```
+usage: centsecure.py [-h] [--list-plugins] [--run-plugin N [N ...]]
+
+Automatically fixes common security vulnerabilities.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --list-plugins, -l   Lists all plugins
+  --run-plugin N [N ...], -r N [N ...], -p N [N ...]
+                        Run specific plugins
+
+Default behaviour is to attempt to run all plugins
+```
+
 ### Installation Scripts
 
-We have installation scripts for both Ubuntu and Windows which are in the `scripts` folder. Simply clone the repository (or download as a ZIP from GitHub) and run one of the scripts.
+We have installation scripts for both Ubuntu and Windows which are in the `scripts` folder. Simply clone the repository (or download as a ZIP from GitHub) and run one of the scripts. Both of the installers focus on installing python and the dependencies required for CentSecure.
+
+#### Windows
+
+The batch file installer for Windows *must be* run from an elevated command prompt and *will not* work as intended if run from the file explorer.
 
 ### Manual Installation
 
-If you don't want to use the installation scripts, you can manually install CentSecure. Read our [Installation Guide](docs/development/installation.md) for more information on manually installing dependencies.
+If you don't want to use the installation scripts, you can manually install CentSecure. Read our [Installation Guide](development/installation.md) for more information on manually installing dependencies.

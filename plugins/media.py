@@ -1,19 +1,22 @@
-"""A payload to remove prohibited files."""
+"""A plugin to remove prohibited files."""
 
-import payload
+import plugin
 import common
 import os
 import glob
 
 
-class RemoveMedia(payload.Payload):
+class RemoveMedia(plugin.Plugin):
     """Remove prohibited files."""
     name = "Remove Media"
     os = ["All"]
     os_version = ["All"]
 
     def execute(self):
-        """Execute payload."""
+        """Execute plugin."""
+        if not common.input_yesno("Do you want to search prohibited files"):
+            return
+
         files = self._get_files()
 
         # As this will take lots of manual labour, ask if they would like to check each file
@@ -42,9 +45,9 @@ class RemoveMedia(payload.Payload):
                       "mp2", "mp3", "mp4", "mpeg4", "midi", "msi", "ogg", "png", "txt", "sh", "wav", "wma", "vqf"]
 
         common.warn("Only searching for prohibited files in user directories!")
-        if "Linux" in payload.get_os():
+        if "Linux" in plugin.get_os():
             directory = "/home"
-        elif "Windows" in payload.get_os():
+        elif "Windows" in plugin.get_os():
             directory = "C:\\Users"
         else:
             return []

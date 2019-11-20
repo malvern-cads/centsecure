@@ -1,12 +1,12 @@
-"""A payload to configure PAM."""
+"""A plugin to configure PAM."""
 
-import payload
+import plugin
 import os
 import common
 
 
 # list all pam modules available: sudo updatedb && locate --regex '.*/pam_[^/]+\.so$'
-class Pam(payload.Payload):
+class Pam(plugin.Plugin):
     """Configure PAM.
 
     Set password requirements and lockout policy.
@@ -16,7 +16,7 @@ class Pam(payload.Payload):
     os_version = ["ALL"]
 
     def execute(self):
-        """Execute the payload."""
+        """Execute the plugin."""
         self._set_password_requirements()
         self._set_password_lockout()
 

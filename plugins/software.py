@@ -1,6 +1,6 @@
-"""A payload for removing and adding software."""
+"""A plugin for removing and adding software."""
 
-import payload
+import plugin
 import common
 import re
 import json
@@ -79,7 +79,7 @@ def _check_whitelist(obj):
     return False
 
 
-class RemoveSoftwareUbuntu(payload.Payload):
+class RemoveSoftwareUbuntu(plugin.Plugin):
     """Remove software packages interactively on Ubuntu and Debian."""
     name = "Remove Software (Ubuntu/Debian)"
     os = ["Ubuntu", "Debian"]
@@ -117,7 +117,7 @@ class RemoveSoftwareUbuntu(payload.Payload):
         common.debug("Removed packages!")
 
 
-class RemoveSoftwareWindows(payload.Payload):
+class RemoveSoftwareWindows(plugin.Plugin):
     """Remove software interactively on Windows."""
     name = "Remove Software (Windows)"
     os = ["Windows"]

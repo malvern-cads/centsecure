@@ -1,18 +1,19 @@
-"""A payload to configure Windows policies."""
+"""A plugin to configure Windows policies."""
 
-import payload
+import plugin
 import common
 import os
+import win32net
 
 
-class ApplyPolicies(payload.Payload):
+class ApplyPolicies(plugin.Plugin):
     """Apply group and local policies to Windows."""
     name = "Apply Policies"
     os = ["Windows"]
     version = ["ALL"]
 
     def execute(self):
-        """Execute the payload."""
+        """Execute the plugin."""
         common.info("Applying Local Security Policy...")
         cmd = "secedit.exe /configure /db %windir%\\security\\local.sdb /cfg policies\\security_policy.inf"
         os.system(cmd)
@@ -27,3 +28,8 @@ class ApplyPolicies(payload.Payload):
         common.info("Applying Advanced Audit Policies...")
         cmd = "auditpol /restore /file:policies\\audit.csv"
         os.system(cmd)
+
+        # Removes all shares
+        common.info("Removing all shares")
+        for share in win32net.NetShareEnum(None, 0)[0]:
+            win32net.NetShareDel(None, share['netname'])
