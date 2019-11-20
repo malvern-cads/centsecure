@@ -1,9 +1,7 @@
 """Functions for setting up CentSecure for the first time."""
 
-import urllib.request
 import os.path
 import common
-import sys
 
 
 def download_user_js():
