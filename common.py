@@ -214,7 +214,7 @@ def get_current_users():
 def change_parameters(path, params):
     """Modify a config file with the given parameters.
 
-    The config file needs to be in the format: <key> <value>
+    The config file needs to be in the format: <key><any amount of white space><value>
 
     Args:
         path (str): The path to the config file to modify
@@ -227,8 +227,12 @@ def change_parameters(path, params):
     # Grab location in file of keys
     indices = {}
     for index, line in enumerate(lines):
-        # Ensure we grab the key
-        key_word = line.split(" ")[0]
+        if not line or line[0] in "#":
+            continue
+
+        # Ensure we grab the key if exists
+        key_word = line.split()[0]
+
         if key_word in params:
             indices[key_word] = index
 
