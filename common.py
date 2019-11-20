@@ -347,7 +347,7 @@ def run_full(cmd, include_error=False):
 
     """
     stderr = subprocess.STDOUT if include_error else None
-    warn("Running unescaped command '{}'".format(cmd))
+    debug("Running unescaped command '{}'".format(cmd))
     if os.name == "nt":
         executable = None
     else:
