@@ -4,7 +4,6 @@ import plugin
 import common
 import re
 import json
-import struct
 
 # If any of these are matched against:
 # - package name on Linux
@@ -43,13 +42,10 @@ def _list_ubuntu_packages():
     return packages
 
 
-def _is_64_bit():
-    return (8 * struct.calcsize("P")) == 64
-
-
 def _list_windows_programs():
-    registry_key = "HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*"  # 64-bit registry key
-    if not _is_64_bit():
+    if common.is_os_64bit():
+        registry_key = "HKLM:\\Software\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*"  # 64-bit registry key
+    else:
         registry_key = "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*"  # 32-bit registry key
 
     output = common.run(["powershell.exe", "Get-ItemProperty {} | Select-Object DisplayName, Publisher, UninstallString | ConvertTo-Json".format(registry_key)])
@@ -147,6 +143,6 @@ class RemoveSoftwareWindows(plugin.Plugin):
 
             keep = common.input_yesno("({}/{}) Would you like to keep the program '{}' (by '{}')".format(i, len(programs), program["DisplayName"], program["Publisher"]))
             if not keep:
-                common.run(program["UninstallString"])
+                common.run_full(program["UninstallString"])
 
         common.debug("Removed packages!")
