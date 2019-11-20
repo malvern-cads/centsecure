@@ -21,12 +21,12 @@ class Lightdm(plugin.Plugin):
         except FileNotFoundError as ex:
             common.error("{} not found".format(path), ex)
 
-        config["SeatDefaults"] = {}
-        config["SeatDefaults"]["user-session"] = "ubuntu"
-        config["SeatDefaults"]["greeter-session"] = "unity-greeter"
-        config["SeatDefaults"]["greeter-show-manual-login"] = "true"
-        config["SeatDefaults"]["greeter-hide-users"] = "true"
-        config["SeatDefaults"]["allow-guest"] = "false"
+        config["Seat:*"] = {}
+        config["Seat:*"]["user-session"] = "ubuntu"
+        config["Seat:*"]["greeter-session"] = "unity-greeter"
+        config["Seat:*"]["greeter-show-manual-login"] = "true"
+        config["Seat:*"]["greeter-hide-users"] = "true"
+        config["Seat:*"]["allow-guest"] = "false"
 
         with open(path, "w+") as out_file:
             config.write(out_file)
