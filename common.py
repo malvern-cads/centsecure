@@ -1,7 +1,7 @@
-"""Common functions for use throughout payloads.
+"""Common functions for use throughout plugins.
 
 This file contains common functions that can be used throughout CentSecure, mainly
-in payloads. There are logging, backup and other functions.
+in plugins. There are logging, backup and other functions.
 
   Logging usage:
   common.debug('Changing passwords...')
@@ -17,6 +17,16 @@ import platform
 import ctypes
 from colorama import init, Fore, Back
 import subprocess
+
+
+def is_os_64bit():
+    """Checks if 64 bit os.
+
+    Returns:
+        bool: if it is 64 bit
+
+    """
+    return platform.machine().endswith('64')
 
 
 def _log(text):
@@ -338,8 +348,13 @@ def run_full(cmd, include_error=False):
     """
     stderr = subprocess.STDOUT if include_error else None
     warn("Running unescaped command '{}'".format(cmd))
-    # Full commands are likely to be complex so we run using bash instead of sh
-    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=stderr, executable="/bin/bash")
+    if os.name == "nt":
+        executable = None
+    else:
+        # Full commands are likely to be complex so we run using bash instead of sh
+        executable = "/bin/bash"
+
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=stderr, executable=executable)
     return result.stdout.decode("utf-8")
 
 

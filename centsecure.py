@@ -1,46 +1,47 @@
 """The main file for starting CentSecure.
 
-This code loads payloads from the folder and executes them if they match the host's
+This code loads plugins from the folder and executes them if they match the host's
 operating system.
 """
 
-import payload
+import plugin
 from common import is_admin, info, warn, debug, stdout
 import sys
 import argparse
+import firsttime
 
 
-def get_payloads():
-    """Fetches a list of payloads.
+def get_plugins():
+    """Fetches a list of plugins.
 
     Returns:
-        list[str]: A list of name of payloads, with spaces escaped with hyphens
+        list[str]: A list of name of plugins, with spaces escaped with hyphens
 
     """
-    payloads = []
-    for p in payload.Payload._registry:
+    plugins = []
+    for p in plugin.Plugin._registry:
         name = p.name.replace(" ", "-")
-        payloads.append(name)
-    return payloads
+        plugins.append(name)
+    return plugins
 
 
-def run(payloads=[]):
-    """Runs the payloads.
+def run(plugins=[]):
+    """Runs the plugins.
 
     Args:
-        payloads (list[str], optional): An option list of specific payloads to run
+        plugins (list[str], optional): An option list of specific plugins to run
 
     """
-    all_payloads = payload.Payload._registry
+    all_plugins = plugin.Plugin._registry
 
-    # Sort payloads in priority order
-    all_payloads.sort(key=lambda x: x.priority)
+    # Sort plugins in priority order
+    all_plugins.sort(key=lambda x: x.priority)
 
-    for p in all_payloads:
-        if not payloads or p.name.replace("-", " ") in payloads:
-            debug("Payload: {} (targets {} version {}, priority {})".format(p.name, p.os, p.os_version, p.priority))
+    for p in all_plugins:
+        if not plugins or p.name.replace(" ", "-") in plugins:
+            debug("Plugin: {} (targets {} version {}, priority {})".format(p.name, p.os, p.os_version, p.priority))
 
-            if payload.os_check(p.os, p.os_version):
+            if plugin.os_check(p.os, p.os_version):
                 instance = p()
                 info("Running {}...".format(p.name))
                 instance.execute()
@@ -52,24 +53,27 @@ def run(payloads=[]):
 
 def main():
     """Main function."""
-    # Need to get payloads first for arguments to function
-    payload.find_plugins()
+    # Need to get plugins first for arguments to function
+    plugin.find_plugins()
 
-    parser = argparse.ArgumentParser(description="Automatically fixes common security vulnerabilities.", epilog="Default behaviour is to attempt to run all payloads")
-    parser.add_argument("--list-payloads", "-l", action="store_true", help="Lists all payloads", dest="list_payloads")
-    parser.add_argument("--run-payload", "-r", "-p", choices=get_payloads(), nargs="+", metavar="N", help="Run specific payloads", dest="payloads")
+    parser = argparse.ArgumentParser(description="Automatically fixes common security vulnerabilities.", epilog="Default behaviour is to attempt to run all plugins")
+    parser.add_argument("--list-plugins", "-l", action="store_true", help="Lists all plugins", dest="list_plugins")
+    parser.add_argument("--run-plugin", "-r", "-p", choices=get_plugins(), nargs="+", metavar="N", help="Run specific plugins", dest="plugins")
     args = parser.parse_args()
 
     info("Welcome to CentSecure!")
-    debug("This computer is running {} version {}".format(payload.get_os(), payload.get_os_version()))
+    debug("This computer is running {} version {}".format(plugin.get_os(), plugin.get_os_version()))
 
-    if args.list_payloads:
-        payloads = get_payloads()
-        for p in payloads:
+    if args.list_plugins:
+        plugins = get_plugins()
+        for p in plugins:
             stdout("- {}".format(p))
-        sys.exit(1)
-    elif is_admin():
-        run(args.payloads)
+        sys.exit(0)
+
+    firsttime.run_all()
+
+    if is_admin():
+        run(args.plugins)
     else:
         warn("CentSecure should be run as root or administator.")
         sys.exit(1)

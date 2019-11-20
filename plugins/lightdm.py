@@ -1,18 +1,18 @@
-"""A payload to configure LightDM."""
+"""A plugin to configure LightDM."""
 
-import payload
+import plugin
 import configparser
 import common
 
 
-class Lightdm(payload.Payload):
+class Lightdm(plugin.Plugin):
     """Configure LightDM."""
     name = "Lightdm securing"
     os = ["Ubuntu"]
     os_version = ["16.04"]
 
     def execute(self):
-        """Execute payload."""
+        """Execute plugin."""
         path = "/etc/lightdm/lightdm.conf"
         config = configparser.ConfigParser()
         try:
@@ -21,12 +21,12 @@ class Lightdm(payload.Payload):
         except FileNotFoundError as ex:
             common.error("{} not found".format(path), ex)
 
-        config["SeatDefaults"] = {}
-        config["SeatDefaults"]["user-session"] = "ubuntu"
-        config["SeatDefaults"]["greeter-session"] = "unity-greeter"
-        config["SeatDefaults"]["greeter-show-manual-login"] = "true"
-        config["SeatDefaults"]["greeter-hide-users"] = "true"
-        config["SeatDefaults"]["allow-guest"] = "false"
+        config["Seat:*"] = {}
+        config["Seat:*"]["user-session"] = "ubuntu"
+        config["Seat:*"]["greeter-session"] = "unity-greeter"
+        config["Seat:*"]["greeter-show-manual-login"] = "true"
+        config["Seat:*"]["greeter-hide-users"] = "true"
+        config["Seat:*"]["allow-guest"] = "false"
 
         with open(path, "w+") as out_file:
             config.write(out_file)

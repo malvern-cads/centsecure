@@ -1,17 +1,17 @@
-"""A payload for configuring SSH."""
+"""A plugin for configuring SSH."""
 
-import payload
+import plugin
 import common
 
 
-class SSH(payload.Payload):
+class SSH(plugin.Plugin):
     """Configure SSH on Linux."""
     name = "SSH"
     os = ["Linux"]
     os_version = ["ALL"]
 
     def execute(self):
-        """Execute payload."""
+        """Execute plugin."""
         path = "/etc/ssh/sshd_config"
         common.backup(path)
 
