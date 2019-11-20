@@ -29,6 +29,23 @@ def is_os_64bit():
     return platform.machine().endswith('64')
 
 
+def download_file(url, location):
+    """Downloads url and saves to specified location.
+
+    Args:
+        url (str): the Uniform Resource Locater of the target file
+        location (str): the location to store the file inculding file name
+
+    """
+    if " " in url or " " in location:
+        raise ValueError("Cannot handle spaces in url or location")
+    debug("Downloading from {} to {}".format(url, location))
+    if os.name == "nt":
+        run_full('powershell.exe -Command "$ProgressPreference = \'SilentlyContinue\'; [Net.ServicePointManager]::SecurityProtocol = \'tls12, tls11, tls\'; wget {} -OutFile {}"'.format(url, location))
+    else:
+        run('wget {} -O {}'.format(url, location))
+
+
 def _log(text):
     """Appends the message to the log file.
 
