@@ -29,6 +29,21 @@ def is_os_64bit():
     return platform.machine().endswith('64')
 
 
+def set_permissions(path, user, group, permissions):
+    """Sets permissions on file.
+
+    Args:
+        path (str): path of file
+        user (str): owner of file
+        group (str): group owner of file
+        permissions (str): permissions to be set on file
+
+    """
+    backup(path)
+    run_full("chown {}:{} {}".format(user, group, path))
+    run_full("chmod {} {}".format(permissions, path))
+
+
 def download_file(url, location):
     """Downloads url and saves to specified location.
 
