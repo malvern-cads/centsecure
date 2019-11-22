@@ -112,7 +112,7 @@ class Network(plugin.Plugin):
         common.run(path)
 
     def _remove_interfaces(self):
-        """Remove Wireless Interfaces"""
+        """Remove Wireless Interfaces."""
         common.warn("Please disable any wifi interfaces")
         common.warn("ip link set <interface> down")
         common.stdout(common.run("iwconfig"))
