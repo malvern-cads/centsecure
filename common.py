@@ -361,36 +361,50 @@ def backup(source, compress=False):
     return dest_path
 
 
-def run(cmd, include_error=False):
+def run(cmd, include_error=False, ignore_error=False):
     """Run a shell command.
 
     Args:
         cmd (str/list[str]): The command to be run.
         include_error (bool): Option to include error output in return variable.
+        ignore_error (bool): Disregard of the error, include_error take priority
 
     Returns:
         str: The command's output.
 
     """
-    stderr = subprocess.STDOUT if include_error else None
+    if include_error:
+        stderr = subprocess.STDOUT
+    elif ignore_error:
+        stderr = subprocess.PIPE
+    else:
+        stderr = None
     command_list = cmd if isinstance(cmd, list) else cmd.split(" ")
     debug("Running command '{}'".format(cmd))
     result = subprocess.run(command_list, stdout=subprocess.PIPE, stderr=stderr)
+    if ignore_error:
+        _log("ignore_error:\n**\n{}\n**".format(result.stderr.decode("utf-8")))
     return result.stdout.decode("utf-8")
 
 
-def run_full(cmd, include_error=False):
+def run_full(cmd, include_error=False, ignore_error=False):
     """Run a shell command unescaped and with bash.
 
     Args:
         cmd (str): The command to be run.
         include_error (bool): Option to include error output in return variable.
+        ignore_error (bool): Disregard of the error, include_error take priority
 
     Returns:
         str: The command's output
 
     """
-    stderr = subprocess.STDOUT if include_error else None
+    if include_error:
+        stderr = subprocess.STDOUT
+    elif ignore_error:
+        stderr = subprocess.PIPE
+    else:
+        stderr = None
     debug("Running unescaped command '{}'".format(cmd))
     if os.name == "nt":
         executable = None
@@ -399,6 +413,8 @@ def run_full(cmd, include_error=False):
         executable = "/bin/bash"
 
     result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=stderr, executable=executable)
+    if ignore_error:
+        _log("ignore_error:\n**\n{}\n**".format(result.stderr.decode("utf-8")))
     return result.stdout.decode("utf-8")
 
 
