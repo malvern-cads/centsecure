@@ -17,6 +17,10 @@ import platform
 import ctypes
 from colorama import init, Fore, Back
 import subprocess
+import atexit
+
+
+_reminders = []
 
 
 def is_os_64bit():
@@ -136,6 +140,29 @@ def error(msg, e=None):
         output = "[E] {}".format(msg)
     print(Fore.WHITE + Back.RED + output)  # noqa: T001
     _log(output)
+
+
+def reminder(msg):
+    """Print a message to the console at the end of the program's execution.
+
+    Args:
+        msg (str): The message to print to the console
+
+    """
+    _reminders.append(msg)
+
+
+@atexit.register
+def print_reminders():
+    """Print the reminders to the console.
+
+    This function should be run after the program has finished executing.
+
+    """
+    for reminder in _reminders:
+        output = "[R] {}".format(reminder)
+        print(Fore.MAGENTA + output)  # noqa: T001
+        _log(output)
 
 
 def input_text(msg):
