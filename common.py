@@ -266,7 +266,6 @@ def change_parameters(path, params, equal_delim=False):
         # Ensure we grab the key if exists
         if equal_delim:
             key_word = line.split("=")[0].strip()
-            print(key_word)
         else:
             key_word = line.split()[0]
 
