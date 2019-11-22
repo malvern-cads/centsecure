@@ -12,6 +12,7 @@
 - `common.warn("You don't want to do that!")`
 - `common.error("Houston, there's a problem!")`
 - `common.error("Houston, there's a problem!", exception)` - *pass an additional parameter for the exception*
+- `common.reminder("Remember to close the fridge!")` - *save a message until the program has finished running*
 
 ### User Input
 
