@@ -243,7 +243,7 @@ def get_current_users():
     return normal_users
 
 
-def change_parameters(path, params):
+def change_parameters(path, params, equal_delim=False):
     """Modify a config file with the given parameters.
 
     The config file needs to be in the format: <key><any amount of white space><value>
@@ -251,6 +251,7 @@ def change_parameters(path, params):
     Args:
         path (str): The path to the config file to modify
         params (dictionary): A dictionary containing keys and their corresponding values to be modified
+        equal_delim (bool): A flag that enables format of <key> = <value>
 
     """
     with open(path) as in_file:
@@ -263,14 +264,22 @@ def change_parameters(path, params):
             continue
 
         # Ensure we grab the key if exists
-        key_word = line.split()[0]
+        if equal_delim:
+            key_word = line.split("=")[0].strip()
+            print(key_word)
+        else:
+            key_word = line.split()[0]
 
         if key_word in params:
             indices[key_word] = index
 
     for param in params:
         # Format of config file
-        line = "{0} {1}".format(param, params[param])
+        if equal_delim:
+            line = "{0} = {1}".format(param, params[param])
+        else:
+            line = "{0} {1}".format(param, params[param])
+
         if param in indices:
             index = indices[param]
             lines[index] = line
