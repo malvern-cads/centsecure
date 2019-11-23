@@ -1,20 +1,20 @@
-"""Secures hosts file"""
+"""Secures hosts file."""
 import plugin
 import common
 
 
 class Hosts(plugin.Plugin):
-    """Secures hosts file"""
+    """Secures hosts file."""
     name = "Hosts"
-    os = ["Ubuntu"]
-    os_version = ["14.04"]
+    os = ["All"]
+    os_version = ["All"]
 
     def execute(self):
-        """Secures hosts file"""
+        """Secures hosts file."""
         self._set_default_hosts()
 
     def _set_default_hosts(self):
-        """Clears hosts and sets default hostname"""
+        """Clears hosts and sets default hostname."""
         if "Linux" in plugin.get_os():
             hostname = "CADSHOST"
 
@@ -32,4 +32,9 @@ class Hosts(plugin.Plugin):
 
             common.run("hostname {}".format(hostname))
         else:
-            pass
+            with open("policies/hosts.win") as in_file:
+                text = in_file.read()
+            path = "C:\\Windows\\System32\\drivers\\etc\\hosts"
+            # common.backup(path)
+            with open(path, "w") as out_file:
+                out_file.write(text)
