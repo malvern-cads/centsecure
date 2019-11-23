@@ -90,8 +90,8 @@ class Network(plugin.Plugin):
         common.backup("/etc/hosts.allow")
         common.backup("/etc/hosts.deny")
 
-        common.warn("You need to set up /etc/hosts.allow")
-        common.warn("In the format: 'ALL: <net>/<mask>, <net>/<mask>'")
+        reminder = "You need to set up /etc/hosts.allow\nIn the format: 'ALL: <net>/<mask>, <net>/<mask>'"
+        common.reminder(reminder)
 
         with open("/etc/hosts.deny", "w") as out_file:
             out_file.write("ALL: ALL")
@@ -115,6 +115,5 @@ class Network(plugin.Plugin):
         """Remove Wireless Interfaces."""
         interfaces = common.run("iwconfig", ignore_error=True)
         if interfaces:
-            common.warn("Please disable any wifi interfaces")
-            common.warn("ip link set <interface> down")
-            common.stdout(interfaces)
+            reminder = "Please disable any wifi interfaces\nip link set <interface> down" + interfaces
+            common.reminder(reminder)

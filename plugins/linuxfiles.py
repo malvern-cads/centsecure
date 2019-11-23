@@ -20,5 +20,5 @@ class LinuxFiles(plugin.Plugin):
         common.set_permissions("/etc/group-", "root", "root", "u-x,go-wx")
         common.set_permissions("/etc/gshadow-", "root", "root", "o-rwx,g-rw")
 
-        common.warn("Check there are no rough programs:")
-        common.stdout(common.run_full("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -4000"))
+        reminder = "Check there are no rouge programs:\n" + common.run_full("df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -type f -perm -4000")
+        common.reminder(reminder)

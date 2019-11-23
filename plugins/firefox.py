@@ -1,5 +1,3 @@
-"""A plugin to configure firefox."""
-
 import plugin
 import common
 import os
@@ -14,7 +12,8 @@ class Firefox(plugin.Plugin):
 
     def execute(self):
         """Execute plugin."""
-        common.warn("Make sure Firefox has been updated to the latest version (70+) in order for the settting to apply")
+        reminder = "Make sure Firefox has been updated to the latest version (70+) in order for the settting to apply\nFirefox will have to be restarted"
+        common.reminder(reminder)
         self._add_user_js()
 
     def _add_user_js(self):

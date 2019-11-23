@@ -52,7 +52,7 @@ class ShadowSuite(plugin.Plugin):
         cmd = "for usr in $(cut -d: -f1 /etc/shadow); do [[ $(chage --list $usr | grep '^Last password change' | cut -d: -f2) > $(date) ]] && echo \"$usr :$(chage --list $usr | grep '^Last password change' | cut -d: -f2)\"; done"
         output = common.run_full(cmd)
         if output != "":
-            common.info("Ensure these are all in the past:\n" + str(output))
+            common.reminder("Ensure these are all in the past:\n" + str(output))
 
     def _set_shadow(self):
         # sets all system accounts to a no log on shell
