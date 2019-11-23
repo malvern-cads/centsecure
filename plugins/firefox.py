@@ -1,3 +1,4 @@
+"""Configure Firefox using user.js on all operating systems."""
 import plugin
 import common
 import os
