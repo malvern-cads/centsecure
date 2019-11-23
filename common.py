@@ -161,7 +161,7 @@ def print_reminders():
     """
     for reminder in _reminders:
         output = "[R] {}".format(reminder)
-        print(Fore.MAGENTA + output)  # noqa: T001
+        print(Fore.MAGENTA + Back.YELLOW + output)  # noqa: T001
         _log(output)
 
 
