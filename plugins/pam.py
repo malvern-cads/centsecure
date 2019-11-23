@@ -24,7 +24,7 @@ class Pam(plugin.Plugin):
         # /etc/pam.d/system-auth - check if exists due to alternative method of implementation
         path = "/etc/pam.d/system-auth"
         if os.path.isfile(path):
-            common.warn("{} exists, needs checking (cracklib/pwquality)".format(path))
+            common.reminder("{} exists, needs checking (cracklib/pwquality)".format(path))
 
         path = "/etc/pam.d/common-password"
         common.backup(path)

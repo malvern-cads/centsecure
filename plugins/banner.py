@@ -17,7 +17,7 @@ class Banners(plugin.Plugin):
         common.set_permissions("/etc/motd", "root", "root", "644")
         common.set_permissions("/etc/issue", "root", "root", "644")
         common.set_permissions("/etc/issue.net", "root", "root", "644")
-        common.warn("Check if GDM is installed, and if so configure banners correctly")
+        common.reminder("Check if GDM is installed, and if so configure banners correctly")
 
     def _write_file(self, path, text):
         """Writes to a file.
