@@ -9,7 +9,7 @@ class Lightdm(plugin.Plugin):
     """Configure LightDM."""
     name = "Lightdm securing"
     os = ["Ubuntu"]
-    os_version = ["16.04"]
+    os_version = ["16.04", "14.04"]
 
     def execute(self):
         """Execute plugin."""
