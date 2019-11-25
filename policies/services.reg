@@ -1,0 +1,174 @@
+Windows Registry Editor Version 5.00
+
+;Windows Services
+;Bluetooth Support Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bthserv]
+"Start"=dword:00000004
+
+;Computer Browser
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Browser]
+"Start"=dword:00000004
+
+;Downloaded Maps Manager
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MapsBroker]
+"Start"=dword:00000004
+
+;Geolocation Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lfsvc]
+"Start"=dword:00000004
+
+;IIS Admin Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\IISADMIN]
+"Start"=dword:00000004
+
+;Infrared monitor service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\irmon]
+"Start"=dword:00000004
+
+;Internet Connection Sharing
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess]
+"Start"=dword:00000004
+
+;Link-Layer Topology Discovery Mapper
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lltdsvc]
+"Start"=dword:00000004
+
+;LxssManage
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LxssManager]
+"Start"=dword:00000004
+
+;Microsoft FTP Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FTPSVC]
+"Start"=dword:00000004
+
+;Microsoft iSCSI Initiator Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSiSCSI]
+"Start"=dword:00000004
+
+;Microsoft Store Install Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\InstallService]
+"Start"=dword:00000004
+
+;OpenSSH SSH Server
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\sshd]
+"Start"=dword:00000004
+
+;Peer Name Resolution Protocol
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PNRPsvc]
+"Start"=dword:00000004
+
+;Peer Networking Grouping
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\p2psvc]
+"Start"=dword:00000004
+
+;Peer Networking Identity Manager 
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\p2pimsvc]
+"Start"=dword:00000004
+
+;PNRP Machine Name Publication Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PNRPAutoReg]
+"Start"=dword:00000004
+
+;Problem Reports and Solutions Control Panel Support
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wercplsupport]
+"Start"=dword:00000004
+
+;Remote Access Auto Connection Manager
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasAuto]
+"Start"=dword:00000004
+
+;Remote Desktop Configuration
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SessionEnv]
+"Start"=dword:00000004
+
+;Remote Desktop Services
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermService]
+"Start"=dword:00000004
+
+;Remote Desktop Services UserMode Port Redirector
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UmRdpService]
+"Start"=dword:00000004
+
+;Remote Procedure Call (RPC) Locator
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RpcLocator]
+"Start"=dword:00000004
+
+;Remote Registry
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RemoteRegistry]
+"Start"=dword:00000004
+
+;Routing and Remote Access
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RemoteAccess]
+"Start"=dword:00000004
+
+;Server
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer]
+"Start"=dword:00000004
+
+;Simple TCP/IP Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\simptcp]
+"Start"=dword:00000004
+
+;SNMP Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SNMP]
+"Start"=dword:00000004
+
+;SSDP Discovery
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SSDPSRV]
+"Start"=dword:00000004
+
+;UPnP Device Host
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\upnphost]
+"Start"=dword:00000004
+
+;Web Management Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WMSvc]
+"Start"=dword:00000004
+
+;Windows Error Reporting Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WerSvc]
+"Start"=dword:00000004
+
+;Windows Event Collector
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Wecsvc]
+"Start"=dword:00000004
+
+;Windows Media Player Network Sharing Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WMPNetworkSvc]
+"Start"=dword:00000004
+
+;Windows Mobile Hotspot Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\icssvc]
+"Start"=dword:00000004
+
+;Windows Push Notifications System Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WpnService]
+"Start"=dword:00000004
+
+;Windows PushToInstall Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PushToInstall]
+"Start"=dword:00000004
+
+;Windows Remote Management
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinRM]
+"Start"=dword:00000004
+
+;World Wide Web Publishing Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W3SVC]
+"Start"=dword:00000004
+
+;Xbox Accessory Management Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxGipSvc]
+"Start"=dword:00000004
+
+;Xbox Live Auth Manager
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblAuthManager]
+"Start"=dword:00000004
+
+;Xbox Live Game Save
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblGameSave]
+"Start"=dword:00000004
+
+;Xbox Live Networking Service
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc]
+"Start"=dword:00000004
