@@ -33,3 +33,7 @@ class ApplyPolicies(plugin.Plugin):
         common.info("Removing all shares")
         for share in win32net.NetShareEnum(None, 0)[0]:
             win32net.NetShareDel(None, share['netname'])
+
+        # Disables Default Services
+        common.info("Disabling Services...")
+        common.import_reg("policies\\services.reg")
