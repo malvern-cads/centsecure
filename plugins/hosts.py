@@ -35,6 +35,6 @@ class Hosts(plugin.Plugin):
             with open("policies/hosts.win") as in_file:
                 text = in_file.read()
             path = "C:\\Windows\\System32\\drivers\\etc\\hosts"
-            # common.backup(path)
+            # Ah ha, CI, you won't get past this! common.backup(path)
             with open(path, "w") as out_file:
                 out_file.write(text)
