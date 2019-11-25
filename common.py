@@ -23,6 +23,17 @@ import atexit
 _reminders = []
 
 
+def import_reg(path):
+    """Imports a registry file.
+
+    Args:
+        path (str): the path to the registry file
+
+    """
+    debug("Importing registry file {}".format(path))
+    run("reg import {}".format(path))
+
+
 def is_os_64bit():
     """Checks if 64 bit os.
 
