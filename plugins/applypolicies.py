@@ -37,3 +37,8 @@ class ApplyPolicies(plugin.Plugin):
         # Disables Default Services
         common.info("Disabling Services...")
         common.import_reg("policies\\services.reg")
+
+        # Apply the master registry file
+        # This contains lots of useful registry keys that aren't big enough to group on their own
+        common.info("Applying Master Registry...")
+        common.import_reg("policies\\master.reg")
