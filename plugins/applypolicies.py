@@ -53,7 +53,8 @@ class ApplyPolicies(plugin.Plugin):
         """
         common.info("Disabling Windows Features")
         # Gets all currently enabled features
-        output = common.run_full('DISM /online /get-features /format:table | find "Enabled"')
+        output = common.run_full('%WINDIR%\\SysNative\\dism.exe /online /get-features /format:table | find "Enabled"')
+        print(output)
         bad = [feature.split()[0] for feature in output.split("\n") if feature != ""]
         common.debug("Found features: {}".format(bad))
         for feature in bad:
@@ -62,11 +63,11 @@ class ApplyPolicies(plugin.Plugin):
                 common.debug("Keeping {}...".format(feature))
                 continue
             common.debug("Disabling {}...".format(feature))
-            common.run_full("DISM /online /disable-feature /featurename:{} /NoRestart".format(feature))
+            common.run_full("%WINDIR%\\SysNative\\dism.exe /online /disable-feature /featurename:{} /NoRestart".format(feature))
 
         if common.is_os_64bit():
             ie = "Internet-Explorer-Optional-amd64"
         else:
             ie = "Internet-Explorer-Optional-x86"
         common.info("Enabling IE")
-        common.run_full("DISM /online /enable-feature /featurename:{} /NoRestart".format(ie))
+        common.run_full("%WINDIR%\\SysNative\\dism.exe /online /enable-feature /featurename:{} /NoRestart".format(ie))
