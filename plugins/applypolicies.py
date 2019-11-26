@@ -45,7 +45,6 @@ class ApplyPolicies(plugin.Plugin):
 
         self._disableFeatures()
 
-
     def _disableFeatures(self):
         """Disables All Windows Features.
 
@@ -58,6 +57,10 @@ class ApplyPolicies(plugin.Plugin):
         bad = [feature.split()[0] for feature in output.split("\n") if feature != ""]
         common.debug("Found features: {}".format(bad))
         for feature in bad:
+            # Causes BSOD if you disable these
+            if feature in ["Printing-Foundation-Features", "FaxServicesClientPackage"]:
+                common.debug("Keeping {}...".format(feature))
+                continue
             common.debug("Disabling {}...".format(feature))
             common.run_full("DISM /online /disable-feature /featurename:{} /NoRestart".format(feature))
 
