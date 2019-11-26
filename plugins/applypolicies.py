@@ -31,8 +31,12 @@ class ApplyPolicies(plugin.Plugin):
 
         # Removes all shares
         common.info("Removing all shares")
-        for share in win32net.NetShareEnum(None, 0)[0]:
-            win32net.NetShareDel(None, share['netname'])
+        try:
+            for share in win32net.NetShareEnum(None, 0)[0]:
+                win32net.NetShareDel(None, share['netname'])
+        except Exception as e:
+            common.warn("Not running remove shares")
+            common.debug(e)
 
         # Disables Default Services
         common.info("Disabling Services...")
@@ -52,9 +56,15 @@ class ApplyPolicies(plugin.Plugin):
 
         """
         common.info("Disabling Windows Features")
+        if common.is_os_64bit():
+            dism = "%WINDIR%\\SysNative\\dism.exe"
+            ie = "Internet-Explorer-Optional-amd64"
+        else:
+            dism = "DISM"
+            ie = "Internet-Explorer-Optional-x86"
+
         # Gets all currently enabled features
-        output = common.run_full('%WINDIR%\\SysNative\\dism.exe /online /get-features /format:table | find "Enabled"')
-        print(output)
+        output = common.run_full('{} /online /get-features /format:table | find "Enabled"'.format(dism))
         bad = [feature.split()[0] for feature in output.split("\n") if feature != ""]
         common.debug("Found features: {}".format(bad))
         for feature in bad:
@@ -63,11 +73,7 @@ class ApplyPolicies(plugin.Plugin):
                 common.debug("Keeping {}...".format(feature))
                 continue
             common.debug("Disabling {}...".format(feature))
-            common.run_full("%WINDIR%\\SysNative\\dism.exe /online /disable-feature /featurename:{} /NoRestart".format(feature))
+            common.run_full("{} /online /disable-feature /featurename:{} /NoRestart".format(dism, feature))
 
-        if common.is_os_64bit():
-            ie = "Internet-Explorer-Optional-amd64"
-        else:
-            ie = "Internet-Explorer-Optional-x86"
         common.info("Enabling IE")
-        common.run_full("%WINDIR%\\SysNative\\dism.exe /online /enable-feature /featurename:{} /NoRestart".format(ie))
+        common.run_full("{} /online /enable-feature /featurename:{} /NoRestart".format(dism, ie))
