@@ -84,6 +84,7 @@ class ApplyPolicies(plugin.Plugin):
         outputs.append(["IE", process])
 
         # Currently we do not check for outputs
+        common.reminder("In order for Windows Features that have been disbaled to fully take effect, Windows must be restarted. Although ensure atleast one minute has passed since ApplyPolicies has run")
 
     def _run_background(self, cmd):
         """Runs shell command in background.
@@ -93,6 +94,7 @@ class ApplyPolicies(plugin.Plugin):
 
         Returns:
             something: the subprocess
+
         """
         process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         return process
