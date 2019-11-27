@@ -4,6 +4,7 @@ import plugin
 import common
 import os
 import win32net
+import subprocess
 
 
 class ApplyPolicies(plugin.Plugin):
@@ -65,15 +66,39 @@ class ApplyPolicies(plugin.Plugin):
 
         # Gets all currently enabled features
         output = common.run_full('{} /online /get-features /format:table | find "Enabled"'.format(dism))
-        bad = [feature.split()[0] for feature in output.split("\n") if feature != ""]
-        common.debug("Found features: {}".format(bad))
-        for feature in bad:
+        bad_features = [feature.split()[0] for feature in output.split("\n") if feature != ""]
+        common.debug("Found features: {}".format(bad_features))
+
+        outputs = []
+        for feature in bad_features:
             # Causes BSOD if you disable these
             if feature in ["Printing-Foundation-Features", "FaxServicesClientPackage"]:
                 common.debug("Keeping {}...".format(feature))
                 continue
             common.debug("Disabling {}...".format(feature))
-            common.run_full("{} /online /disable-feature /featurename:{} /NoRestart".format(dism, feature))
+            process = self._run_background("{} /online /disable-feature /featurename:{} /NoRestart".format(dism, feature))
+            outputs.append([feature, process])
 
         common.info("Enabling IE")
-        common.run_full("{} /online /enable-feature /featurename:{} /NoRestart".format(dism, ie))
+        process = self._run_background("{} /online /enable-feature /featurename:{} /NoRestart".format(dism, ie))
+        outputs.append(["IE", process])
+
+        # Gathering outputs
+        for output in outputs:
+            name = output[0]
+            process = output[1]
+            text = process.communicate()[0].decode("utf-8")
+            if "The operation completed successfully." in text:
+                common.debug("{} was successfull".format(name))
+
+    def _run_background(self, cmd):
+        """Runs shell command in background.
+
+        Args:
+            cmd (str): the command to be run
+
+        Returns:
+            something: the subprocess
+        """
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        return process
