@@ -83,13 +83,7 @@ class ApplyPolicies(plugin.Plugin):
         process = self._run_background("{} /online /enable-feature /featurename:{} /NoRestart".format(dism, ie))
         outputs.append(["IE", process])
 
-        # Gathering outputs
-        for output in outputs:
-            name = output[0]
-            process = output[1]
-            text = process.communicate()[0].decode("utf-8")
-            if "The operation completed successfully." in text:
-                common.debug("{} was successfull".format(name))
+        # Currently we do not check for outputs
 
     def _run_background(self, cmd):
         """Runs shell command in background.
