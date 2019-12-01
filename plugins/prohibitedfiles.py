@@ -66,3 +66,40 @@ class RemoveMedia(plugin.Plugin):
         for media in to_remove:
             os.remove(media)
             common.debug("Removed {}".format(media))
+
+
+class PurgeHomeDirectories(plugin.Plugin):
+    """Purge home directories."""
+    name = "Purge Home Directories"
+    os = ["All"]
+    os_version = ["All"]
+
+    def _get_home_directories(self):
+        return glob.glob("/home/*/")
+
+    def execute(self):
+        """Execute plugin."""
+        # Fetch a list of home directories
+        dirs = self._get_home_directories()
+        common.info("Found {} home directories: {}".format(len(dirs), dirs))
+        exclude = common.input_list("Please input a list of strings to exclude")
+
+        for d in dirs:
+            if any(e in d for e in exclude):
+                common.debug("Skipping directory {}".format(d))
+                continue
+
+            common.info("Purging {}...".format(d))
+            common.debug("Backing up folder...")
+            common.backup(d, compress=True)
+
+            common.debug("Removing folder contents...")
+            for root, dirs, files in os.walk(d, topdown=False):
+                for f in files:
+                    path = os.path.join(root, f)
+                    common.debug("Removing file {}...".format(path))
+                    os.remove(path)
+                for di in dirs:
+                    path = os.path.join(root, di)
+                    common.debug("Removing folder {}...".format(path))
+                    os.rmdir(path)
