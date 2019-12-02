@@ -5,10 +5,25 @@ operating system.
 """
 
 import plugin
-from common import is_admin, info, warn, debug, stdout
+from common import is_admin, info, warn, debug, stdout, reminder
 import sys
 import argparse
 import firsttime
+
+
+def plugin_slug(p):
+    """Generate a plugin slug.
+
+    A slug is used to identify the plugin in a human readable way.
+
+    Args:
+        p (str): The plugin to create a slug from
+
+    Returns:
+        str: The slug that was generated
+
+    """
+    return p.name.replace(" ", "-")
 
 
 def get_plugins():
@@ -20,7 +35,7 @@ def get_plugins():
     """
     plugins = []
     for p in plugin.Plugin._registry:
-        name = p.name.replace(" ", "-")
+        name = plugin_slug(p)
         plugins.append(name)
     return plugins
 
@@ -33,22 +48,30 @@ def run(plugins=[]):
 
     """
     all_plugins = plugin.Plugin._registry
+    failures = []
 
     # Sort plugins in priority order
     all_plugins.sort(key=lambda x: x.priority)
 
     for p in all_plugins:
-        if not plugins or p.name.replace(" ", "-") in plugins:
+        if not plugins or plugin_slug(p) in plugins:
             debug("Plugin: {} (targets {} version {}, priority {})".format(p.name, p.os, p.os_version, p.priority))
 
             if plugin.os_check(p.os, p.os_version):
                 instance = p()
                 info("Running {}...".format(p.name))
-                instance.execute()
+
+                try:
+                    instance.execute()
+                except Exception as ex:
+                    reminder("The plugin {} failed to run with the error {}".format(p.name, repr(ex)))
+                    failures.append(plugin_slug(p))
             else:
                 warn("Not running {} as this is not the right OS".format(p.name))
         else:
             warn("Skipping {}".format(p.name))
+
+    reminder("To run all of the failed plugins again, execute CentSecure with the following argument: '-r {}'".format(" ".join(failures)))
 
 
 def main():
