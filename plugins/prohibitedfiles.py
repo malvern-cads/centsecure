@@ -66,3 +66,58 @@ class RemoveMedia(plugin.Plugin):
         for media in to_remove:
             os.remove(media)
             common.debug("Removed {}".format(media))
+
+
+class PurgeHomeDirectories(plugin.Plugin):
+    """Purge home directories."""
+    name = "Purge Home Directories"
+    os = ["Windows", "Linux"]
+    os_version = ["All"]
+
+    def _get_home_directories(self):
+        if "Windows" in plugin.get_os():
+            return glob.glob("C:\\Users\\*\\")
+        elif "Linux" in plugin.get_os():
+            dir_list = glob.glob("/home/*/")
+
+            # This could be damaging so ask first!
+            if common.input_yesno("Would you like to clear the root directory too"):
+                dir_list.append("/root/")
+
+            return dir_list
+        else:
+            raise Exception("Unexpected Operating System")
+
+    def _last_folder_name(self, path):
+        # Extract the last folder name from a path (e.g. /home/user/ becomes user)
+        return os.path.basename(os.path.dirname(path))
+
+    def _clear_folder(self, d):
+        for root, dirs, files in os.walk(d, topdown=False):
+            for f in files:
+                path = os.path.join(root, f)
+                common.debug("Removing file {}...".format(path))
+                os.remove(path)
+            for di in dirs:
+                path = os.path.join(root, di)
+                common.debug("Removing folder {}...".format(path))
+                os.rmdir(path)
+
+    def execute(self):
+        """Execute plugin."""
+        # Fetch a list of home directories
+        dirs = self._get_home_directories()
+        common.info("Found {} home directories: {}".format(len(dirs), dirs))
+        exclude = common.input_list("Please input a list of folder names to exclude (recommended to add your username)")
+
+        for d in dirs:
+            if any(e == self._last_folder_name(d) for e in exclude):
+                common.debug("Skipping directory {}".format(d))
+                continue
+
+            common.info("Purging {}...".format(d))
+            common.debug("Backing up folder...")
+            common.backup(d, compress=True)
+
+            common.debug("Removing folder contents...")
+            self._clear_folder(d)
