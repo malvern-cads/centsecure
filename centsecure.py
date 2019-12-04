@@ -59,7 +59,7 @@ def main():
     parser = argparse.ArgumentParser(description="Automatically fixes common security vulnerabilities.", epilog="Default behaviour is to attempt to run all plugins")
     parser.add_argument("--list-plugins", "-l", action="store_true", help="Lists all plugins", dest="list_plugins")
     parser.add_argument("--run-plugin", "-r", "-p", choices=get_plugins(), nargs="+", metavar="N", help="Run specific plugins", dest="plugins")
-    parser.add_argument("--disable-root-check", "-d", action="store_true", help="Disable root check", dest="no_root_check")
+    parser.add_argument("--disable-root-check", "--no-root", "-d", action="store_true", help="Disable root check", dest="no_root_check")
     args = parser.parse_args()
 
     info("Welcome to CentSecure!")
