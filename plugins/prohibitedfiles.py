@@ -71,11 +71,16 @@ class RemoveMedia(plugin.Plugin):
 class PurgeHomeDirectories(plugin.Plugin):
     """Purge home directories."""
     name = "Purge Home Directories"
-    os = ["All"]
+    os = ["Windows", "Linux"]
     os_version = ["All"]
 
     def _get_home_directories(self):
+        if "Windows" in plugin.get_os():
+            return glob.glob("C:\\Users\\*\\")
+        elif "Linux" in plugin.get_os():
         return glob.glob("/home/*/")
+        else:
+            raise Exception("Unexpected Operating System")
 
     def execute(self):
         """Execute plugin."""
