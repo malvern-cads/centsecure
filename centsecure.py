@@ -64,7 +64,7 @@ def run(plugins=[]):
                 try:
                     instance.execute()
                 except Exception as ex:
-                    reminder("The plugin {} failed to run with the error {}".format(p.name, repr(ex)))
+                    reminder("The plugin {} failed to run".format(p.name), ex)
                     failures.append(plugin_slug(p))
             else:
                 warn("Not running {} as this is not the right OS".format(p.name))
