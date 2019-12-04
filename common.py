@@ -18,9 +18,19 @@ import ctypes
 from colorama import init, Fore, Back
 import subprocess
 import atexit
+import sys
+import traceback
 
 
 _reminders = []
+
+
+def get_stacktrace():
+    """Get the stacktrace string from the most recent error."""
+    parts = []
+    parts.extend(traceback.format_stack(limit=25)[:-2])
+    parts.extend(traceback.format_exception(*sys.exc_info())[1:])
+    return "\n" + "".join(parts)
 
 
 def import_reg(path):
@@ -146,20 +156,24 @@ def error(msg, e=None):
 
     """
     if e is not None:
-        output = "[E] {} -> {}".format(msg, repr(e))
+        output = "[E] {} -> {} -> {}".format(msg, get_stacktrace(), repr(e))
     else:
         output = "[E] {}".format(msg)
+
     print(Fore.WHITE + Back.RED + output)  # noqa: T001
     _log(output)
 
 
-def reminder(msg):
+def reminder(msg, e=None):
     """Print a message to the console at the end of the program's execution.
 
     Args:
         msg (str): The message to print to the console
+        e (exception, optional): An exception to show alongside the message. Defaults to None.
 
     """
+    if e is not None:
+        msg += " -> {} -> {}".format(get_stacktrace(), repr(e))
     _reminders.append(msg)
 
 
