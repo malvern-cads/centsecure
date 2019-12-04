@@ -78,19 +78,23 @@ class PurgeHomeDirectories(plugin.Plugin):
         if "Windows" in plugin.get_os():
             return glob.glob("C:\\Users\\*\\")
         elif "Linux" in plugin.get_os():
-        return glob.glob("/home/*/")
+            return glob.glob("/home/*/")
         else:
             raise Exception("Unexpected Operating System")
+
+    def _last_folder_name(self, path):
+        # Extract the last folder name from a path (e.g. /home/user/ becomes user)
+        return os.path.basename(os.path.dirname(path))
 
     def execute(self):
         """Execute plugin."""
         # Fetch a list of home directories
         dirs = self._get_home_directories()
         common.info("Found {} home directories: {}".format(len(dirs), dirs))
-        exclude = common.input_list("Please input a list of strings to exclude")
+        exclude = common.input_list("Please input a list of folder names to exclude")
 
         for d in dirs:
-            if any(e in d for e in exclude):
+            if any(e == self._last_folder_name(d) for e in exclude):
                 common.debug("Skipping directory {}".format(d))
                 continue
 
