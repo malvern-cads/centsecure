@@ -2,6 +2,7 @@
 
 import plugin
 import common
+import os
 
 
 class SSH(plugin.Plugin):
@@ -13,7 +14,11 @@ class SSH(plugin.Plugin):
     def execute(self):
         """Execute plugin."""
         path = "/etc/ssh/sshd_config"
-        common.backup(path)
+        if os.path.isfile(path):
+            common.backup(path)
+        else:
+             common.info("{} not found, skipping SSH".format(path))
+             return
 
         # set correct permissions
         common.run("chown root:root {}".format(path))
