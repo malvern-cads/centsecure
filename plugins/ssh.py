@@ -17,8 +17,8 @@ class SSH(plugin.Plugin):
         if os.path.isfile(path):
             common.backup(path)
         else:
-             common.info("{} not found, skipping SSH".format(path))
-             return
+            common.info("{} not found, skipping SSH".format(path))
+            return
 
         # set correct permissions
         common.run("chown root:root {}".format(path))

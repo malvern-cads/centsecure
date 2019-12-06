@@ -110,7 +110,7 @@ class Pam(plugin.Plugin):
             elif "pam_permit.so" in line:
                 permit_index = index
 
-        if text == lines[permit_index-1]:
+        if text == lines[permit_index - 1]:
             common.debug("Tally already exists")
         elif permit_index is not None:
             lines.insert(permit_index, text)
