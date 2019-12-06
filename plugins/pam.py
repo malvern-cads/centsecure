@@ -93,7 +93,7 @@ class Pam(plugin.Plugin):
         with open(path) as in_file:
             lines = in_file.read().split("\n")
 
-        unix_index = None
+        permit_index = None
 
         # used for fedora based distros
 #     text = """auth required pam_tally2.so onerr=fail audit silent deny=5 unlock_time=900
@@ -107,16 +107,26 @@ class Pam(plugin.Plugin):
         for index, line in enumerate(lines):
             if "pam_faillock.so" in line:
                 common.warn("Found faillock, needs checking (password lockout)")
-            elif "pam_unix.so" in line:
-                unix_index = index
+            elif "pam_permit.so" in line:
+                permit_index = index
 
-        if unix_index is not None:
-            lines.insert(unix_index, text)
+        if text == lines[permit_index-1]:
+            common.debug("Tally already exists")
+        elif permit_index is not None:
+            lines.insert(permit_index, text)
         else:
             common.error("Error {} not formatted as expected".format(path))
             return
 
         with open(path, "w") as out_file:
             out_file.write("\n".join(lines))
+
+        # Ensure user doesn't get locked out
+        user = common.input_text("Enter current user")
+        common.run("pam_tally2 -u {} --reset".format(user))
+        # Everytime they use sudo the tally gets reset
+        with open("/home/{}/.bashrc".format(user), "a") as out_file:
+            out_file.write("\nalias sudo='sudo pam_tally2 -u {} --reset >/dev/null; sudo '\n".format(user))
+        common.reminder("You need to reload .bashrc in all currently used terminals: source ~/.bashrc")
 
         common.debug("Set Password Lockout")
