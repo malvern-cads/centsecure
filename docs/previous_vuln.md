@@ -299,3 +299,84 @@ _The number in brackets for the title is (number of vulnerabilities found/total 
 - Removed Beware IRC server - 6 pts
 - Removed TeamViewer - 6 pts
 - Removed ophcrack - 6 pts
+Missing:
+- User password set not to expire
+### Round 2
+#### Ubuntu 14.04 (24/24) (100)
+- Forensics Question 1 correct - 6 pts
+- Forensics Question 2 correct - 6 pts
+- Removed unauthorized user mfreeze - 4 pts
+- Removed unauthorized user joker - 4 pts
+- Removed unauthorized user rghul - 4 pts
+- User harold is not an administrator - 4 pts
+- User skyle is not an administrator - 4 pts
+- Changed insecure password for user bgordon - 4 pts
+- Created user account ace - 4 pts
+- A default maximum password age is set - 4 pts
+- A default minimum password age is set - 4 pts
+- Uncomplicated Firewall (UFW) protection has been enabled - 4 pts
+- Apache2 service has been disabled or reomved - 4 pts
+- The system automatically checks for security updates - 4 pts
+- Install updates from important security updates - 4 pts
+- OpenSSH has been updated - 4 pts
+- Removed plain text file containing passwords - 4 pts
+- Prohibited software Wireshark has been removed - 4 pts
+- Prohibited software Zenmap and Nmap removed - 4 pts
+- Stellarium has been installed - 4 pts
+- Prohibited software Freeciv has removed - 4 pts
+- SSH root login has been disabled - 4 pts
+- Guest account is disabled - 4 pts
+- Prohibited software Minetest removed - 4 pts
+#### Windows 10 (27/28) (98)
+- Forensics Question 1 correct - 8 pts
+- Forensics Question 2 correct - 8 pts
+- Removed unauthorized user joker - 2 pts
+- Removed unauthorized user rghul - 2 pts
+- User ace is not an administrator - 2 pts
+- User hstrange is not an administrator - 2 pts
+- Changed insecure password for user apennyworth - 2 pts
+- Changed insecure password for user tdrake - 2 pts
+- Created user account lfox - 2 pts
+- A secure maximum password age exists - 2 pts
+- A secure lockout threshold exists - 2 pts
+- Do not display last user name \[enabled\] - 5 pts
+- Audit User Account Management \[Failure\] - 5 pts
+- Limit local use of blank passwords to console only \[enabled\]
+- Firewall protection has been enabled - 2 pts
+- FTP service has stopped and disabled - 2 pts
+- Windows Update service is enabled - 5 pts
+- The majority of Windows updates are installed - 2 pts
+- Firefox has been updated - 3 pts
+- Thunderbird has been updated - 5 pts
+- Removed prohbited MP3 files - 3 pts
+- Removed Driver Support - 3 pts
+- Removed Wireshark - 3 pts
+- Removed Angry IP scanner - 3 pts
+- Removed NetBus Pro - 5 pts
+- Firefox pop-up blocker enabled - 5 pts
+- Firefox blocks dangerous downloads - 5 pts
+#### Windows Server 2016 (24/25) (95)
+- Forensics Question 1 correct - 8 pts
+- Forensics Question 2 correct - 8 pts
+- Removed unauthorized user pivy - 3 pts
+- Removed unauthorized user hquinn - 3 pts
+- User dwayne is not an administrator - 3 pts
+- User harold has a password - 3 pts
+- Changed insecure password for jgordon - 3 pts
+- User skyle password expires - 3 pts
+- User jtodd is an administrator - 5 pts
+- A secure minimum password age exists - 3 pts
+- A sufficient password history is being kept - 3 pts
+- Limit local use of blank passwords to console only \[enabled\] - 5 pts
+- Audit Credential Validation \[Failure\] - 5 pts
+- File sharing disabled for GCPD folder - 5 pts
+- World wide Web Publishing service has been stopped and disabled - 3 pts
+- The majority of Windows updates are installed - 2 pts
+- PuTTY has been updated - 5 pts
+- Removed Brutus password cracker archive - 3 pts
+- Removed iTunes - 3 pts
+- Removed Beware IRC server - 3 pts
+- Removed TeamViewer - 3 pts
+- Removed uTorrent - 3 pts
+- Removed ophcrack - 4 pts
+- RDP network level authentication enabled - 5 pts
