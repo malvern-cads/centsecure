@@ -12,20 +12,23 @@ _The number in brackets is the number of points that you can expect to get from 
 - Demoted user as per brief (4)
 - Promoted user as per brief, to sudo (2-4)
 - Changed insecure password (2-4)
+- Created user (4)
 - Minimum password length is required (4)
-- Default max password age set (3-4)
+- Default maximum password age set (3-4)
 - Default minimum password age set (4)
 - An account lockout policy is configured (4)
 - Firewall protection enabled (3-5)
 - Software Installed/Started
     - sshd
+    - Uncomplicated Firewall (UFW) protection has been enabled
 - Software disabled/removed
     - Apache2 service
     - FTP
     - Samba service
     - SNMP service
 - The system automatically checks for updates daily (3-4)
-- Installed important security updates (2)
+- The system automatically checks for security updates (4)
+- Installed important security updates (2-4)
 - Software updated
     - Bash updated (4)
     - Firefox updated (4)
@@ -36,6 +39,7 @@ _The number in brackets is the number of points that you can expect to get from 
     - 7zip has been updated (3)
     - Pure FTP has been updated (3)
 - Prohibited Software/media removed
+    - Removed plain text file containing passwords (4)
     - .mp3 files (5)
     - kismet removed (5)
     - ophcrack removed (5)
@@ -45,7 +49,9 @@ _The number in brackets is the number of points that you can expect to get from 
     - Freeciv has been removed (3)
     - Wireshark
     - Minetest
+- Stellarium has been installed (4)
 - SSH root login disabled (4)
+- Guest account is disabled (4)
 - Removed netcat backdoor (5)
 - Firefox pop-up blocker enabled (5)
 ## Windows
@@ -55,17 +61,24 @@ _The number in brackets is the number of points that you can expect to get from 
 - Added users to new group as per brief (4)
 - Removed unauthorized user (1-3)
 - Guest account is not enabled (3)
-- Elevate user to admin (1-3)
+- User is not an administrator (1-3)
+- User has a password (1-3)
 - Change insecure password (2-3)
-- Give user a password (1-3)
-- A secure minimum length is required (2)
+- Create user (2)
+- User password expires (3)
+- User is an administrator (5)
 - Passwords must meet complexity requirements (3)
 - A sufficient password history is being kept (5)
+- A secure minimum password age exists (3)
 - A secure minimum password length is required (3)
-- A secure maximum password age is set
+- A secure maximum password age is exists (2)
+- A secure lockout threshold exists (2)
 - Audit Computer Account Management \[success\] (3)
 - Audit Computer Account Management \[Failure\] (3)
+- Audit Credential Validation \[Failure\] (5)
 - Do not require CTRL+ALT+DEL \[disabled\] (10)
+- Do not display last user name \[enabled\] (5)
+- Limit local use of blank passwords to console only \[enabled\] (5)
 - Users may not change system time (3)
 - Switch to secure desktop when prompting for elavation \[enabled\] (3)
 - A secure lockout threshold exists (2-3)
@@ -82,6 +95,7 @@ _The number in brackets is the number of points that you can expect to get from 
     - Remote registry service has been stopped and disabled (3)
     - File sharing disabled for C drive
     - World Wide Web Publishling service has been stopped and disabled *(Server only)*
+- Windows Update service is enabled - (5)
 - The majority of windows updates have been installed (2-4)
 - Windows automatically checks for updates (2-4)
 - Software updated
@@ -91,6 +105,7 @@ _The number in brackets is the number of points that you can expect to get from 
     - Thunderbird has been updated (3)
     - Java has been updated (3)
     - Gimp has been updated (3)
+    - PuTTY
 - Removed prohibited software/media
     - .mp3 files (3)
     - removed Angry IP scanner
@@ -100,7 +115,7 @@ _The number in brackets is the number of points that you can expect to get from 
     - removed itunes (3)
     - removed teamviewer (3)
     - removed driver support (3)
-    - removed Brutus password cracker (3)
+    - removed Brutus password cracker archive(3)
     - removed angry ip scanner (3)
     - removed chicken invaders (3)
     - removed KNCTR (3)
@@ -113,10 +128,13 @@ _The number in brackets is the number of points that you can expect to get from 
     - removed John the Ripper (2)
     - removed Advanced Port Scanner (2)
     - removed Real Player
+    - removed Wireshark (3)
+    - removed NetBus Pro
 - Removed netcat backdoor (4)
 - rdp network level authentication enabled (remote desktop) (4)
 - Internet explorer has been installed (3)
 - Internet explorer enhanced security configuration is enabled (3)
 - Firefox warns when sites try to install add-ons (3)
+- Firefox pop-up blocker enabled (5)
 - Firefox blocks dangerous downloads (3)
 - Firefox automatically checks for updates (3)
