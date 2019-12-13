@@ -158,4 +158,5 @@ class AccountManagement(plugin.Plugin):
 
     def _set_password_no_expire(self, user):
         if "Windows" in plugin.get_os():
-            os.system("wmic useraccount where \"Name='{}'\" set PasswordExpires=false".format(user))
+            # Password has to be set to expire in order to enforce change password on login
+            os.system("wmic useraccount where \"Name='{}'\" set PasswordExpires=true".format(user))
