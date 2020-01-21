@@ -15,7 +15,7 @@ mkdocs-material = "*"
 
 [packages]
 colorama = "*"
-pywin32 = {version = "*",sys_platform = "== 'win32'"}
+pywin32 = {version = "==225",sys_platform = "== 'win32'"}
 
 [requires]
 python_version = "3.7"
