@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-\.]+">
       
       <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.0">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/application.30686662.css">
+      <link rel="stylesheet" href="assets/stylesheets/application.1b62728e.css">
       
         <link rel="stylesheet" href="assets/stylesheets/application-palette.a8b3c06d.css">
       
@@ -53,12 +53,12 @@
       
     
     
-      <script src="assets/javascripts/modernizr.74668098.js"></script>
+      <script src="assets/javascripts/modernizr.268332fc.js"></script>
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
@@ -504,17 +504,17 @@
 <h2 id="usage">Usage</h2>
 <p>CentSecure doesn't require any configuration or arguments, so you just need to open it and follow the prompts that it gives.</p>
 <p>CentSecure can take certain optional command line paramters. These are particularly useful for debugging.</p>
-<div class="codehilite"><pre><span></span><span class="nv">usage</span>: <span class="nv">centsecure</span>.<span class="nv">py</span> [<span class="o">-</span><span class="nv">h</span>] [<span class="o">--</span><span class="nv">list</span><span class="o">-</span><span class="nv">plugins</span>] [<span class="o">--</span><span class="nv">run</span><span class="o">-</span><span class="nv">plugin</span> <span class="nv">N</span> [<span class="nv">N</span> ...]]
+<div class="codehilite"><pre><span></span><span class="n">usage</span><span class="o">:</span> <span class="n">centsecure</span><span class="o">.</span><span class="na">py</span> <span class="o">[-</span><span class="n">h</span><span class="o">]</span> <span class="o">[--</span><span class="n">list</span><span class="o">-</span><span class="n">plugins</span><span class="o">]</span> <span class="o">[--</span><span class="n">run</span><span class="o">-</span><span class="n">plugin</span> <span class="n">N</span> <span class="o">[</span><span class="n">N</span> <span class="o">...]]</span>
 
-<span class="nv">Automatically</span> <span class="nv">fixes</span> <span class="nv">common</span> <span class="nv">security</span> <span class="nv">vulnerabilities</span>.
+<span class="n">Automatically</span> <span class="n">fixes</span> <span class="n">common</span> <span class="n">security</span> <span class="n">vulnerabilities</span><span class="o">.</span>
 
-<span class="nv">optional</span> <span class="nv">arguments</span>:
-  <span class="o">-</span><span class="nv">h</span>, <span class="o">--</span><span class="nv">help</span>            <span class="k">show</span> <span class="nv">this</span> <span class="nv">help</span> <span class="nv">message</span> <span class="nv">and</span> <span class="k">exit</span>
-  <span class="o">--</span><span class="nv">list</span><span class="o">-</span><span class="nv">plugins</span>, <span class="o">-</span><span class="nv">l</span>   <span class="nv">Lists</span> <span class="nv">all</span> <span class="nv">plugins</span>
-  <span class="o">--</span><span class="nv">run</span><span class="o">-</span><span class="nv">plugin</span> <span class="nv">N</span> [<span class="nv">N</span> ...], <span class="o">-</span><span class="nv">r</span> <span class="nv">N</span> [<span class="nv">N</span> ...], <span class="o">-</span><span class="nv">p</span> <span class="nv">N</span> [<span class="nv">N</span> ...]
-                        <span class="nv">Run</span> <span class="nv">specific</span> <span class="nv">plugins</span>
+<span class="n">optional</span> <span class="k">arguments</span><span class="o">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="o">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="k">this</span> <span class="n">help</span> <span class="n">message</span> <span class="n">and</span> <span class="n">exit</span>
+  <span class="o">--</span><span class="n">list</span><span class="o">-</span><span class="n">plugins</span><span class="o">,</span> <span class="o">-</span><span class="n">l</span>   <span class="n">Lists</span> <span class="n">all</span> <span class="n">plugins</span>
+  <span class="o">--</span><span class="n">run</span><span class="o">-</span><span class="n">plugin</span> <span class="n">N</span> <span class="o">[</span><span class="n">N</span> <span class="o">...],</span> <span class="o">-</span><span class="n">r</span> <span class="n">N</span> <span class="o">[</span><span class="n">N</span> <span class="o">...],</span> <span class="o">-</span><span class="n">p</span> <span class="n">N</span> <span class="o">[</span><span class="n">N</span> <span class="o">...]</span>
+                        <span class="n">Run</span> <span class="n">specific</span> <span class="n">plugins</span>
 
-<span class="nv">Default</span> <span class="nv">behaviour</span> <span class="nv">is</span> <span class="nv">to</span> <span class="nv">attempt</span> <span class="nv">to</span> <span class="nv">run</span> <span class="nv">all</span> <span class="nv">plugins</span>
+<span class="n">Default</span> <span class="n">behaviour</span> <span class="k">is</span> <span class="n">to</span> <span class="n">attempt</span> <span class="n">to</span> <span class="n">run</span> <span class="n">all</span> <span class="n">plugins</span>
 </pre></div>
 
 
@@ -526,6 +526,7 @@
 <p>If you don't want to use the installation scripts, you can manually install CentSecure. Read our <a href="development/installation/">Installation Guide</a> for more information on manually installing dependencies.</p>
                 
                   
+                
                 
               
               
@@ -583,7 +584,7 @@
       
     </div>
     
-      <script src="assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="assets/javascripts/application.808e90bb.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"."}})</script>
       
