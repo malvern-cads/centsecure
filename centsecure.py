@@ -9,6 +9,7 @@ from common import is_admin, info, warn, debug, stdout, reminder
 import sys
 import argparse
 import firsttime
+from platform import python_version_tuple, python_version
 
 
 def plugin_slug(p):
@@ -74,6 +75,11 @@ def run(plugins=[]):
     reminder("To run all of the failed plugins again, execute CentSecure with the following argument: '-r {}'".format(" ".join(failures)))
 
 
+def _check_python_version():
+    version = python_version_tuple()
+    return version[0] == '3' and version[1] == '7'
+
+
 def main():
     """Main function."""
     # Need to get plugins first for arguments to function
@@ -83,6 +89,7 @@ def main():
     parser.add_argument("--list-plugins", "-l", action="store_true", help="Lists all plugins", dest="list_plugins")
     parser.add_argument("--run-plugin", "-r", "-p", choices=get_plugins(), nargs="+", metavar="N", help="Run specific plugins", dest="plugins")
     parser.add_argument("--disable-root-check", "--no-root", "-d", action="store_true", help="Disable root check", dest="no_root_check")
+    parser.add_argument("--disable-python-check", action="store_true", help="Disable Python version check", dest="disable_python_check")
     args = parser.parse_args()
 
     info("Welcome to CentSecure!")
@@ -94,12 +101,16 @@ def main():
             stdout("- {}".format(p))
         sys.exit(0)
 
+    if not args.disable_python_check and not _check_python_version():
+        warn("CentSecure requires Python 3.7.x, you are using {}. Use the option --disable-python-check to bypass.".format(python_version()))
+        sys.exit(1)
+
     firsttime.run_all()
 
     if is_admin() or args.no_root_check:
         run(args.plugins)
     else:
-        warn("CentSecure should be run as root or administator.")
+        warn("CentSecure should be run as root or administator. Use the option --disable-root-check to bypass.")
         sys.exit(1)
 
 
