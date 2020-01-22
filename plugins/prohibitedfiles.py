@@ -4,6 +4,7 @@ import plugin
 import common
 import os
 import glob
+import shutil
 
 
 class RemoveMedia(plugin.Plugin):
@@ -93,15 +94,12 @@ class PurgeHomeDirectories(plugin.Plugin):
         return os.path.basename(os.path.dirname(path))
 
     def _clear_folder(self, d):
-        for root, dirs, files in os.walk(d, topdown=False):
-            for f in files:
-                path = os.path.join(root, f)
-                common.debug("Removing file {}...".format(path))
-                os.remove(path)
-            for di in dirs:
-                path = os.path.join(root, di)
-                common.debug("Removing folder {}...".format(path))
-                os.rmdir(path)
+        for filename in os.listdir(d):
+            file_path = os.path.join(d, filename)
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+            elif os.path.isdir(file_path):
+                shutil.rmtree(file_path)
 
     def execute(self):
         """Execute plugin."""
