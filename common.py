@@ -20,6 +20,7 @@ import subprocess
 import atexit
 import sys
 import traceback
+import re
 
 
 _reminders = []
@@ -343,6 +344,10 @@ def change_parameters(path, params, equal_delim=False):
         out_file.write("\n")
 
 
+def _plain_string(s):
+    return re.sub(r'[^a-zA-Z0-9\s]+', '_', s)
+
+
 def _backup_directory():
     """Generate a folder where backups should be stored.
 
@@ -368,7 +373,8 @@ def _filename(path, t=None):
 
     """
     d = datetime.datetime.now()
-    return ((t + "_") if t is not None else "") + "{}-{}-{}_{}-{}-{}_".format(d.year, d.month, d.day, d.hour, d.minute, d.second) + path.replace("/", "_")[1:]
+    path = _plain_string(path)
+    return ((t + "_") if t is not None else "") + "{}-{}-{}_{}-{}-{}_".format(d.year, d.month, d.day, d.hour, d.minute, d.second) + path
 
 
 def backup(source, compress=False):
