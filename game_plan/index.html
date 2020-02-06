@@ -490,94 +490,134 @@
 <h3 id="general-tips">General Tips</h3>
 <ul>
 <li>Always make sure you kill the whole root of the problem
-  e.g. Lets say you saw a netcat process, you wouldn't just stop the process, as that's not fixing the issue
-  1) Look what runs the process (systemd or crontab for example)
-  2) Is is a specific script?
-  3) Are there any other related problems?
-  4) Has it already done any damage?
-  5) Can you reverse the damange?
-  6) Are you confident the whole problem is gone?</li>
+  e.g. Lets say you saw a netcat process, you wouldn't just stop the process, as that's not fixing the issue</li>
+<li>Look what runs the process (systemd or crontab for example)</li>
+<li>Is is a specific script?</li>
+<li>Are there any other related problems?</li>
+<li>Has it already done any damage?</li>
+<li>Can you reverse the damange?</li>
+<li>Are you confident the whole problem is gone?</li>
 </ul>
 <h3 id="windows">Windows</h3>
-<p>0) Preparation
-    - Turn on hidden files and protected operating system ones
-1) Forensics Questions
-    - Try your absolute hardest before moving on
-    - If struggling ask everyone around you for help
-2) Operating System Updates
-    - Get it started so it can run in the background
-3) Autoruns
-   - https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns
-   - Make sure it is run as Administrator
-4) Centsecure
-    - Centsecure will automate:
-      - User Auditing
-      - Local Policy
-      - Account Policies
-      - Group Policy
-      - Defensive Counter Measure
-    - Centsecure will aim to make sure the system is still usable after it is run
-5) Installed Programs (? helped by centsecure)
-    - Might be done by centsecure?
-6) Service Auditing
-    - Read through the extended service list
-    - Make sure there are no anomalus items
-    - Anything sounding dodgy should be stopped
-7) Task manager check
-    - Look through every process running in task manager
-    - If it looks dodgy find the root of the problem
-8) Application Updates
-    - Try and update every application
-    - The best shot sometimes is to reinstall the whole application rather than using the update within the application
-9) Application Security Settings
-    - Are all critical services secured to the max?
-    - Is anything related to the critical service secure?
-10) The Hunt<br />
-    - Malicious Files
-    - Unwanted software/hacking tools
-    - User area nuke
-      - Zip/backup all user areas
-      - Delete all home folders that aren't the main user's</p>
+<ol>
+<li>Preparation<ul>
+<li>Turn on hidden files and protected operating system ones</li>
+</ul>
+</li>
+<li>Forensics Questions<ul>
+<li>Try your absolute hardest before moving on</li>
+<li>If struggling ask everyone around you for help</li>
+</ul>
+</li>
+<li>Operating System Updates<ul>
+<li>Get it started so it can run in the background</li>
+</ul>
+</li>
+<li>Autoruns</li>
+<li>https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns</li>
+<li>Make sure it is run as Administrator</li>
+<li>Centsecure<ul>
+<li>Centsecure will automate:</li>
+<li>User Auditing</li>
+<li>Local Policy</li>
+<li>Account Policies</li>
+<li>Group Policy</li>
+<li>Defensive Counter Measure</li>
+<li>Centsecure will aim to make sure the system is still usable after it is run</li>
+</ul>
+</li>
+<li>Installed Programs (? helped by centsecure)<ul>
+<li>Might be done by centsecure?</li>
+</ul>
+</li>
+<li>Service Auditing<ul>
+<li>Read through the extended service list</li>
+<li>Make sure there are no anomalus items</li>
+<li>Anything sounding dodgy should be stopped</li>
+</ul>
+</li>
+<li>Task manager check<ul>
+<li>Look through every process running in task manager</li>
+<li>If it looks dodgy find the root of the problem</li>
+</ul>
+</li>
+<li>Application Updates<ul>
+<li>Try and update every application</li>
+<li>The best shot sometimes is to reinstall the whole application rather than using the update within the application</li>
+</ul>
+</li>
+<li>Application Security Settings<ul>
+<li>Are all critical services secured to the max?</li>
+<li>Is anything related to the critical service secure?</li>
+</ul>
+</li>
+<li>The Hunt  <ul>
+<li>Malicious Files</li>
+<li>Unwanted software/hacking tools</li>
+<li>User area nuke</li>
+<li>Zip/backup all user areas</li>
+<li>Delete all home folders that aren't the main user's</li>
+</ul>
+</li>
+</ol>
 <h3 id="gnulinux">GNU/Linux</h3>
-<p>1) Forensics Questions
-    - Try your absolute hardest before moving on
-    - If struggling ask everyone around you for help
-2) Operating System Updates
-    - Update OS
-    - Set update settings accordingly
-3) The Hunt 1.0
-    - Crontab and other auto start
-      - Check crontab and related files
-      - Check systemd for start up services
-    - Check systemd and services
-      - Remove any dodgy services
-    - Task Manager Check
-      - Use <code>ps axjf</code>
-      - Look for any backdoors or dodgy programs and remove the root of the problem
-    - Port Scan
-      - Make sure you run this as sudo
-      - Look for any programs running on ports that aren't critical services
-6) Centsecure
-    - Centsecure will automate:
-      - User Auditing
-      - Local Policy
-      - Account Policies
-      - Defensive Counter Measure
-    - Centsecure will aim to make sure the system is still usable after it is run
-7) Remove Installed programs
-    - Might not work until updates are finished
-    - Note down any you come across but can't deal with at the time
-8) Application Updates
-    - Might have to wait for OS updates
-9) Application Security Settings
-    - Are all critical services secured to the max?
-    - Is anything related to the critical service secure?
-    - Make sure app updates don't overwrite changed configs
-10) The Hunt 2.0
-    - Malicious Files
-    - User area nuke
-      - Zip/backup all user areas
-      - Delete all home folders that aren't the main user's</p>
+<ol>
+<li>Forensics Questions<ul>
+<li>Try your absolute hardest before moving on</li>
+<li>If struggling ask everyone around you for help</li>
+</ul>
+</li>
+<li>Operating System Updates<ul>
+<li>Update OS</li>
+<li>Set update settings accordingly</li>
+</ul>
+</li>
+<li>The Hunt 1.0<ul>
+<li>Crontab and other auto start</li>
+<li>Check crontab and related files</li>
+<li>Check systemd for start up services</li>
+<li>Check systemd and services</li>
+<li>Remove any dodgy services</li>
+<li>Task Manager Check</li>
+<li>Use <code>ps axjf</code></li>
+<li>Look for any backdoors or dodgy programs and remove the root of the problem</li>
+<li>Port Scan</li>
+<li>Make sure you run this as sudo</li>
+<li>Look for any programs running on ports that aren't critical services</li>
+</ul>
+</li>
+<li>Centsecure<ul>
+<li>Centsecure will automate:</li>
+<li>User Auditing</li>
+<li>Local Policy</li>
+<li>Account Policies</li>
+<li>Defensive Counter Measure</li>
+<li>Centsecure will aim to make sure the system is still usable after it is run</li>
+</ul>
+</li>
+<li>Remove Installed programs<ul>
+<li>Might not work until updates are finished</li>
+<li>Note down any you come across but can't deal with at the time</li>
+</ul>
+</li>
+<li>Application Updates<ul>
+<li>Might have to wait for OS updates</li>
+</ul>
+</li>
+<li>Application Security Settings<ul>
+<li>Are all critical services secured to the max?</li>
+<li>Is anything related to the critical service secure?</li>
+<li>Make sure app updates don't overwrite changed configs</li>
+</ul>
+</li>
+<li>The Hunt 2.0<ul>
+<li>Malicious Files</li>
+<li>User area nuke</li>
+<li>Zip/backup all user areas</li>
+<li>Delete all home folders that aren't the main user's</li>
+</ul>
+</li>
+</ol>
                 
                   
                 
