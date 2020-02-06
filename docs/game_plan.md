@@ -20,8 +20,8 @@
 2. Operating System Updates
     - Get it started so it can run in the background
 3. Autoruns
-   - [Autoruns](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)
-   - Make sure it is run as Administrator and the right arch
+    - [Autoruns](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)
+    - Make sure it is run as Administrator and the right arch
 4. Centsecure
     - Centsecure will automate:
         - User Auditing
