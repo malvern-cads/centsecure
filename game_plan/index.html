@@ -490,13 +490,15 @@
 <h3 id="general-tips">General Tips</h3>
 <ul>
 <li>Always make sure you kill the whole root of the problem
-  e.g. Lets say you saw a netcat process, you wouldn't just stop the process, as that's not fixing the issue</li>
+    e.g. Lets say you saw a netcat process, you wouldn't just stop the process, as that's not fixing the issue<ol>
 <li>Look what runs the process (systemd or crontab for example)</li>
 <li>Is is a specific script?</li>
 <li>Are there any other related problems?</li>
 <li>Has it already done any damage?</li>
 <li>Can you reverse the damange?</li>
 <li>Are you confident the whole problem is gone?</li>
+</ol>
+</li>
 </ul>
 <h3 id="windows">Windows</h3>
 <ol>
@@ -514,15 +516,17 @@
 </ul>
 </li>
 <li>Autoruns</li>
-<li>https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns</li>
-<li>Make sure it is run as Administrator</li>
+<li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns">Autoruns</a></li>
+<li>Make sure it is run as Administrator and the right arch</li>
 <li>Centsecure<ul>
-<li>Centsecure will automate:</li>
+<li>Centsecure will automate:<ul>
 <li>User Auditing</li>
 <li>Local Policy</li>
 <li>Account Policies</li>
 <li>Group Policy</li>
 <li>Defensive Counter Measure</li>
+</ul>
+</li>
 <li>Centsecure will aim to make sure the system is still usable after it is run</li>
 </ul>
 </li>
@@ -554,9 +558,11 @@
 <li>The Hunt  <ul>
 <li>Malicious Files</li>
 <li>Unwanted software/hacking tools</li>
-<li>User area nuke</li>
+<li>User area nuke<ul>
 <li>Zip/backup all user areas</li>
 <li>Delete all home folders that aren't the main user's</li>
+</ul>
+</li>
 </ul>
 </li>
 </ol>
@@ -573,25 +579,35 @@
 </ul>
 </li>
 <li>The Hunt 1.0<ul>
-<li>Crontab and other auto start</li>
+<li>Crontab and other auto start<ul>
 <li>Check crontab and related files</li>
 <li>Check systemd for start up services</li>
-<li>Check systemd and services</li>
+</ul>
+</li>
+<li>Check systemd and services<ul>
 <li>Remove any dodgy services</li>
-<li>Task Manager Check</li>
+</ul>
+</li>
+<li>Task Manager Check<ul>
 <li>Use <code>ps axjf</code></li>
 <li>Look for any backdoors or dodgy programs and remove the root of the problem</li>
-<li>Port Scan</li>
+</ul>
+</li>
+<li>Port Scan<ul>
 <li>Make sure you run this as sudo</li>
 <li>Look for any programs running on ports that aren't critical services</li>
 </ul>
 </li>
+</ul>
+</li>
 <li>Centsecure<ul>
-<li>Centsecure will automate:</li>
+<li>Centsecure will automate:<ul>
 <li>User Auditing</li>
 <li>Local Policy</li>
 <li>Account Policies</li>
 <li>Defensive Counter Measure</li>
+</ul>
+</li>
 <li>Centsecure will aim to make sure the system is still usable after it is run</li>
 </ul>
 </li>
@@ -612,9 +628,11 @@
 </li>
 <li>The Hunt 2.0<ul>
 <li>Malicious Files</li>
-<li>User area nuke</li>
+<li>User area nuke<ul>
 <li>Zip/backup all user areas</li>
 <li>Delete all home folders that aren't the main user's</li>
+</ul>
+</li>
 </ul>
 </li>
 </ol>
