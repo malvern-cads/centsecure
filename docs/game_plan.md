@@ -1,13 +1,12 @@
 # Game Plan
 
 ### General Tips
-- Always make sure you kill the whole root of the problem
-    e.g. Lets say you saw a netcat process, you wouldn't just stop the process, as that's not fixing the issue
+- Always make sure you kill the whole root of the problem (e.g. lets say you saw a netcat process, you wouldn't just stop the process, as that's not fixing the issue)
     1. Look what runs the process (systemd or crontab for example)
-    2. Is is a specific script?
+    2. Is there a specific script?
     3. Are there any other related problems?
     4. Has it already done any damage?
-    5. Can you reverse the damange?
+    5. Can you reverse the damage?
     6. Are you confident the whole problem is gone?
 
 ### Windows
@@ -22,19 +21,19 @@
 3. Autoruns
     - [Autoruns](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)
     - Make sure it is run as Administrator and the right arch
-4. Centsecure
-    - Centsecure will automate:
+4. CentSecure
+    - CentSecure will automate:
         - User Auditing
         - Local Policy
         - Account Policies
         - Group Policy
         - Defensive Counter Measure
-    - Centsecure will aim to make sure the system is still usable after it is run
-5. Installed Programs (? helped by centsecure)
-    - Might be done by centsecure?
+    - CentSecure will aim to make sure the system is still usable after it is run
+5. Installed Programs (? helped by CentSecure)
+    - Might be done by CentSecure?
 6. Service Auditing
     - Read through the extended service list
-    - Make sure there are no anomalus items
+    - Make sure there are no anomalous items
     - Anything sounding dodgy should be stopped
 7. Task manager check
     - Look through every process running in task manager
@@ -45,13 +44,13 @@
 9. Application Security Settings
     - Are all critical services secured to the max?
     - Is anything related to the critical service secure?
-10. The Hunt  
+10. The Hunt
     - Malicious Files
     - Unwanted software/hacking tools
     - User area nuke
         - Zip/backup all user areas
         - Delete all home folders that aren't the main user's
-      
+
 ### GNU/Linux
 1. Forensics Questions
     - Try your absolute hardest before moving on
@@ -71,13 +70,13 @@
     - Port Scan
         - Make sure you run this as sudo
         - Look for any programs running on ports that aren't critical services
-4. Centsecure
-    - Centsecure will automate:
+4. CentSecure
+    - CentSecure will automate:
         - User Auditing
         - Local Policy
         - Account Policies
         - Defensive Counter Measure
-    - Centsecure will aim to make sure the system is still usable after it is run
+    - CentSecure will aim to make sure the system is still usable after it is run
 5. Remove Installed programs
     - Might not work until updates are finished
     - Note down any you come across but can't deal with at the time
