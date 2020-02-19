@@ -59,6 +59,8 @@
     - Update OS
     - Set update settings accordingly
 3. The Hunt 1.0
+    - Unwanted software
+        - if during this phase you come across software that needs removing, but you can't remove it because of updates, WRITE IT DOWN!
     - Crontab and other auto start
         - Check crontab and related files
         - Check systemd for start up services
