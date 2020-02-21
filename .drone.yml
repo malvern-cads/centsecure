@@ -10,6 +10,35 @@ steps:
       - pip install --upgrade pip pipenv
       - pipenv install --dev
       - pipenv run flake8
+  - name: build
+    image: python:3.7-alpine
+    commands:
+      - apk add --no-cache zip
+      - "zip -r centsecure-$(date +\"%y%m%d-%H%M\")-${DRONE_COMMIT_SHA:0:8}.zip . -x '*.git*'"
+      - mkdir build
+      - mv *.zip build/
+    when:
+      branch:
+        - master
+      event:
+        - push
+  - name: deploy
+    image: cschlosser/drone-ftps
+    environment:
+      PLUGIN_HOSTNAME: ftp.jakewalker.xyz:21
+      FTP_USERNAME:
+        from_secret: ftp_username
+      FTP_PASSWORD:
+        from_secret: ftp_password
+      PLUGIN_SRC_DIR: /build
+      PLUGIN_DEST_DIR: /public/centsecure
+      PLUGIN_VERIFY: false
+      PLUGIN_CHMOD: false
+    when:
+      branch:
+        - master
+      event:
+        - push
 
 ---
 kind: pipeline
