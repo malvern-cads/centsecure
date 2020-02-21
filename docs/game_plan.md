@@ -17,9 +17,12 @@
     - Try your absolute hardest before moving on
     - If struggling ask everyone around you for help
 2. Operating System Updates
+    - In Windows 10, turn **on** Delivery Optimization. _Settings → Update & Security → Delivery Optimization_:
+        - Turn on 'Allow downloads from other PCs'
+        - Select 'PCs on my local network, and PCs on the Internet'
     - Get it started so it can run in the background
 3. Autoruns
-    - [Autoruns](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)
+    - https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns
     - Make sure it is run as Administrator and the right arch
 4. CentSecure
     - CentSecure will automate:
@@ -29,8 +32,8 @@
         - Group Policy
         - Defensive Counter Measure
     - CentSecure will aim to make sure the system is still usable after it is run
-5. Installed Programs (? helped by CentSecure)
-    - Might be done by CentSecure?
+5. Installed Programs
+    - Might be done by CentSecure
 6. Service Auditing
     - Read through the extended service list
     - Make sure there are no anomalous items
@@ -58,6 +61,8 @@
 2. Operating System Updates
     - Update OS
     - Set update settings accordingly
+        - Set the software mirror to a server from the UK.
+        - Enable automatic updates
 3. The Hunt 1.0
     - Unwanted software
         - if during this phase you come across software that needs removing, but you can't remove it because of updates, WRITE IT DOWN!
