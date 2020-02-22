@@ -34,7 +34,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-\.]+">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
     
     
       
@@ -42,7 +42,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/application.1b62728e.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/application.adb8469c.css">
       
         <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
       
@@ -53,7 +53,7 @@
       
     
     
-      <script src="../../assets/javascripts/modernizr.268332fc.js"></script>
+      <script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
     
     
       
@@ -87,7 +87,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#plugins" tabindex="1" class="md-skip">
+      <a href="#plugins" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -96,7 +96,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../.." title="CentSecure" class="md-header-nav__button md-logo">
+        <a href="../.." title="CentSecure" aria-label="CentSecure" class="md-header-nav__button md-logo">
           
             <i class="md-icon">lock</i>
           
@@ -127,7 +127,7 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
       <label class="md-icon md-search__icon" for="__search"></label>
       <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
         &#xE5CD;
@@ -465,7 +465,7 @@
 <p>These plugins are then loaded into the application when it is run by searching through the <code>plugins</code> folder. Each of the plugins is then checked against the OS and OS version of the computer and then it is run.</p>
 <p>The <code>plugins</code> folder can contain any amount of Python files each containing any number of plugins (Python files cannot be in subfolders, but can be named anything). <strong>It is worth using a naming scheme for Python files so that they can be easily found!</strong></p>
 <p>Each of the Python files can have any number of 'plugins' inside them. Plugins are essentially classes which inherit a base class. This ensures that the <code>execute()</code> function always exists. Here is an example of what might be contained in a Python file:</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">plugin</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">plugin</span>
 
 
 <span class="k">class</span> <span class="nc">MyPlugin</span><span class="p">(</span><span class="n">plugin</span><span class="o">.</span><span class="n">Plugin</span><span class="p">):</span>
@@ -475,7 +475,7 @@
 
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Put code here (e.g. configure firewall, create user, etc...)</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><strong>Note:</strong> <em>Each <code>class</code> must have a unique name!</em></p>
@@ -552,9 +552,9 @@
           </div>
         
         powered by
-        <a href="https://www.mkdocs.org">MkDocs</a>
+        <a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs</a>
         and
-        <a href="https://squidfunk.github.io/mkdocs-material/">
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
           Material for MkDocs</a>
       </div>
       
@@ -564,7 +564,7 @@
       
     </div>
     
-      <script src="../../assets/javascripts/application.808e90bb.js"></script>
+      <script src="../../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
