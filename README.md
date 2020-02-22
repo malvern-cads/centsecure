@@ -29,7 +29,30 @@ CentSecure fixes security holes automatically which gets some of the 'lower hang
 
 ## Usage
 
-CentSecure doesn't require any configuration or arguments, so you just need to open it and follow the prompts that it gives.
+Run CentSecure with Python: `python centsecure.py`
+
+```
+$ python centsecure.py --help
+[#] Searching for plugins...
+usage: centsecure.py [-h] [--list-plugins] [--run-plugin N [N ...]]
+                     [--run-all] [--disable-root-check]
+                     [--disable-python-check]
+
+Automatically fixes common security vulnerabilities.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --list-plugins, -l    Lists all plugins
+  --run-plugin N [N ...], -r N [N ...], -p N [N ...]
+                        Run specific plugins
+  --run-all, -R         Run all available plugins
+  --disable-root-check, --no-root, -d
+                        Disable root check
+  --disable-python-check
+                        Disable Python version check
+
+Default behaviour is to attempt to run all plugins
+```
 
 ### Installation Scripts
 
