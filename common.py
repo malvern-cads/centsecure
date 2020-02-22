@@ -21,6 +21,7 @@ import atexit
 import sys
 import traceback
 import re
+import json
 
 
 _reminders = []
@@ -474,6 +475,27 @@ def run_full(cmd, include_error=False, ignore_error=False):
     if ignore_error:
         _log("ignore_error:\n**\n{}\n**".format(result.stderr.decode("utf-8")))
     return result.stdout.decode("utf-8")
+
+
+def camel_case_to_snake_case(s):
+    """Convert a camel case string to a snake case string.
+
+    Args:
+        s (str): The camel case string to convert.
+
+    Returns:
+        str: The snake case string that was converted.
+    """
+    return re.sub("(?!^)([A-Z]+)", r'_\1', s).lower()
+
+
+def get_default_plugins():
+    """Get the list of default plugins to run.
+
+    Returns:
+        list[str]: The list of plugins that should be run.
+    """
+    return json.load(open("default-plugins.json", "r"))
 
 
 # Initialize colorama

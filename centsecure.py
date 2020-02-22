@@ -6,6 +6,7 @@ operating system.
 
 import plugin
 from common import is_admin, info, warn, debug, stdout, reminder
+from common import camel_case_to_snake_case, get_default_plugins
 import sys
 import argparse
 import firsttime
@@ -24,7 +25,7 @@ def plugin_slug(p):
         str: The slug that was generated
 
     """
-    return p.name.replace(" ", "-")
+    return camel_case_to_snake_case(p.__name__)
 
 
 def get_plugins():
@@ -55,7 +56,7 @@ def run(plugins=[]):
     all_plugins.sort(key=lambda x: x.priority)
 
     for p in all_plugins:
-        if not plugins or plugin_slug(p) in plugins:
+        if plugin_slug(p) in plugins:
             debug("Plugin: {} (targets {} version {}, priority {})".format(p.name, p.os, p.os_version, p.priority))
 
             if plugin.os_check(p.os, p.os_version):
@@ -88,6 +89,7 @@ def main():
     parser = argparse.ArgumentParser(description="Automatically fixes common security vulnerabilities.", epilog="Default behaviour is to attempt to run all plugins")
     parser.add_argument("--list-plugins", "-l", action="store_true", help="Lists all plugins", dest="list_plugins")
     parser.add_argument("--run-plugin", "-r", "-p", choices=get_plugins(), nargs="+", metavar="N", help="Run specific plugins", dest="plugins")
+    parser.add_argument("--run-all", "-R", action="store_true", help="Run all available plugins", dest="run_all")
     parser.add_argument("--disable-root-check", "--no-root", "-d", action="store_true", help="Disable root check", dest="no_root_check")
     parser.add_argument("--disable-python-check", action="store_true", help="Disable Python version check", dest="disable_python_check")
     args = parser.parse_args()
@@ -107,8 +109,16 @@ def main():
 
     firsttime.run_all()
 
+    if args.run_all:
+        to_run = get_plugins()
+    elif args.plugins is not None:
+        to_run = args.plugins
+    else:
+        to_run = get_default_plugins()
+
     if is_admin() or args.no_root_check:
-        run(args.plugins)
+        debug("Running CentSecure with the following {} plugins: {}".format(len(to_run), ", ".join(to_run)))
+        run(to_run)
     else:
         warn("CentSecure should be run as root or administator. Use the option --disable-root-check to bypass.")
         sys.exit(1)

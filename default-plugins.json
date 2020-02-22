@@ -1,0 +1,18 @@
+[
+  "account_management",
+  "apply_policies",
+  "banners",
+  "cron",
+  "firefox",
+  "hosts",
+  "lightdm",
+  "linux_audit",
+  "linux_files",
+  "linux_firewall",
+  "linux_services",
+  "localisation",
+  "network",
+  "pam",
+  "shadow_suite",
+  "ssh"
+]

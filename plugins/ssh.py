@@ -5,7 +5,7 @@ import common
 import os
 
 
-class SSH(plugin.Plugin):
+class Ssh(plugin.Plugin):
     """Configure SSH on Linux."""
     name = "SSH"
     os = ["Linux"]
