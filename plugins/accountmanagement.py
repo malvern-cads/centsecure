@@ -68,10 +68,10 @@ class AccountManagement(plugin.Plugin):
         # change password to a secure one
         common.info("Changing passwords")
         for index, user in enumerate([current_user] + admins + standard):
-            password = "CyberCenturion{}!".format(index)
-            self._change_password(user, password)
             if user != current_user:
                 # Not sure if we want to do this on the main user
+                password = "CyberCenturion{}!".format(index)
+                self._change_password(user, password)
                 self._set_password_no_expire(user)
                 self._change_password_on_login(user)
 
