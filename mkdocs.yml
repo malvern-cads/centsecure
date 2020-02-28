@@ -16,5 +16,5 @@ extra:
   search:
     language: en
     tokenizer: '[\s\-\.]+'
-repo_name: jake-walker/centsecure
-repo_url: https://github.com/jake-walker/centsecure
+repo_name: malvern-cads/centsecure
+repo_url: https://github.com/malvern-cads/centsecure

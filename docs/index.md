@@ -1,6 +1,6 @@
 # CentSecure
 
-[![Build Status](https://ci.jakewalker.xyz/api/badges/jake-walker/centsecure/status.svg?ref=refs/heads/master)](https://ci.jakewalker.xyz/jake-walker/centsecure)
+[![Build Status](https://ci.jakewalker.xyz/api/badges/malvern-cads/centsecure/status.svg?ref=refs/heads/master)](https://ci.jakewalker.xyz/malvern-cads/centsecure)
 
 CentSecure is a tool for automating *parts* of [CyberCenturion](https://www.cybersecuritychallenge.org.uk/what-we-do/cybercenturion-vi). We are focusing on tasks which are easy (e.g. running a single command) and/or time consumung (e.g. removing backdoors).
 

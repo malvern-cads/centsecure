@@ -8,14 +8,25 @@
 
 <p align="center">
 	<strong>
-		<a href="https://jake-walker.github.io/centsecure/">Website & Docs</a>
+		<a href="https://malvern-cads.github.io/centsecure/">Website & Docs</a>
 	</strong>
 </p>
 <p align="center">
-	<a href="https://ci.jakewalker.xyz/jake-walker/centsecure/"><img
+	<a href="https://ci.jakewalker.xyz/malvern-cads/centsecure/"><img
 		alt="Build Status"
-		src="https://img.shields.io/drone/build/jake-walker/centsecure/master?server=https%3A%2F%2Fci.jakewalker.xyz&style=flat-square"></a>
+		src="https://img.shields.io/drone/build/malvern-cads/centsecure/master?server=https%3A%2F%2Fci.jakewalker.xyz&style=flat-square"></a>
 </p>
+
+---
+
+<!-- TOC -->
+
+- [Overview](#overview)
+- [Usage](#usage)
+    - [Installation Scripts](#installation-scripts)
+    - [Manual Installation](#manual-installation)
+
+<!-- /TOC -->
 
 ## Overview
 
@@ -54,9 +65,16 @@ optional arguments:
 Default behaviour is to attempt to run all plugins
 ```
 
+These are the most common parameters:
+
+- `python centsecure.py` - Run with all of the 'default' plugins. This will run all of the plugins except some of the more destructive ones.
+- `python centsecure.py -R` - Run all of the plugins.
+- `python centsecure.py -r ssh -r pam` - Run just the SSH and PAM plugins.
+- `python centsecure.py -l` - List all of CentSecure's plugins.
+
 ### Installation Scripts
 
-We have installation scripts for both Ubuntu and Windows which are in the `scripts` folder. Simply clone the repository (or download as a ZIP from GitHub) and run one of the scripts.
+We have installation scripts for both Ubuntu and Windows which are in the `scripts` folder. Simply clone the repository (or download as a ZIP from GitHub) and run one of the scripts from this folder to install Python and CentSecure dependencies.
 
 ### Manual Installation
 

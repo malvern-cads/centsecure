@@ -4,7 +4,7 @@ CentSecure requires **[Python 3.7](https://www.python.org/downloads/)** and [pip
 
 ## Using pipenv
 
-All of CentSecures dependencies are managed by `pipenv`, this makes a [virtual environement](https://docs.python.org/3/tutorial/venv.html) for the CencSecure allowing it to have the same dependencies and Python version installed no matter which computer is running on.
+All of CentSecures dependencies are managed by `pipenv`, this makes a [virtual environment](https://docs.python.org/3/tutorial/venv.html) for the CentSecure allowing it to have the same dependencies and Python version installed no matter which computer is running on.
 
 ```bash
 curl https://pyenv.run | bash # Optionally install pyenv to install the recommended version of Python automatically
@@ -14,7 +14,7 @@ python3 -m pip install --user pipenv
 Now clone the repository to your computer and install the dependencies:
 
 ```bash
-git clone https://github.com/jake-walker/centsecure
+git clone https://github.com/malvern-cads/centsecure
 pipenv install --dev
 ```
 
